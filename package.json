@@ -28,6 +28,6 @@
     "should": "^4.3.0"
   },
   "dependencies": {
-    "require": "^2.4.17"
+    "request": "^2.55.0"
   }
 }
