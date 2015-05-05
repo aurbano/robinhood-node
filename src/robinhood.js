@@ -37,8 +37,10 @@ function RobinhoodWebApi(options) {
             "watchlists":"https://api.robinhood.com/watchlists/"
     },
     _isInit = false,
+    _request = request.defaults(),
     _private = {
       session : {},
+      account: null,
       username : null,
       password : null,
       headers : null,
@@ -66,6 +68,12 @@ function RobinhoodWebApi(options) {
     });
   }
   
+  function _setHeaders(){
+    _request = request.defaults({
+      headers: _private.headers
+    });
+  }
+  
   function _login(callback){
     var data = 'password=' + _private.password + '&username=' + _private.username';
     
@@ -77,8 +85,12 @@ function RobinhoodWebApi(options) {
         throw (err);
         return;
       }
+      
+      _private.account = body.account;
       _private.auth_token = body.token;
       _private.headers.Authorization = 'Token ' + _private.auth_token;
+      
+      _setHeaders();
       
       callback.call();
     });
@@ -86,36 +98,51 @@ function RobinhoodWebApi(options) {
   
   // Define API methods
   api.investment_profile = function(callback){
-    request.get(_private.endpoints.investment_profile, callback);
-    self.session.get(self.endpoints['investment_profile'])
-  }
-
-  /*  def instruments(self, stock=None):
-        res = self.session.get(self.endpoints['instruments'], params={'query':stock.upper()})
-        res = res.json()
-        return res['results']
-
-    def quote_data(self, stock):
-        params = { 'symbols': stock }
-        res = self.session.get(self.endpoints['quotes'], params=params)
-        res = res.json()
-        return res['results']
-
-    def place_order(self, instrument, quantity=1, bid_price = None, transaction=None):
-        if bid_price == None:
-            bid_price = self.quote_data(instrument['symbol'])[0]['bid_price']
-        data = 'account=%s&instrument=%s&price=%f&quantity=%d&side=buy&symbol=%s&time_in_force=gfd&trigger=immediate&type=market' % (urllib.quote('https://api.robinhood.com/accounts/5PY93481/'), urllib.unquote(instrument['url']), float(bid_price), quantity, instrument['symbol']) 
-        res = self.session.post(self.endpoints['orders'], data=data)
-        return res
-
-    def place_buy_order(self, instrument, quantity, bid_price=None):
-        transaction = "buy"
-        return self.place_order(instrument, quantity, bid_price, transaction)
-
-    def place_sell_order(self, instrument, quantity, bid_price=None):
-        transaction = "sell"
-        return self.place_order(instrument, quantity, bid_price, transaction)
-        */
+    return _request.get({
+        url: _private.endpoints.investment_profile
+      }, callback);
+  };
+  
+  api.instruments = function(stock, callback){
+    return _request.get({
+        url: _private.endpoints.instruments,
+        qs: {'query': stock.upper()}
+      }, callback);
+  };
+  
+  api.quote_data = function(stock, callback){
+    return _request.get({
+        url: _private.endpoints.quote_data,
+        qs: { 'symbols': stock }
+      }, callback);
+  };
+  
+  var _place_order = function(options, callback){
+    return _request.post({
+        url: _private.endpoints.orders,
+        form: {
+          account: _private.account,
+          instrument: options.instrument.url,
+          price: options.bid_price,
+          quantity: options.quantity,
+          side: options.transaction,
+          symbol: options.instrument.symbol,
+          time_in_force: options.time || 'gfd',
+          trigger: options.trigger || 'immediate',
+          type: options.type || 'market'
+        }
+      }, callback);
+  };
+  
+  api.place_buy_order = function(options, callback){
+    options.transaction = 'buy';
+    return _place_order(options, callback);
+  };
+  
+  api.place_sell_order = function(options, callback){
+    options.transaction = 'sell';
+    return _place_order(options, callback);
+  };
   
   return api;
 }
