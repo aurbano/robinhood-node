@@ -1,0 +1,31 @@
+{
+  "name": "robinhood",
+  "version": "0.0.1",
+  "description": "NodeJS API wrapper for the private Robinhood API",
+  "main": "src/robinhood.js",
+  "scripts": {
+    "test": "mocha test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aurbano/Robinhood-Node.git"
+  },
+  "keywords": [
+    "robinhood",
+    "trading",
+    "api",
+    "framework",
+    "robin"
+  ],
+  "author": "Alejandro U. Alvarez",
+  "license": "AGPLv3",
+  "bugs": {
+    "url": "https://github.com/aurbano/Robinhood-Node/issues"
+  },
+  "homepage": "https://github.com/aurbano/Robinhood-Node",
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "should": "^4.3.0"
+  },
+  "dependencies": {}
+}
