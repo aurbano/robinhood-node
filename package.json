@@ -27,5 +27,7 @@
     "mocha": "^2.0.1",
     "should": "^4.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "require": "^2.4.17"
+  }
 }
