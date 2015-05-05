@@ -16,25 +16,25 @@ function RobinhoodWebApi(options) {
   var _options = options || {},
       // Private API Endpoints
       _endpoints = endpoints = {
-            "login": "https://api.robinhood.com/api-token-auth/",
-            "investment_profile": "https://api.robinhood.com/user/investment_profile/",
-            "accounts":"https://api.robinhood.com/accounts/",
-            "ach_iav_auth":"https://api.robinhood.com/ach/iav/auth/",
-            "ach_relationships":"https://api.robinhood.com/ach/relationships/",
-            "ach_transfers":"https://api.robinhood.com/ach/transfers/",
-            "applications":"https://api.robinhood.com/applications/",
-            "dividends":"https://api.robinhood.com/dividends/",
-            "edocuments":"https://api.robinhood.com/documents/",
-            "instruments":"https://api.robinhood.com/instruments/",
-            "margin_upgrades":"https://api.robinhood.com/margin/upgrades/",
-            "markets":"https://api.robinhood.com/markets/",
-            "notifications":"https://api.robinhood.com/notifications/",
-            "orders":"https://api.robinhood.com/orders/",
-            "password_reset":"https://api.robinhood.com/password_reset/request/",
-            "quotes":"https://api.robinhood.com/quotes/",
-            "document_requests":"https://api.robinhood.com/upload/document_requests/",
-            "user":"https://api.robinhood.com/user/",
-            "watchlists":"https://api.robinhood.com/watchlists/"
+            login:  "https://api.robinhood.com/api-token-auth/",
+            investment_profile: "https://api.robinhood.com/user/investment_profile/",
+            accounts: "https://api.robinhood.com/accounts/",
+            ach_iav_auth: "https://api.robinhood.com/ach/iav/auth/",
+            ach_relationships:  "https://api.robinhood.com/ach/relationships/",
+            ach_transfers:"https://api.robinhood.com/ach/transfers/",
+            applications: "https://api.robinhood.com/applications/",
+            dividends:  "https://api.robinhood.com/dividends/",
+            edocuments: "https://api.robinhood.com/documents/",
+            instruments:  "https://api.robinhood.com/instruments/",
+            margin_upgrade:  "https://api.robinhood.com/margin/upgrades/",
+            markets:  "https://api.robinhood.com/markets/",
+            notifications:  "https://api.robinhood.com/notifications/",
+            orders: "https://api.robinhood.com/orders/",
+            password_reset: "https://api.robinhood.com/password_reset/request/",
+            quotes: "https://api.robinhood.com/quotes/",
+            document_requests:  "https://api.robinhood.com/upload/document_requests/",
+            user: "https://api.robinhood.com/user/",
+            watchlists: "https://api.robinhood.com/watchlists/"
     },
     _isInit = false,
     _request = request.defaults(),
@@ -75,7 +75,7 @@ function RobinhoodWebApi(options) {
   }
   
   function _login(callback){
-    var data = 'password=' + _private.password + '&username=' + _private.username';
+    var data = 'password=' + _private.password + '&username=' + _private.username;
     
     request.post(_private.endpoints.login, {form: {
       password: _private.password,
