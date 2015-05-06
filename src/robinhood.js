@@ -2,7 +2,6 @@
  * Robinhood API NodeJS Wrapper
  * @author Alejandro U. Alvarez
  * @license AGPLv3 - See LICENSE file for more details
- * @version 0.0.1
  */
 
 'use strict';
