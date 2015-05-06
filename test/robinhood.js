@@ -10,7 +10,7 @@ var should = require('should'),
 describe('Robinhood API', function() {
   var trader = null;
   
-  before(function(done){
+  beforeAll(function(done){
     // I don't have a valid username at the moment
     // so can't really test this
     try{
@@ -19,9 +19,11 @@ describe('Robinhood API', function() {
         password: 'pass'
       }, function(){
         done();
+        return;
       });
     }catch(err){
       done(err);
+      return;
     }
   });
   
@@ -29,6 +31,7 @@ describe('Robinhood API', function() {
     trader.quote_data('GOOG', function(err, httpResponse, body){
       if(err){
         done(err);
+        return;
       }
       console.log('Quote data:', body);
       done();
