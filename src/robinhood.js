@@ -9,10 +9,10 @@
 // Dependencies
 var request = require('request');
 
-function RobinhoodWebApi(options) {
+function RobinhoodWebApi(opts, callback) {
 
   // Internal variables
-  var _options = options || {},
+  var _options = opts || {},
       // Private API Endpoints
       _endpoints = {
         login:  "https://api.robinhood.com/api-token-auth/",
@@ -47,11 +47,9 @@ function RobinhoodWebApi(options) {
     },
     api = {};
   
-  function _init(options){
-    //_private.session = requests.session();
-    //_private.session.proxies = urllib.getproxies();
-    _private.username = options.username;
-    _private.password = options.password;
+  function _init(){
+    _private.username = _options.username;
+    _private.password = _options.password;
     _private.headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -61,9 +59,10 @@ function RobinhoodWebApi(options) {
         "Connection": "keep-alive",
         "User-Agent": "Robinhood/823 (iPhone; iOS 7.1.2; Scale/2.00)"
     };
-    _private.session.headers = self.headers;
+    _setHeaders();
     _login(function(){
       _isInit = true;
+      callback.call();
     });
   }
   
@@ -76,7 +75,7 @@ function RobinhoodWebApi(options) {
   function _login(callback){
     var data = 'password=' + _private.password + '&username=' + _private.username;
     
-    request.post(_endpoints.login, {form: {
+    _request.post(_endpoints.login, {form: {
       password: _private.password,
       username: _private.username
     }}, function(err, httpResponse, body) {
@@ -142,6 +141,8 @@ function RobinhoodWebApi(options) {
     options.transaction = 'sell';
     return _place_order(options, callback);
   };
+  
+  _init(_options);
   
   return api;
 }
