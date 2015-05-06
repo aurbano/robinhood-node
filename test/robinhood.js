@@ -13,10 +13,16 @@ describe('Robinhood API', function() {
   before(function(done){
     // I don't have a valid username at the moment
     // so can't really test this
-    trader = Robinhood({
-      username: 'user',
-      password: 'pass'
-    });
+    try{
+      trader = Robinhood({
+        username: 'user',
+        password: 'pass'
+      }, function(){
+        done();
+      });
+    }catch(err){
+      done(err);
+    }
   });
   
   it('Should get Quote data', function(done) {
