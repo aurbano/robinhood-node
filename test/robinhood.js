@@ -10,7 +10,7 @@ var should = require('should'),
 describe('Robinhood API', function() {
   var trader = null;
   
-  beforeAll(function(done){
+  before(function(done){
     // I don't have a valid username at the moment
     // so can't really test this
     try{
