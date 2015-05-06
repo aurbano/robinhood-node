@@ -11,7 +11,9 @@ var request = require('request');
 
 function RobinhoodWebApi(opts, callback) {
 
-  // Internal variables
+  /* +--------------------------------+ *
+   * |      Internal variables        | *
+   * +--------------------------------+ */
   var _options = opts || {},
       // Private API Endpoints
       _endpoints = {
@@ -68,17 +70,21 @@ function RobinhoodWebApi(opts, callback) {
   
   function _setHeaders(){
     _request = request.defaults({
-      headers: _private.headers
+      headers: _private.headers,
+      json: true
     });
   }
   
   function _login(callback){
     var data = 'password=' + _private.password + '&username=' + _private.username;
     
-    _request.post(_endpoints.login, {form: {
-      password: _private.password,
-      username: _private.username
-    }}, function(err, httpResponse, body) {
+    _request.post({
+      uri: _endpoints.login,
+      form: {
+        password: _private.password,
+        username: _private.username
+      }
+    }, function(err, httpResponse, body) {
       if(err) {
         throw (err);
         return;
@@ -94,7 +100,9 @@ function RobinhoodWebApi(opts, callback) {
     });
   }
   
-  // Define API methods
+  /* +--------------------------------+ *
+   * |      Define API methods        | *
+   * +--------------------------------+ */
   api.investment_profile = function(callback){
     return _request.get({
         uri: _endpoints.investment_profile
