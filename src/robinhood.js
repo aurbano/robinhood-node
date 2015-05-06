@@ -77,7 +77,7 @@ function RobinhoodWebApi(options) {
   function _login(callback){
     var data = 'password=' + _private.password + '&username=' + _private.username;
     
-    request.post(_private.endpoints.login, {form: {
+    request.post(_endpoints.login, {form: {
       password: _private.password,
       username: _private.username
     }}, function(err, httpResponse, body) {
@@ -99,27 +99,27 @@ function RobinhoodWebApi(options) {
   // Define API methods
   api.investment_profile = function(callback){
     return _request.get({
-        url: _private.endpoints.investment_profile
+        url: _endpoints.investment_profile
       }, callback);
   };
   
   api.instruments = function(stock, callback){
     return _request.get({
-        url: _private.endpoints.instruments,
+        url: _endpoints.instruments,
         qs: {'query': stock.upper()}
       }, callback);
   };
   
   api.quote_data = function(stock, callback){
     return _request.get({
-        url: _private.endpoints.quote_data,
+        url: _endpoints.quote_data,
         qs: { 'symbols': stock }
       }, callback);
   };
   
   var _place_order = function(options, callback){
     return _request.post({
-        url: _private.endpoints.orders,
+        url: _endpoints.orders,
         form: {
           account: _private.account,
           instrument: options.instrument.url,
