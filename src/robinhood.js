@@ -97,27 +97,27 @@ function RobinhoodWebApi(opts, callback) {
   // Define API methods
   api.investment_profile = function(callback){
     return _request.get({
-        url: _endpoints.investment_profile
+        uri: _endpoints.investment_profile
       }, callback);
   };
   
   api.instruments = function(stock, callback){
     return _request.get({
-        url: _endpoints.instruments,
+        uri: _endpoints.instruments,
         qs: {'query': stock.upper()}
       }, callback);
   };
   
   api.quote_data = function(stock, callback){
     return _request.get({
-        url: _endpoints.quote_data,
+        uri: _endpoints.quote_data,
         qs: { 'symbols': stock }
       }, callback);
   };
   
   var _place_order = function(options, callback){
     return _request.post({
-        url: _endpoints.orders,
+        uri: _endpoints.orders,
         form: {
           account: _private.account,
           instrument: options.instrument.url,
