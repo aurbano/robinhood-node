@@ -17,25 +17,25 @@ function RobinhoodWebApi(opts, callback) {
   var _options = opts || {},
       // Private API Endpoints
       _endpoints = {
-        login:  "https://api.robinhood.com/api-token-auth/",
-        investment_profile: "https://api.robinhood.com/user/investment_profile/",
-        accounts: "https://api.robinhood.com/accounts/",
-        ach_iav_auth: "https://api.robinhood.com/ach/iav/auth/",
-        ach_relationships:  "https://api.robinhood.com/ach/relationships/",
-        ach_transfers:"https://api.robinhood.com/ach/transfers/",
-        applications: "https://api.robinhood.com/applications/",
-        dividends:  "https://api.robinhood.com/dividends/",
-        edocuments: "https://api.robinhood.com/documents/",
-        instruments:  "https://api.robinhood.com/instruments/",
-        margin_upgrade:  "https://api.robinhood.com/margin/upgrades/",
-        markets:  "https://api.robinhood.com/markets/",
-        notifications:  "https://api.robinhood.com/notifications/",
-        orders: "https://api.robinhood.com/orders/",
-        password_reset: "https://api.robinhood.com/password_reset/request/",
-        quotes: "https://api.robinhood.com/quotes/",
-        document_requests:  "https://api.robinhood.com/upload/document_requests/",
-        user: "https://api.robinhood.com/user/",
-        watchlists: "https://api.robinhood.com/watchlists/"
+        login:  'https://api.robinhood.com/api-token-auth/',
+        investment_profile: 'https://api.robinhood.com/user/investment_profile/',
+        accounts: 'https://api.robinhood.com/accounts/',
+        ach_iav_auth: 'https://api.robinhood.com/ach/iav/auth/',
+        ach_relationships:  'https://api.robinhood.com/ach/relationships/',
+        ach_transfers:'https://api.robinhood.com/ach/transfers/',
+        applications: 'https://api.robinhood.com/applications/',
+        dividends:  'https://api.robinhood.com/dividends/',
+        edocuments: 'https://api.robinhood.com/documents/',
+        instruments:  'https://api.robinhood.com/instruments/',
+        margin_upgrade:  'https://api.robinhood.com/margin/upgrades/',
+        markets:  'https://api.robinhood.com/markets/',
+        notifications:  'https://api.robinhood.com/notifications/',
+        orders: 'https://api.robinhood.com/orders/',
+        password_reset: 'https://api.robinhood.com/password_reset/request/',
+        quotes: 'https://api.robinhood.com/quotes/',
+        document_requests:  'https://api.robinhood.com/upload/document_requests/',
+        user: 'https://api.robinhood.com/user/',
+        watchlists: 'https://api.robinhood.com/watchlists/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -53,13 +53,13 @@ function RobinhoodWebApi(opts, callback) {
     _private.username = _options.username;
     _private.password = _options.password;
     _private.headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5",
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        "X-Robinhood-API-Version": "1.0.0",
-        "Connection": "keep-alive",
-        "User-Agent": "Robinhood/823 (iPhone; iOS 7.1.2; Scale/2.00)"
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'X-Robinhood-API-Version': '1.0.0',
+        'Connection': 'keep-alive',
+        'User-Agent': 'Robinhood/823 (iPhone; iOS 7.1.2; Scale/2.00)'
     };
     _setHeaders();
     _login(function(){
@@ -76,8 +76,6 @@ function RobinhoodWebApi(opts, callback) {
   }
   
   function _login(callback){
-    var data = 'password=' + _private.password + '&username=' + _private.username;
-    
     _request.post({
       uri: _endpoints.login,
       form: {
@@ -87,7 +85,6 @@ function RobinhoodWebApi(opts, callback) {
     }, function(err, httpResponse, body) {
       if(err) {
         throw (err);
-        return;
       }
       
       _private.account = body.account;
