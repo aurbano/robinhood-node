@@ -43,3 +43,5 @@ trader.quote_data('GOOG', function(err, httpResponse, body){
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
+
+[![Analytics](https://ga-beacon.appspot.com/UA-3181088-16/robinhood/readme)](https://github.com/aurbano)
