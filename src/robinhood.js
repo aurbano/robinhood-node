@@ -114,7 +114,7 @@ function RobinhoodWebApi(opts, callback) {
   
   api.quote_data = function(stock, callback){
     return _request.get({
-        uri: _endpoints.quote_data,
+        uri: _endpoints.quotes,
         qs: { 'symbols': stock }
       }, callback);
   };
