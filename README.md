@@ -27,18 +27,23 @@ npm install --save robinhood
 var Robinhood = require('robinhood');
 
 // Initialize
-var trader = Robinhood({
-  username: 'user',
-  password: 'pass'
-});
-
-trader.quote_data('GOOG', function(err, httpResponse, body){
-  if(err){
-    console.error(err);
-    return;
+var trader = Robinhood(
+  {
+    username: 'user',
+    password: 'pass'
+  },
+  function() {
+    trader.quote_data('GOOG', function(err, httpResponse, body){
+      if(err){
+        console.error(err);
+        return;
+      }
+      console.log('Quote data:', body);
+    });
   }
-  console.log('Quote data:', body);
-});
+);
+
+
 ```
 
 ------------------
