@@ -28,22 +28,20 @@ var Robinhood = require('robinhood');
 
 // Initialize
 var trader = Robinhood(
-  {
-    username: 'user',
-    password: 'pass'
-  },
-  function() {
-    trader.quote_data('GOOG', function(err, httpResponse, body){
-      if(err){
-        console.error(err);
-        return;
-      }
-      console.log('Quote data:', body);
-    });
-  }
+    {
+        username: 'user',
+        password: 'password'
+    },
+    function() {
+        trader.quote_data('GOOG', function(err, httpResponse, body){
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Quote data:', body);
+        });
+    }
 );
-
-
 ```
 
 ------------------
