@@ -48,7 +48,7 @@ function RobinhoodWebApi(opts, callback) {
       auth_token : null
     },
     api = {};
-  
+
   function _init(){
     _private.username = _options.username;
     _private.password = _options.password;
@@ -66,14 +66,15 @@ function RobinhoodWebApi(opts, callback) {
       _isInit = true;
     });
   }
-  
+
   function _setHeaders(){
     _request = request.defaults({
       headers: _private.headers,
-      json: true
+      json: true,
+      gzip: true
     });
   }
-  
+
   function _login(callback){
     _request.post({
       uri: _endpoints.login,
@@ -85,17 +86,17 @@ function RobinhoodWebApi(opts, callback) {
       if(err) {
         throw (err);
       }
-      
+
       _private.account = body.account;
       _private.auth_token = body.token;
       _private.headers.Authorization = 'Token ' + _private.auth_token;
-      
+
       _setHeaders();
-      
+
       callback.call();
     });
   }
-  
+
   /* +--------------------------------+ *
    * |      Define API methods        | *
    * +--------------------------------+ */
@@ -104,21 +105,21 @@ function RobinhoodWebApi(opts, callback) {
         uri: _endpoints.investment_profile
       }, callback);
   };
-  
+
   api.instruments = function(stock, callback){
     return _request.get({
         uri: _endpoints.instruments,
         qs: {'query': stock.upper()}
       }, callback);
   };
-  
+
   api.quote_data = function(stock, callback){
     return _request.get({
         uri: _endpoints.quotes,
         qs: { 'symbols': stock }
       }, callback);
   };
-  
+
   var _place_order = function(options, callback){
     return _request.post({
         uri: _endpoints.orders,
@@ -135,19 +136,19 @@ function RobinhoodWebApi(opts, callback) {
         }
       }, callback);
   };
-  
+
   api.place_buy_order = function(options, callback){
     options.transaction = 'buy';
     return _place_order(options, callback);
   };
-  
+
   api.place_sell_order = function(options, callback){
     options.transaction = 'sell';
     return _place_order(options, callback);
   };
-  
+
   _init(_options);
-  
+
   return api;
 }
 
