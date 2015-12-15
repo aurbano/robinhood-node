@@ -18,7 +18,7 @@ NodeJS Framework to make trades with the private [Robinhood](https://www.robinho
 ## Installation
 
 ```bash
-npm install --save robinhood
+$ npm install --save robinhood
 ```
 
 ## Usage
