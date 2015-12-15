@@ -1,5 +1,5 @@
 # Robinhood NodeJS
-[![Travis](https://img.shields.io/travis/joyent/node.svg?style=flat-square)](https://travis-ci.org/aurbano/robinhood-node)
+[![Travis](https://img.shields.io/travis/aurbano/robinhood-node.svg?style=flat-square)](https://travis-ci.org/aurbano/robinhood-node)
 [![npm](https://img.shields.io/npm/v/robinhood.svg?style=flat-square)](https://www.npmjs.com/package/robinhood)
 [![David](https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square)](https://david-dm.org/aurbano/robinhood-node)
 [![GitHub license](https://img.shields.io/github/license/aurbano/Robinhood-Node.svg?style=flat-square)](https://github.com/aurbano/robinhood-node/blob/master/LICENSE)
