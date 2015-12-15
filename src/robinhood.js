@@ -64,6 +64,10 @@ function RobinhoodWebApi(opts, callback) {
     _setHeaders();
     _login(function(){
       _isInit = true;
+
+      if (callback) {
+        callback.call();
+      }
     });
   }
 
