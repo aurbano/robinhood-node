@@ -6,7 +6,7 @@
 
 NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
 
-> This framework was inspired on a deprecated Python framework originally developed by [@Rohanpai](https://github.com/rohanpai).
+> This framework was inspired by a deprecated Python framework originally developed by [@Rohanpai](https://github.com/rohanpai).
 
 ## Features
 
