@@ -98,7 +98,9 @@ function RobinhoodWebApi(opts, callback) {
       _setHeaders();
 
       api.accounts(function(err, httpRes, body){
-        _private.accountNumber = body.results[0].account_number;
+        if (body.results.length > 0) {
+          _private.accountNumber = body.results[0].account_number;
+        }
         callback()
       });
     });
