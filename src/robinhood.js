@@ -97,7 +97,10 @@ function RobinhoodWebApi(opts, callback) {
 
       _setHeaders();
 
-      callback.call();
+      api.accounts(function(err, httpRes, body){
+        _private.accountNumber = body.results[0].account_number;
+        callback()
+      });
     });
   }
 
@@ -124,6 +127,41 @@ function RobinhoodWebApi(opts, callback) {
       }, callback);
   };
 
+  api.accounts= function(callback){
+    return _request.get({
+      uri: _endpoints.accounts
+    }, callback);
+  };
+
+  api.portfolio= function(callback){
+    return _request.get({
+      uri: _endpoints.accounts + _private.accountNumber + "/portfolio"
+    }, callback);
+  };
+
+  api.positions= function(callback){
+    return _request.get({
+      uri: _endpoints.accounts + _private.accountNumber + "/positions"
+    }, callback);
+  };
+
+  api.user = function(callback){
+    return _request.get({
+      uri: _endpoints.user
+    }, callback);
+  };
+
+  api.dividends = function(callback){
+    return _request.get({
+      uri: _endpoints.dividends
+    }, callback);
+  };
+
+  api.orders = function(callback){
+    return _request.get({
+      uri: _endpoints.orders
+    }, callback);
+  };
   var _place_order = function(options, callback){
     return _request.post({
         uri: _endpoints.orders,
