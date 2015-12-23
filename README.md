@@ -10,9 +10,12 @@ NodeJS Framework to make trades with the private [Robinhood](https://www.robinho
 
 ## Features
 
-* Placing buy orders (Robinhood.place_buy_order)
-* Placing sell order (Robinhood.place_sell_order)
-* Quote Information (Robinhood.quote_data)
+* Placing buy orders `Robinhood.place_buy_order`
+* Placing sell order `Robinhood.place_sell_order`
+* Quote Information `Robinhood.quote_data`
+* Get Dividend information `Robinhood.dividends (v0.2+)`
+* Get User information `Robinhood.user (v0.2+)`
+* Get Orders `Robinhood.orders (v0.2+)`
 * _More coming soon..._
 
 ## Installation
@@ -42,6 +45,82 @@ var trader = Robinhood(
         });
     }
 );
+```
+
+## API
+
+Before using these methods, make sure you have initialized Robinhood using the snippet above.
+
+*Feel free to send a pull request expanding this with examples or info about the return objects*
+
+### `investment_profile(callback)`
+
+Get the current user's investment profile.
+
+### `instruments(stock, callback)`
+
+Get the user's instruments for a specified stock.
+
+### `quote_data(stock, callback)`
+
+Get the user's quote data for a specified stock.
+
+### `accounts(callback)`
+
+Get the user's accounts.
+
+### `user(callback)`
+`
+Get the user information.
+
+### `dividends(callback)`
+`
+Get the user`s dividends information.
+
+### `orders(callback)`
+`
+Get the user`s orders information.
+
+### `place_buy_order(options, callback)`
+
+Place a buy order on a specified stock.
+
+Options must contain:
+
+```js
+{
+    bid_price: Number,
+    quantity: Number,
+    instrument: {
+        url: String,
+        symbol: String
+    },
+    // Optional:
+    trigger: String, // Defaults to "immediate"
+    time: String,    // Defaults to "gfd" (Good For Day)
+    type: String     // Defaults to "market"
+}
+```
+
+### `place_sell_order(options, callback)`
+
+Place a sell order on a specified stock.
+
+Options must contain:
+
+```js
+{
+    bid_price: Number,
+    quantity: Number,
+    instrument: {
+        url: String,
+        symbol: String
+    },
+    // Optional:
+    trigger: String, // Defaults to "immediate"
+    time: String,    // Defaults to "gfd" (Good For Day)
+    type: String     // Defaults to "market"
+}
 ```
 
 ------------------
