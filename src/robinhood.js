@@ -124,6 +124,29 @@ function RobinhoodWebApi(opts, callback) {
       }, callback);
   };
 
+  api.accounts= function(callback){
+    return _request.get({
+      uri: _endpoints.accounts
+    }, callback);
+  };
+
+  api.user = function(callback){
+    return _request.get({
+      uri: _endpoints.user
+    }, callback);
+  };
+
+  api.dividends = function(callback){
+    return _request.get({
+      uri: _endpoints.dividends
+    }, callback);
+  };
+
+  api.orders = function(callback){
+    return _request.get({
+      uri: _endpoints.orders
+    }, callback);
+  };
   var _place_order = function(options, callback){
     return _request.post({
         uri: _endpoints.orders,
