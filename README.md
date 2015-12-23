@@ -70,16 +70,16 @@ Get the user's quote data for a specified stock.
 Get the user's accounts.
 
 ### `user(callback)`
-`
+
 Get the user information.
 
 ### `dividends(callback)`
-`
-Get the user`s dividends information.
+
+Get the user's dividends information.
 
 ### `orders(callback)`
-`
-Get the user`s orders information.
+
+Get the user's orders information.
 
 ### `place_buy_order(options, callback)`
 
