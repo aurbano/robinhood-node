@@ -97,12 +97,7 @@ function RobinhoodWebApi(opts, callback) {
 
       _setHeaders();
 
-      api.accounts(function(err, httpRes, body){
-        if (body.results.length > 0) {
-          _private.accountNumber = body.results[0].account_number;
-        }
-        callback()
-      });
+      callback.call();
     });
   }
 
@@ -132,18 +127,6 @@ function RobinhoodWebApi(opts, callback) {
   api.accounts= function(callback){
     return _request.get({
       uri: _endpoints.accounts
-    }, callback);
-  };
-
-  api.portfolio= function(callback){
-    return _request.get({
-      uri: _endpoints.accounts + _private.accountNumber + "/portfolio"
-    }, callback);
-  };
-
-  api.positions= function(callback){
-    return _request.get({
-      uri: _endpoints.accounts + _private.accountNumber + "/positions"
     }, callback);
   };
 
