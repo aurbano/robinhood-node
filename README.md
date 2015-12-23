@@ -102,6 +102,29 @@ Options must contain:
 }
 ```
 
+For the Optional ones, the values can be:
+
+*[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]*
+
+#### `trigger`
+
+A *[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)* is usually a market condition, such as a rise or fall in the price of an index or security.
+
+Values can be:
+
+* `gfd`: Good For Day
+* `gtc`: Good Till Cancelled
+* `oco`: Order Cancels Other
+
+#### `time`
+
+The *[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)* for an order defines the length of time over which an order will continue working before it is canceled.
+
+Values can be:
+
+* `immediate` : The order will be cancelled unless it is fulfilled immediately.
+* `day` : The order will be cancelled at the end of the trading day.
+
 ### `place_sell_order(options, callback)`
 
 Place a sell order on a specified stock.
@@ -122,6 +145,30 @@ Options must contain:
     type: String     // Defaults to "market"
 }
 ```
+
+For the Optional ones, the values can be:
+
+*[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]*
+
+#### `trigger`
+
+A *[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)* is usually a market condition, such as a rise or fall in the price of an index or security.
+
+Values can be:
+
+* `gfd`: Good For Day
+* `gtc`: Good Till Cancelled
+* `oco`: Order Cancels Other
+
+#### `time`
+
+The *[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)* for an order defines the length of time over which an order will continue working before it is canceled.
+
+Values can be:
+
+* `immediate` : The order will be cancelled unless it is fulfilled immediately.
+* `day` : The order will be cancelled at the end of the trading day.
+
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
