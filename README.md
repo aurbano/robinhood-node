@@ -99,8 +99,8 @@ Options must contain:
         symbol: String
     },
     // Optional:
-    trigger: String, // Defaults to "immediate"
-    time: String,    // Defaults to "gfd" (Good For Day)
+    trigger: String, // Defaults to "gfd" (Good For Day)
+    time: String,    // Defaults to "immediate"
     type: String     // Defaults to "market"
 }
 ```
@@ -143,8 +143,8 @@ Options must contain:
         symbol: String
     },
     // Optional:
-    trigger: String, // Defaults to "immediate"
-    time: String,    // Defaults to "gfd" (Good For Day)
+    trigger: String, // Defaults to "gfd" (Good For Day)
+    time: String,    // Defaults to "immediate"
     type: String     // Defaults to "market"
 }
 ```
