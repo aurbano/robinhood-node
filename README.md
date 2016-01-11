@@ -195,6 +195,13 @@ Values can be:
 * `immediate` : The order will be cancelled unless it is fulfilled immediately.
 * `day` : The order will be cancelled at the end of the trading day.
 
+# Contributors
+
+* Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
+* Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
+* Alex Ryan ([@ialexryan](https://github.com/ialexryan))
+* Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
+* Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
