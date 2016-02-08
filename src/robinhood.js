@@ -35,7 +35,8 @@ function RobinhoodWebApi(opts, callback) {
         quotes: 'https://api.robinhood.com/quotes/',
         document_requests:  'https://api.robinhood.com/upload/document_requests/',
         user: 'https://api.robinhood.com/user/',
-        watchlists: 'https://api.robinhood.com/watchlists/'
+        watchlists: 'https://api.robinhood.com/watchlists/',
+        positions: 'https://api.robinhood.com/positions/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -172,6 +173,12 @@ function RobinhoodWebApi(opts, callback) {
   api.place_sell_order = function(options, callback){
     options.transaction = 'sell';
     return _place_order(options, callback);
+  };
+
+  api.positions = function(callback){
+    return _request.get({
+      uri: _endpoints.positions
+    }, callback);
   };
 
   _init(_options);
