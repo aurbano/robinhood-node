@@ -5,7 +5,7 @@
 [![David](https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square)](https://david-dm.org/aurbano/robinhood-node)
 [![GitHub license](https://img.shields.io/github/license/aurbano/Robinhood-Node.svg?style=flat-square)](https://github.com/aurbano/robinhood-node/blob/master/LICENSE)
 
-NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
+NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
 
 I have read [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf) and, without being a lawyer and/or this being valid in any way, it doesn't seem like interacting with their servers using the API is against them.
 
