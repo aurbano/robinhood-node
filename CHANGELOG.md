@@ -3,6 +3,7 @@
 
 * Pull in latest version of npm dependency `request` and pinned to version `2.69.0`
 * Cleaned up and refactored get quote example
+* Cleanup up and refactored test
 
 ## v0.2.1 (Dec 23, 2015)
 
