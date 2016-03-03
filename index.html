@@ -20,14 +20,14 @@
 
     <section class="main-content">
       <h1>
-<a id="-robinhood-nodejs" class="anchor" href="#-robinhood-nodejs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="https://raw.githubusercontent.com/aurbano/robinhood-node/master/.github/robinhood.png"> Robinhood NodeJS</h1>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="https://raw.githubusercontent.com/aurbano/robinhood-node/master/.github/robinhood-node.png">
+</h1>
 
 <p><a href="https://travis-ci.org/aurbano/robinhood-node"><img src="https://img.shields.io/travis/aurbano/robinhood-node.svg?style=flat-square" alt="Travis"></a>
 <a href="https://www.npmjs.com/package/robinhood"><img src="https://img.shields.io/npm/v/robinhood.svg?style=flat-square" alt="npm"></a>
-<a href="https://david-dm.org/aurbano/robinhood-node"><img src="https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square" alt="David"></a>
-<a href="https://github.com/aurbano/robinhood-node/blob/master/LICENSE"><img src="https://img.shields.io/github/license/aurbano/Robinhood-Node.svg?style=flat-square" alt="GitHub license"></a></p>
+<a href="https://david-dm.org/aurbano/robinhood-node"><img src="https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square" alt="David"></a></p>
 
-<p>NodeJS Framework to make trades with the private <a href="https://www.robinhood.com/">Robinhood</a> API. Using this API is not encouraged, since it's not officially available. See this <a href="https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b">blog post</a> for more information on the API.</p>
+<p>NodeJS Framework to make trades with the private <a href="https://www.robinhood.com/">Robinhood</a> API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered. See this <a href="https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b">blog post</a> for more information on the API.</p>
 
 <p>I have read <a href="https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf">Robinhood's Terms and Conditions</a> and, without being a lawyer and/or this being valid in any way, it doesn't seem like interacting with their servers using the API is against them.</p>
 
@@ -64,22 +64,14 @@
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>);
 
-<span class="pl-c">// Initialize</span>
-<span class="pl-k">var</span> trader <span class="pl-k">=</span> <span class="pl-en">Robinhood</span>(
-    {
-        username<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>,
-        password<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>password<span class="pl-pds">'</span></span>
-    },
-    <span class="pl-k">function</span>() {
-        <span class="pl-smi">trader</span>.<span class="pl-en">quote_data</span>(<span class="pl-s"><span class="pl-pds">'</span>GOOG<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">httpResponse</span>, <span class="pl-smi">body</span>){
-            <span class="pl-k">if</span> (err) {
-                <span class="pl-en">console</span>.<span class="pl-c1">error</span>(err);
-                <span class="pl-k">return</span>;
-            }
-            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Quote data:<span class="pl-pds">'</span></span>, body);
-        });
+<span class="pl-en">Robinhood</span>(<span class="pl-c1">null</span>).<span class="pl-en">quote_data</span>(<span class="pl-s"><span class="pl-pds">'</span>GOOG<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>) {
+    <span class="pl-k">if</span> (error) {
+        <span class="pl-en">console</span>.<span class="pl-c1">error</span>(error);
+        <span class="pl-c1">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">1</span>);
     }
-);</pre></div>
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+});</pre></div>
 
 <h2>
 <a id="api" class="anchor" href="#api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API</h2>
@@ -263,6 +255,19 @@
 <code>immediate</code> : The order will be cancelled unless it is fulfilled immediately.</li>
 <li>
 <code>day</code> : The order will be cancelled at the end of the trading day.</li>
+</ul>
+
+<h1>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors</h1>
+
+<ul>
+<li>Alejandro U. Alvarez (<a href="https://github.com/aurbano">@aurbano</a>)</li>
+<li>Wei-Sheng Su (<a href="https://github.com/ted7726">@ted7726</a>)</li>
+<li>Alex Ryan (<a href="https://github.com/ialexryan">@ialexryan</a>)</li>
+<li>Dustin Moore (<a href="https://github.com/dustinmoorenet">@dustinmoorenet</a>)</li>
+<li>Ben Van Treese (<a href="https://github.com/vantreeseba">@vantreeseba</a>)</li>
+<li>Jason Truluck (<a href="https://github.com/jasontruluck">@jasontruluck</a>)</li>
+<li>Justin Keller (<a href="https://github.com/nodesocket">@nodesocket</a>)</li>
 </ul>
 
 <hr>
