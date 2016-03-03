@@ -1,4 +1,4 @@
-<h1><img src="https://brokerage-static.s3.amazonaws.com/assets/robinhood/images/logo.png"/> Robinhood NodeJS</h1>
+<h1><img src="https://raw.githubusercontent.com/aurbano/robinhood-node/master/.github/robinhood.png"/> Robinhood NodeJS</h1>
 
 [![Travis](https://img.shields.io/travis/aurbano/robinhood-node.svg?style=flat-square)](https://travis-ci.org/aurbano/robinhood-node)
 [![npm](https://img.shields.io/npm/v/robinhood.svg?style=flat-square)](https://www.npmjs.com/package/robinhood)
