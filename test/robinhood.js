@@ -10,7 +10,7 @@ var Robinhood = require('../src/robinhood');
 describe('Robinhood API', function() {
     it('Should get GOOG quote', function(done) {
         Robinhood(null).quote_data('GOOG', function(err, response, body) {
-            if(err){
+            if(err) {
                 done(err);
                 return;
             }
