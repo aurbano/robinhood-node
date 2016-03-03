@@ -3,7 +3,7 @@
 
 * Pull in latest version of npm dependency `request` and pinned to version `2.69.0`
 * Cleaned up and refactored `examples/get_quote.js`
-* Cleanep up and refactored `test/robinhood.js`
+* Cleaned up and refactored `test/robinhood.js`
 
 ## v0.2.1 (Dec 23, 2015)
 
