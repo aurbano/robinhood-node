@@ -8,7 +8,7 @@ var should = require('should');
 var Robinhood = require('../src/robinhood');
 
 describe('Robinhood API', function() {
-    it('Should get GOOGL quote', function(done) {
+    it('Should get GOOG quote', function(done) {
         Robinhood(null).quote_data('GOOG', function(err, response, body) {
             if(err){
                 done(err);
