@@ -29,24 +29,16 @@ $ npm install --save robinhood
 ## Usage
 
 ```js
-var Robinhood = require('robinhood');
++var Robinhood = require('robinhood');
 
-// Initialize
-var trader = Robinhood(
-    {
-        username: 'user',
-        password: 'password'
-    },
-    function() {
-        trader.quote_data('GOOG', function(err, httpResponse, body){
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log('Quote data:', body);
-        });
+Robinhood(null).quote_data('GOOG', function(error, response, body) {
+    if (error) {
+        console.error(error);
+        process.exit(1);
     }
-);
+
+    console.log(body);
+});
 ```
 
 ## API
@@ -202,6 +194,7 @@ Values can be:
 * Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
 * Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+* Justin Keller ([@nodesocket](https://github.com/nodesocket))
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
