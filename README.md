@@ -202,6 +202,7 @@ Values can be:
 * Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
 * Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+* Justin Keller ([@nodesocket](https://github.com/nodesocket))
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.

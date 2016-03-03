@@ -1,4 +1,8 @@
 # Changelog
+## v0.3.1 (Mar 2, 2016)
+
+* Pull in latest version of npm dependency `request` and pinned to version `2.69.0`
+* Cleaned up and refactored get quote example
 
 ## v0.2.1 (Dec 23, 2015)
 
