@@ -29,7 +29,7 @@ $ npm install --save robinhood
 ## Usage
 
 ```js
-+var Robinhood = require('robinhood');
+var Robinhood = require('robinhood');
 
 Robinhood(null).quote_data('GOOG', function(error, response, body) {
     if (error) {
