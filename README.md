@@ -1,11 +1,10 @@
-<h1><img src="https://brokerage-static.s3.amazonaws.com/assets/robinhood/images/logo.png"/> Robinhood NodeJS</h1>
+<h1><img src="https://raw.githubusercontent.com/aurbano/robinhood-node/master/.github/robinhood-node.png"/></h1>
 
 [![Travis](https://img.shields.io/travis/aurbano/robinhood-node.svg?style=flat-square)](https://travis-ci.org/aurbano/robinhood-node)
 [![npm](https://img.shields.io/npm/v/robinhood.svg?style=flat-square)](https://www.npmjs.com/package/robinhood)
 [![David](https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square)](https://david-dm.org/aurbano/robinhood-node)
-[![GitHub license](https://img.shields.io/github/license/aurbano/Robinhood-Node.svg?style=flat-square)](https://github.com/aurbano/robinhood-node/blob/master/LICENSE)
 
-NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
+NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
 
 I have read [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf) and, without being a lawyer and/or this being valid in any way, it doesn't seem like interacting with their servers using the API is against them.
 
@@ -32,22 +31,14 @@ $ npm install --save robinhood
 ```js
 var Robinhood = require('robinhood');
 
-// Initialize
-var trader = Robinhood(
-    {
-        username: 'user',
-        password: 'password'
-    },
-    function() {
-        trader.quote_data('GOOG', function(err, httpResponse, body){
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log('Quote data:', body);
-        });
+Robinhood(null).quote_data('GOOG', function(error, response, body) {
+    if (error) {
+        console.error(error);
+        process.exit(1);
     }
-);
+
+    console.log(body);
+});
 ```
 
 ## API
@@ -203,6 +194,7 @@ Values can be:
 * Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
 * Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+* Justin Keller ([@nodesocket](https://github.com/nodesocket))
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.

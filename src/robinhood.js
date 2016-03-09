@@ -111,17 +111,17 @@ function RobinhoodWebApi(opts, callback) {
       }, callback);
   };
 
-  api.instruments = function(stock, callback){
+  api.instruments = function(symbol, callback){
     return _request.get({
         uri: _endpoints.instruments,
-        qs: {'query': stock.upper()}
+        qs: {'query': symbol.toUpperCase()}
       }, callback);
   };
 
-  api.quote_data = function(stock, callback){
+  api.quote_data = function(symbol, callback){
     return _request.get({
         uri: _endpoints.quotes,
-        qs: { 'symbols': stock }
+        qs: { 'symbols': symbol.toUpperCase() }
       }, callback);
   };
 
@@ -157,7 +157,7 @@ function RobinhoodWebApi(opts, callback) {
           price: options.bid_price,
           quantity: options.quantity,
           side: options.transaction,
-          symbol: options.instrument.symbol,
+          symbol: options.instrument.symbol.toUpperCase(),
           time_in_force: options.time || 'gfd',
           trigger: options.trigger || 'immediate',
           type: options.type || 'market'

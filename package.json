@@ -1,6 +1,6 @@
 {
   "name": "robinhood",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "NodeJS API wrapper for the private Robinhood API",
   "main": "src/robinhood.js",
   "scripts": {
@@ -14,8 +14,7 @@
     "robinhood",
     "trading",
     "api",
-    "framework",
-    "robin"
+    "stock"
   ],
   "author": "Alejandro U. Alvarez",
   "license": "AGPLv3",
@@ -28,6 +27,6 @@
     "should": "^4.3.0"
   },
   "dependencies": {
-    "request": "^2.55.0"
+    "request": "2.69.0"
   }
 }
