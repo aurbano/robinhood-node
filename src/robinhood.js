@@ -155,6 +155,7 @@ function RobinhoodWebApi(opts, callback) {
           account: _private.account,
           instrument: options.instrument.url,
           price: options.bid_price,
+          stop_price: options.stop_price,
           quantity: options.quantity,
           side: options.transaction,
           symbol: options.instrument.symbol.toUpperCase(),
