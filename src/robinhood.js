@@ -92,13 +92,23 @@ function RobinhoodWebApi(opts, callback) {
         throw (err);
       }
 
-      _private.account = body.account;
       _private.auth_token = body.token;
       _private.headers.Authorization = 'Token ' + _private.auth_token;
 
       _setHeaders();
 
-      callback.call();
+      // Set account
+      api.accounts(function(err, httpResponse, body) {
+        if (err) {
+          throw (err);
+        }
+
+        if (body.results) {
+          _private.account = body.results[0].url;
+        }
+
+        callback.call();
+      });
     });
   }
 
