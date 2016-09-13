@@ -36,7 +36,8 @@ function RobinhoodWebApi(opts, callback) {
         document_requests:  'https://api.robinhood.com/upload/document_requests/',
         user: 'https://api.robinhood.com/user/',
         watchlists: 'https://api.robinhood.com/watchlists/',
-        positions: 'https://api.robinhood.com/positions/'
+        positions: 'https://api.robinhood.com/positions/',
+        fundamentals: 'https://api.robinhood.com/fundamentals/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -118,6 +119,13 @@ function RobinhoodWebApi(opts, callback) {
   api.investment_profile = function(callback){
     return _request.get({
         uri: _endpoints.investment_profile
+      }, callback);
+  };
+
+  api.fundamentals = function(ticker, callback){
+    return _request.get({
+        uri: _endpoints.fundamentals,
+        qs: { 'symbols': ticker }
       }, callback);
   };
 
