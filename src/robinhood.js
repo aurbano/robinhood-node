@@ -92,13 +92,23 @@ function RobinhoodWebApi(opts, callback) {
         throw (err);
       }
 
-      _private.account = body.account;
       _private.auth_token = body.token;
       _private.headers.Authorization = 'Token ' + _private.auth_token;
 
       _setHeaders();
 
-      callback.call();
+      // Set account
+      api.accounts(function(err, httpResponse, body) {
+        if (err) {
+          throw (err);
+        }
+
+        if (body.results) {
+          _private.account = body.results[0].url;
+        }
+
+        callback.call();
+      });
     });
   }
 
@@ -155,6 +165,7 @@ function RobinhoodWebApi(opts, callback) {
           account: _private.account,
           instrument: options.instrument.url,
           price: options.bid_price,
+          stop_price: options.stop_price,
           quantity: options.quantity,
           side: options.transaction,
           symbol: options.instrument.symbol.toUpperCase(),
