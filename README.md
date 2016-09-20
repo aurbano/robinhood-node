@@ -196,6 +196,7 @@ Values can be:
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 * Justin Keller ([@nodesocket](https://github.com/nodesocket))
 * Chris Busse ([@busse](https://github.com/busse))
+* [@Jspenc72](https://github.com/jspenc72)
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
