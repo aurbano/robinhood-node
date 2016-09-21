@@ -50,7 +50,11 @@ function RobinhoodWebApi(opts, callback) {
 
         watchlists: 'https://api.robinhood.com/watchlists/',
         positions: 'https://api.robinhood.com/positions/',
-        fundamentals: 'https://api.robinhood.com/fundamentals/'
+        fundamentals: 'https://api.robinhood.com/fundamentals/',
+
+        sp500_up: 'https://api.robinhood.com/midlands/movers/sp500/?direction=up',
+        sp500_down: 'https://api.robinhood.com/midlands/movers/sp500/?direction=down',  
+        news: 'https://api.robinhood.com/midlands/news/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -222,6 +226,30 @@ function RobinhoodWebApi(opts, callback) {
   api.positions = function(callback){
     return _request.get({
       uri: _endpoints.positions
+    }, callback);
+  };
+
+  api.news = function(symbol, callback){
+    return _request.get({
+      uri: [_endpoints.news,'/'].join(symbol)
+    }, callback);
+  };  
+
+  api.markets = function(callback){
+    return _request.get({
+      uri: _endpoints.markets
+    }, callback);
+  };
+
+  api.sp500_up = function(callback){
+    return _request.get({
+      uri: _endpoints.sp500_up
+    }, callback);
+  };
+  
+  api.sp500_down = function(callback){
+    return _request.get({
+      uri: _endpoints.sp500_down
     }, callback);
   };
 
