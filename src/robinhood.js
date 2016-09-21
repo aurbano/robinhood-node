@@ -154,7 +154,7 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.quote_data = function(symbol, callback){
-    Array.isArray(symbol) ? symbol = symbol.join(',') : null;
+    symbol = Array.isArray(symbol) ? symbol = symbol.join(',') : symbol;
     return _request.get({
         uri: _endpoints.quotes,
         qs: { 'symbols': symbol.toUpperCase() }
@@ -274,7 +274,7 @@ function RobinhoodWebApi(opts, callback) {
       }, callback);
   };
 
-  api.historical_quote_data = function(symbol, intv, span, callback){
+  api.historicals = function(symbol, intv, span, callback){
     return _request.get({
         uri: [_endpoints.quotes + 'historicals/','/?interval='+intv+'&span='+span].join(symbol)
       }, callback);
