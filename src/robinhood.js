@@ -31,6 +31,7 @@ function RobinhoodWebApi(opts, callback) {
         markets:  'https://api.robinhood.com/markets/',
         notifications:  'https://api.robinhood.com/notifications/',
         orders: 'https://api.robinhood.com/orders/',
+        cancelOrder: 'https://api.robinhood.com/orders/cancel/',
         password_reset: 'https://api.robinhood.com/password_reset/request/',
         quotes: 'https://api.robinhood.com/quotes/',
         document_requests:  'https://api.robinhood.com/upload/document_requests/',
@@ -166,6 +167,14 @@ function RobinhoodWebApi(opts, callback) {
       uri: _endpoints.orders
     }, callback);
   };
+
+  api.cancel_order = function(order, callback){
+    return _request.post({
+      uri: _endpoints.cancelOrder,
+      form: { 'order': order }
+    }, callback);
+  };
+
   var _place_order = function(options, callback){
     return _request.post({
         uri: _endpoints.orders,
