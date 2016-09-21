@@ -23,6 +23,9 @@ function RobinhoodWebApi(opts, callback) {
         ach_iav_auth: 'https://api.robinhood.com/ach/iav/auth/',
         ach_relationships:  'https://api.robinhood.com/ach/relationships/',
         ach_transfers:'https://api.robinhood.com/ach/transfers/',
+
+        ach_deposit_schedules: "https://api.robinhood.com/ach/deposit_schedules/",
+
         applications: 'https://api.robinhood.com/applications/',
         dividends:  'https://api.robinhood.com/dividends/',
         edocuments: 'https://api.robinhood.com/documents/',
@@ -30,11 +33,21 @@ function RobinhoodWebApi(opts, callback) {
         margin_upgrade:  'https://api.robinhood.com/margin/upgrades/',
         markets:  'https://api.robinhood.com/markets/',
         notifications:  'https://api.robinhood.com/notifications/',
+
+        notifications_devices: "https://api.robinhood.com/notifications/devices/",
+
         orders: 'https://api.robinhood.com/orders/',
+        cancel_order: 'https://api.robinhood.com/orders/',      //API expects https://api.robinhood.com/orders/{{orderId}}/cancel/
         password_reset: 'https://api.robinhood.com/password_reset/request/',
         quotes: 'https://api.robinhood.com/quotes/',
         document_requests:  'https://api.robinhood.com/upload/document_requests/',
         user: 'https://api.robinhood.com/user/',
+
+        user_additional_info: "https://api.robinhood.com/user/additional_info/",
+        user_basic_info: "https://api.robinhood.com/user/basic_info/",
+        user_employment: "https://api.robinhood.com/user/employment/",
+        user_investment_profile: "https://api.robinhood.com/user/investment_profile/",
+
         watchlists: 'https://api.robinhood.com/watchlists/',
         positions: 'https://api.robinhood.com/positions/',
         fundamentals: 'https://api.robinhood.com/fundamentals/'
@@ -166,6 +179,17 @@ function RobinhoodWebApi(opts, callback) {
       uri: _endpoints.orders
     }, callback);
   };
+
+  api.cancel_order = function(order, callback){
+    if(order.cancel){
+      return _request.post({
+        uri: order.cancel
+      }, callback);      
+    }else{
+      callback({message: "Order cannot be cancelled.", order: order }, null, null);
+    }
+  };
+
   var _place_order = function(options, callback){
     return _request.post({
         uri: _endpoints.orders,
