@@ -239,7 +239,39 @@ Cancel an order
     })
 ```
 
+### `watchlists(name, callback)`
+```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.watchlists(function(err, response, body){
+        if(err){
+            console.error(err);
+        }else{
+            console.log("got watchlists");
+            console.log(body);
+
+            //{ previous: null,
+            //  results: 
+            //   [ { url: 'https://api.robinhood.com/watchlists/Default/',
+            //       user: 'https://api.robinhood.com/user/',
+            //      name: 'Default' } ],
+            //  next: null }
+        }
+    })
+});
+```
+
 ### `create_watch_list(name, callback)`
+```
+//Your account type must support multiple watchlists to use this endpoint otherwise will get { detail: 'Request was throttled.' } and not watchlist is created.
+Robinhood.create_watch_list('Technology', function(err, response, body){
+    if(err){
+        console.error(err);
+    }else{
+        console.log("created watchlist");
+        console.log(body);
+    }
+})
+```
 
 ### `sp500_up(callback)`
 ```typescript
@@ -296,7 +328,7 @@ Cancel an order
 
 ```typescript
     //{interval=5minute|10minute (required) span=week|day| }
-    
+
     Robinhood.historicals("AAPL", '5minute', 'week', function(err, response, body){
         if(err){
             console.error(err);
