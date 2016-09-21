@@ -182,8 +182,7 @@ function RobinhoodWebApi(opts, callback) {
 
   api.cancel_order = function(order, callback){
     return _request.post({
-      uri: _endpoints.cancel_order+order.id+"/cancel",
-      form: { 'order': order }
+      uri: _endpoints.cancel_order+order.id+"/cancel"
     }, callback);
   };
 
