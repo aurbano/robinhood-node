@@ -257,7 +257,7 @@ function RobinhoodWebApi(opts, callback) {
     return _request.post({
         uri: _endpoints.watchlists,
         form: {
-          name
+          name: name
         }
       }, callback);
   };
