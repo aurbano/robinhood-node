@@ -292,10 +292,11 @@ Cancel an order
         }
     })
 ```
-### `historicals(symbol, intv, span, callback) {interval=5minute|10minute (required) span=week|day| }`    
+### `historicals(symbol, intv, span, callback)`    
 
 ```typescript
-
+    //{interval=5minute|10minute (required) span=week|day| }
+    
     Robinhood.historicals("AAPL", '5minute', 'week', function(err, response, body){
         if(err){
             console.error(err);
