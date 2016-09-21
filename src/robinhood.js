@@ -253,6 +253,33 @@ function RobinhoodWebApi(opts, callback) {
     }, callback);
   };
 
+  api.create_watch_list = function(name, callback){
+    return _request.post({
+        uri: _endpoints.watchlists,
+        form: {
+          name
+        }
+      }, callback);
+  };
+
+  api.watchlists = function(callback){
+    return _request.get({
+        uri: _endpoint.watchlists
+      }, callback);
+  };
+
+  api.splits = function(instrument, callback){
+    return _request.get({
+        uri: [_endpoints.instruments,'/splits/'].join(instrument)
+      }, callback);
+  };
+
+  api.historical_quote_data = function(symbol, intv, span, callback){
+    return _request.get({
+        uri: [_endpoints.quotes + 'historicals/','/?interval='+intv+'&span='+span].join(symbol)
+      }, callback);
+  };
+
   _init(_options);
 
   return api;

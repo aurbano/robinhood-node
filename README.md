@@ -239,6 +239,16 @@ Cancel an order
     })
 ```
 
+### `create_watch_list(name, callback)`
+
+### `sp500_up(callback)`
+
+### `sp500_down(callback)`
+
+### `splits(callback)`
+
+### `historical_quote_data(callback)`
+
 # Contributors
 
 * Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
