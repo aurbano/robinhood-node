@@ -18,6 +18,7 @@ I have read [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazo
 * Get Dividend information `Robinhood.dividends (v0.2+)`
 * Get User information `Robinhood.user (v0.2+)`
 * Get Orders `Robinhood.orders (v0.2+)`
+* Get Fundamentals `Robinhood.fundamentals (v0.4+)`
 * _More coming soon..._
 
 ## Installation
@@ -186,6 +187,31 @@ Values can be:
 * `immediate` : The order will be cancelled unless it is fulfilled immediately.
 * `day` : The order will be cancelled at the end of the trading day.
 
+### `fundamentals(ticker, callback)`
+
+Get fundamental data about a symbol.
+
+#### Response
+
+An object containing information about the symbol:
+
+```typescript
+{                               // Example for SBPH
+    average_volume: string,     // "14381.0215"
+    description: string,        // "Spring Bank Pharmaceuticals, Inc. [...]"
+    dividend_yield: string,     // "0.0000"
+    high: string,               // "12.5300"
+    high_52_weeks: string,      // "13.2500"
+    instrument: string,         // "https://api.robinhood.com/instruments/42e07e3a-ca7a-4abc-8c23-de49cb657c62/"
+    low: string,                // "11.8000"
+    low_52_weeks: string,       // "7.6160"
+    market_cap: string,         // "94799500.0000"
+    open: string,               // "12.5300"
+    pe_ratio: string,           // null (price/earnings ratio)
+    volume: string              // "4119.0000"
+}
+```
+
 # Contributors
 
 * Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
@@ -196,6 +222,7 @@ Values can be:
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 * Justin Keller ([@nodesocket](https://github.com/nodesocket))
 * Chris Busse ([@busse](https://github.com/busse))
+* [@Jspenc72](https://github.com/jspenc72)
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
