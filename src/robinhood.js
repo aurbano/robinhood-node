@@ -186,9 +186,9 @@ function RobinhoodWebApi(opts, callback) {
         uri: order.cancel
       }, callback);      
     }else{
-      callback({message: "Order cannot be cancelled.", order: order }, null, null);
-    }
-  };
+      callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
+    };
+  }
 
   var _place_order = function(options, callback){
     return _request.post({
