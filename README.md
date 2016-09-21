@@ -262,7 +262,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `create_watch_list(name, callback)`
 ```
-//Your account type must support multiple watchlists to use this endpoint otherwise will get { detail: 'Request was throttled.' } and not watchlist is created.
+//Your account type must support multiple watchlists to use this endpoint otherwise will get { detail: 'Request was throttled.' } and watchlist is not created.
 Robinhood.create_watch_list('Technology', function(err, response, body){
     if(err){
         console.error(err);
