@@ -150,6 +150,7 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.quote_data = function(symbol, callback){
+    Array.isArray(symbol) ? symbol = symbol.join(',') : null;
     return _request.get({
         uri: _endpoints.quotes,
         qs: { 'symbols': symbol.toUpperCase() }
