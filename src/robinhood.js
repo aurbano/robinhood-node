@@ -199,7 +199,7 @@ function RobinhoodWebApi(opts, callback) {
           symbol: options.instrument.symbol.toUpperCase(),
           time_in_force: options.time || 'gfd',
           trigger: options.trigger || 'immediate',
-          type: options.type || 'market'
+          type: options.type || 'market'           
         }
       }, callback);
   };
