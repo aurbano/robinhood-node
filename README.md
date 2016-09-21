@@ -212,6 +212,33 @@ An object containing information about the symbol:
 }
 ```
 
+### `cancel_order(order, callback)`
+
+Cancel an order
+```typescript
+    //Get list of orders
+    Robinhood.orders(function(error, response, body){
+        if(error){
+            console.error(error);
+        }else{
+            var orderToCancel = body.results[0];
+            //Try to cancel the latest order
+            Robinhood.cancel_order(orderToCancel, function(err, response, body){
+                if(err){
+                    //Error
+
+                    console.error(err);     // { message: 'Order cannot be cancelled.', order: {Order} }
+                }else{
+                    //Success
+
+                    console.log("Cancel Order Successful"); 
+                    console.log(body)       //{}
+                }
+            })
+        }
+    })
+```
+
 # Contributors
 
 * Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
@@ -222,7 +249,7 @@ An object containing information about the symbol:
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 * Justin Keller ([@nodesocket](https://github.com/nodesocket))
 * Chris Busse ([@busse](https://github.com/busse))
-* [@Jspenc72](https://github.com/jspenc72)
+* Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
 
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
