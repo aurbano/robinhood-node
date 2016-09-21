@@ -264,7 +264,7 @@ function RobinhoodWebApi(opts, callback) {
 
   api.watchlists = function(callback){
     return _request.get({
-        uri: _endpoint.watchlists
+        uri: _endpoints.watchlists
       }, callback);
   };
 
