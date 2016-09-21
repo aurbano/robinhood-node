@@ -181,9 +181,13 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.cancel_order = function(order, callback){
-    return _request.post({
-      uri: _endpoints.cancel_order+order.id+"/cancel"
-    }, callback);
+    if(order.cancel){
+      return _request.post({
+        uri: order.cancel
+      }, callback);      
+    }else{
+      callback({message: "Order cannot be cancelled.", order: order }, null, null);
+    }
   };
 
   var _place_order = function(options, callback){
@@ -199,7 +203,7 @@ function RobinhoodWebApi(opts, callback) {
           symbol: options.instrument.symbol.toUpperCase(),
           time_in_force: options.time || 'gfd',
           trigger: options.trigger || 'immediate',
-          type: options.type || 'market'           
+          type: options.type || 'market'
         }
       }, callback);
   };
