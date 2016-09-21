@@ -269,6 +269,12 @@ Robinhood.create_watch_list('Technology', function(err, response, body){
     }else{
         console.log("created watchlist");
         console.log(body);
+    //    {
+    //        "url": "https://api.robinhood.com/watchlists/Technology/",
+    //        "user": "https://api.robinhood.com/user/",
+    //        "name": "Technology"
+    //    }
+
     }
 })
 ```
