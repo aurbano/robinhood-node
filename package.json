@@ -28,6 +28,7 @@
     "should": "^4.3.0"
   },
   "dependencies": {
+    "promise": "^7.1.1",
     "request": "2.69.0"
   }
 }
