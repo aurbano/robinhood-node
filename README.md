@@ -9,6 +9,36 @@ See @Sanko's [Unofficial Documentation](https://github.com/sanko/Robinhood) for 
 
 FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf)
 
+<!-- toc -->
+  * [Features](#features)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [API](#api)
+    * [`investment_profile(callback)`](#investment-profilecallback)
+    * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
+    * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
+    * [`accounts(callback)`](#accountscallback)
+    * [`user(callback)`](#usercallback)
+    * [`dividends(callback)`](#dividendscallback)
+    * [`orders(callback)`](#orderscallback)
+    * [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
+      * [`trigger`](#trigger)
+      * [`time`](#time)
+    * [`place_sell_order(options, callback)`](#place-sell-orderoptions-callback)
+      * [`trigger`](#trigger)
+      * [`time`](#time)
+    * [`fundamentals(symbol, callback)`](#fundamentalssymbol-callback)
+      * [Response](#response)
+    * [`cancel_order(order, callback)`](#cancel-orderorder-callback)
+    * [`watchlists(name, callback)`](#watchlistsname-callback)
+    * [`create_watch_list(name, callback)`](#create-watch-listname-callback)
+    * [`sp500_up(callback)`](#sp500-upcallback)
+    * [`sp500_down(callback)`](#sp500-downcallback)
+    * [`splits(instrument, callback)`](#splitsinstrument-callback)
+    * [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
+* [Contributors](#contributors)
+
+<!-- toc stop -->
 ## Features
 * Quote Data
 * Buy, Sell Orders
@@ -18,31 +48,6 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
 ## Installation
 ```bash
 $ npm install robinhood --save
-```
-
-## Usage
-
-```js
-//The username and password you use to sign into the robinhood app.
-
-var credentials = {
-    username: '',
-    password: ''
-};
-
-var Robinhood = require('robinhood')(credentials, function(){
-
-    //Robinhood is connected and you may begin sending commands to the api.
-
-    Robinhood(null).quote_data('GOOG', function(error, response, body) {
-        if (error) {
-            console.error(error);
-            process.exit(1);
-        }
-        console.log(body);
-    });
-
-});
 ```
 
 ## Usage
