@@ -27,50 +27,48 @@
 <a href="https://www.npmjs.com/package/robinhood"><img src="https://img.shields.io/npm/v/robinhood.svg?style=flat-square" alt="npm"></a>
 <a href="https://david-dm.org/aurbano/robinhood-node"><img src="https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square" alt="David"></a></p>
 
-<p>NodeJS Framework to make trades with the private <a href="https://www.robinhood.com/">Robinhood</a> API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered. See this <a href="https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b">blog post</a> for more information on the API.</p>
+<p>NodeJS Framework to make trades with the private <a href="https://www.robinhood.com/">Robinhood</a> API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered.
+See <a href="https://github.com/Sanko" class="user-mention">@Sanko</a>'s <a href="https://github.com/sanko/Robinhood">Unofficial Documentation</a> for more information.</p>
 
-<p>I have read <a href="https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf">Robinhood's Terms and Conditions</a> and, without being a lawyer and/or this being valid in any way, it doesn't seem like interacting with their servers using the API is against them.</p>
-
-<blockquote>
-<p>This framework was inspired by a deprecated Python framework originally developed by <a href="https://github.com/rohanpai">@Rohanpai</a>.</p>
-</blockquote>
+<p>FYI <a href="https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf">Robinhood's Terms and Conditions</a></p>
 
 <h2>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
-<li>Placing buy orders <code>Robinhood.place_buy_order</code>
-</li>
-<li>Placing sell order <code>Robinhood.place_sell_order</code>
-</li>
-<li>Quote Information <code>Robinhood.quote_data</code>
-</li>
-<li>Get Dividend information <code>Robinhood.dividends (v0.2+)</code>
-</li>
-<li>Get User information <code>Robinhood.user (v0.2+)</code>
-</li>
-<li>Get Orders <code>Robinhood.orders (v0.2+)</code>
-</li>
-<li><em>More coming soon...</em></li>
+<li>Quote Data</li>
+<li>Buy, Sell Orders</li>
+<li>Daily Fundamentals</li>
+<li>Daily, Weekly, Monthly Historicals</li>
 </ul>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<div class="highlight highlight-source-shell"><pre>$ npm install --save robinhood</pre></div>
+<div class="highlight highlight-source-shell"><pre>$ npm install robinhood --save</pre></div>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//The username and password you use to sign into the robinhood app.</span>
 
-<span class="pl-en">Robinhood</span>(<span class="pl-c1">null</span>).<span class="pl-en">quote_data</span>(<span class="pl-s"><span class="pl-pds">'</span>GOOG<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>) {
-    <span class="pl-k">if</span> (error) {
-        <span class="pl-en">console</span>.<span class="pl-c1">error</span>(error);
-        <span class="pl-c1">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">1</span>);
-    }
+<span class="pl-k">var</span> credentials <span class="pl-k">=</span> {
+    username<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+    password<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+};
 
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+<span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>)(credentials, <span class="pl-k">function</span>(){
+
+    <span class="pl-c">//Robinhood is connected and you may begin sending commands to the api.</span>
+
+    <span class="pl-en">Robinhood</span>(<span class="pl-c1">null</span>).<span class="pl-en">quote_data</span>(<span class="pl-s"><span class="pl-pds">'</span>GOOG<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>) {
+        <span class="pl-k">if</span> (error) {
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(error);
+            <span class="pl-c1">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">1</span>);
+        }
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+    });
+
 });</pre></div>
 
 <h2>
@@ -78,17 +76,72 @@
 
 <p>Before using these methods, make sure you have initialized Robinhood using the snippet above.</p>
 
-<p><em>Feel free to send a pull request expanding this with examples or info about the return objects</em></p>
-
 <h3>
 <a id="investment_profilecallback" class="anchor" href="#investment_profilecallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>investment_profile(callback)</code>
 </h3>
 
 <p>Get the current user's investment profile.</p>
 
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">credentials</span> = require(<span class="pl-s">"../credentials.js"</span>)();
+<span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.investment_profile(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"investment_profile"</span>);
+            console.log(body);
+                <span class="pl-c">//    { annual_income: '25000_39999',</span>
+                <span class="pl-c">//      investment_experience: 'no_investment_exp',</span>
+                <span class="pl-c">//      updated_at: '2015-06-24T17:14:53.593009Z',</span>
+                <span class="pl-c">//      risk_tolerance: 'low_risk_tolerance',</span>
+                <span class="pl-c">//      total_net_worth: '0_24999',</span>
+                <span class="pl-c">//      liquidity_needs: 'very_important_liq_need',</span>
+                <span class="pl-c">//      investment_objective: 'income_invest_obj',</span>
+                <span class="pl-c">//      source_of_funds: 'savings_personal_income',</span>
+                <span class="pl-c">//      user: 'https://api.robinhood.com/user/',</span>
+                <span class="pl-c">//      suitability_verified: true,</span>
+                <span class="pl-c">//      tax_bracket: '',</span>
+                <span class="pl-c">//      time_horizon: 'short_time_horizon',</span>
+                <span class="pl-c">//      liquid_net_worth: '0_24999' }</span>
+
+        }
+    })
+});</pre></div>
+
 <h3>
-<a id="instrumentsstock-callback" class="anchor" href="#instrumentsstock-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>instruments(stock, callback)</code>
+<a id="instrumentssymbol-callback" class="anchor" href="#instrumentssymbol-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>instruments(symbol, callback)</code>
 </h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">credentials</span> = require(<span class="pl-s">"../credentials.js"</span>)();
+<span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.instruments(<span class="pl-s">'AAPL'</span>,<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"instruments"</span>);
+            console.log(body);
+            <span class="pl-c">//    { previous: null,</span>
+            <span class="pl-c">//      results:</span>
+            <span class="pl-c">//       [ { min_tick_size: null,</span>
+            <span class="pl-c">//           splits: 'https://api.robinhood.com/instruments/450dfc6d-5510-4d40-abfb-f633b7d9be3e/splits/',</span>
+            <span class="pl-c">//           margin_initial_ratio: '0.5000',</span>
+            <span class="pl-c">//           url: 'https://api.robinhood.com/instruments/450dfc6d-5510-4d40-abfb-f633b7d9be3e/',</span>
+            <span class="pl-c">//           quote: 'https://api.robinhood.com/quotes/AAPL/',</span>
+            <span class="pl-c">//           symbol: 'AAPL',</span>
+            <span class="pl-c">//           bloomberg_unique: 'EQ0010169500001000',</span>
+            <span class="pl-c">//           list_date: '1990-01-02',</span>
+            <span class="pl-c">//           fundamentals: 'https://api.robinhood.com/fundamentals/AAPL/',</span>
+            <span class="pl-c">//           state: 'active',</span>
+            <span class="pl-c">//           day_trade_ratio: '0.2500',</span>
+            <span class="pl-c">//           tradeable: true,</span>
+            <span class="pl-c">//           maintenance_ratio: '0.2500',</span>
+            <span class="pl-c">//           id: '450dfc6d-5510-4d40-abfb-f633b7d9be3e',</span>
+            <span class="pl-c">//           market: 'https://api.robinhood.com/markets/XNAS/',</span>
+            <span class="pl-c">//           name: 'Apple Inc. - Common Stock' } ],</span>
+            <span class="pl-c">//      next: null }</span>
+        }
+    })
+});</pre></div>
 
 <p>Get the user's instruments for a specified stock.</p>
 
@@ -98,30 +151,76 @@
 
 <p>Get the user's quote data for a specified stock.</p>
 
-<p>Return message: (passed to the callback)</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    results<span class="pl-k">:</span> [
-        {
-            ask_price<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '735.7800'</span>
-            ask_size<span class="pl-k">:</span> <span class="pl-c1">Number</span>, <span class="pl-c">// Integer</span>
-            bid_price<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '731.5000'</span>
-            bid_size<span class="pl-k">:</span> <span class="pl-c1">Number</span>, <span class="pl-c">// Integer</span>
-            last_trade_price<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '726.3900'</span>
-            last_extended_hours_trade_price<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '735.7500'</span>
-            previous_close<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '743.6200'</span>
-            adjusted_previous_close<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Float number in a String, e.g. '743.6200'</span>
-            previous_close_date<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// YYYY-MM-DD e.g. '2016-01-06'</span>
-            symbol<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// e.g. 'GOOG'</span>
-            trading_halted<span class="pl-k">:</span> <span class="pl-c1">Boolean</span>, 
-            updated_at<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// YYYY-MM-DDTHH:MM:SS e.g. '2016-01-07T21:00:00Z'</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>)(credentials, <span class="pl-k">function</span>(){
+    <span class="pl-smi">Robinhood</span>.<span class="pl-en">quote_data</span>(<span class="pl-s"><span class="pl-pds">'</span>AAPL<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>){
+        <span class="pl-k">if</span>(err){
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(err);
+        }<span class="pl-k">else</span>{
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>quote_data<span class="pl-pds">"</span></span>);
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+            <span class="pl-c">//{</span>
+            <span class="pl-c">//    results: [</span>
+            <span class="pl-c">//        {</span>
+            <span class="pl-c">//            ask_price: String, // Float number in a String, e.g. '735.7800'</span>
+            <span class="pl-c">//            ask_size: Number, // Integer</span>
+            <span class="pl-c">//            bid_price: String, // Float number in a String, e.g. '731.5000'</span>
+            <span class="pl-c">//            bid_size: Number, // Integer</span>
+            <span class="pl-c">//            last_trade_price: String, // Float number in a String, e.g. '726.3900'</span>
+            <span class="pl-c">//            last_extended_hours_trade_price: String, // Float number in a String, e.g. '735.7500'</span>
+            <span class="pl-c">//            previous_close: String, // Float number in a String, e.g. '743.6200'</span>
+            <span class="pl-c">//            adjusted_previous_close: String, // Float number in a String, e.g. '743.6200'</span>
+            <span class="pl-c">//            previous_close_date: String, // YYYY-MM-DD e.g. '2016-01-06'</span>
+            <span class="pl-c">//            symbol: String, // e.g. 'AAPL'</span>
+            <span class="pl-c">//            trading_halted: Boolean,</span>
+            <span class="pl-c">//            updated_at: String, // YYYY-MM-DDTHH:MM:SS e.g. '2016-01-07T21:00:00Z'</span>
+            <span class="pl-c">//        }</span>
+            <span class="pl-c">//    ]</span>
+            <span class="pl-c">//}</span>
         }
-    ]
-}</pre></div>
+    })
+});</pre></div>
 
 <h3>
 <a id="accountscallback" class="anchor" href="#accountscallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>accounts(callback)</code>
 </h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.accounts(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"accounts"</span>);
+            console.log(body);
+            <span class="pl-c">//{ previous: null,</span>
+            <span class="pl-c">//  results:</span>
+            <span class="pl-c">//   [ { deactivated: false,</span>
+            <span class="pl-c">//       updated_at: '2016-03-11T20:37:15.971253Z',</span>
+            <span class="pl-c">//       margin_balances: [Object],</span>
+            <span class="pl-c">//       portfolio: 'https://api.robinhood.com/accounts/asdf/portfolio/',</span>
+            <span class="pl-c">//       cash_balances: null,</span>
+            <span class="pl-c">//       withdrawal_halted: false,</span>
+            <span class="pl-c">//       cash_available_for_withdrawal: '692006.6600',</span>
+            <span class="pl-c">//       type: 'margin',</span>
+            <span class="pl-c">//       sma: '692006.6600',</span>
+            <span class="pl-c">//       sweep_enabled: false,</span>
+            <span class="pl-c">//       deposit_halted: false,</span>
+            <span class="pl-c">//       buying_power: '692006.6600',</span>
+            <span class="pl-c">//       user: 'https://api.robinhood.com/user/',</span>
+            <span class="pl-c">//       max_ach_early_access_amount: '1000.00',</span>
+            <span class="pl-c">//       cash_held_for_orders: '0.0000',</span>
+            <span class="pl-c">//       only_position_closing_trades: false,</span>
+            <span class="pl-c">//       url: 'https://api.robinhood.com/accounts/asdf/',</span>
+            <span class="pl-c">//       positions: 'https://api.robinhood.com/accounts/asdf/positions/',</span>
+            <span class="pl-c">//       created_at: '2015-06-17T14:53:36.928233Z',</span>
+            <span class="pl-c">//       cash: '692006.6600',</span>
+            <span class="pl-c">//       sma_held_for_orders: '0.0000',</span>
+            <span class="pl-c">//       account_number: 'asdf',</span>
+            <span class="pl-c">//       uncleared_deposits: '0.0000',</span>
+            <span class="pl-c">//       unsettled_funds: '0.0000' } ],</span>
+            <span class="pl-c">//  next: null }</span>
+        }
+    })
+});</pre></div>
 
 <p>Get the user's accounts.</p>
 
@@ -131,11 +230,33 @@
 
 <p>Get the user information.</p>
 
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.user(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"user"</span>);
+            console.log(body);
+        }
+    })
+});</pre></div>
+
 <h3>
 <a id="dividendscallback" class="anchor" href="#dividendscallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>dividends(callback)</code>
 </h3>
 
 <p>Get the user's dividends information.</p>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.dividends(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"dividends"</span>);
+            console.log(body);
+        }
+    })
+});</pre></div>
 
 <h3>
 <a id="orderscallback" class="anchor" href="#orderscallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>orders(callback)</code>
@@ -143,26 +264,45 @@
 
 <p>Get the user's orders information.</p>
 
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.orders(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"orders"</span>);
+            console.log(body);
+        }
+    })
+});</pre></div>
+
 <h3>
 <a id="place_buy_orderoptions-callback" class="anchor" href="#place_buy_orderoptions-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>place_buy_order(options, callback)</code>
 </h3>
 
 <p>Place a buy order on a specified stock.</p>
 
-<p>Options must contain:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    bid_price<span class="pl-k">:</span> <span class="pl-c1">Number</span>,
-    quantity<span class="pl-k">:</span> <span class="pl-c1">Number</span>,
-    instrument<span class="pl-k">:</span> {
-        url<span class="pl-k">:</span> <span class="pl-c1">String</span>,
-        symbol<span class="pl-k">:</span> <span class="pl-c1">String</span>
-    },
-    <span class="pl-c">// Optional:</span>
-    trigger<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Defaults to "gfd" (Good For Day)</span>
-    time<span class="pl-k">:</span> <span class="pl-c1">String</span>,    <span class="pl-c">// Defaults to "immediate"</span>
-    type<span class="pl-k">:</span> <span class="pl-c1">String</span>     <span class="pl-c">// Defaults to "market"</span>
-}</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>)(credentials, <span class="pl-k">function</span>(){
+    <span class="pl-k">var</span> options <span class="pl-k">=</span> {
+        type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>limit<span class="pl-pds">'</span></span>,
+        quantity<span class="pl-k">:</span> <span class="pl-c1">1</span>,
+        bid_price<span class="pl-k">:</span> <span class="pl-c1">1.00</span>,
+        instrument<span class="pl-k">:</span> {
+            url<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+            symbol<span class="pl-k">:</span> <span class="pl-c1">String</span>
+        }
+        <span class="pl-c">// // Optional:</span>
+        <span class="pl-c">// trigger: String, // Defaults to "gfd" (Good For Day)</span>
+        <span class="pl-c">// time: String,    // Defaults to "immediate"</span>
+        <span class="pl-c">// type: String     // Defaults to "market"</span>
+    }
+    <span class="pl-smi">Robinhood</span>.<span class="pl-en">place_buy_order</span>(options, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>){
+        <span class="pl-k">if</span>(error){
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(error);
+        }<span class="pl-k">else</span>{
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+        }
+    })
+});</pre></div>
 
 <p>For the Optional ones, the values can be:</p>
 
@@ -206,20 +346,30 @@
 
 <p>Place a sell order on a specified stock.</p>
 
-<p>Options must contain:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    bid_price<span class="pl-k">:</span> <span class="pl-c1">Number</span>,
-    quantity<span class="pl-k">:</span> <span class="pl-c1">Number</span>,
-    instrument<span class="pl-k">:</span> {
-        url<span class="pl-k">:</span> <span class="pl-c1">String</span>,
-        symbol<span class="pl-k">:</span> <span class="pl-c1">String</span>
-    },
-    <span class="pl-c">// Optional:</span>
-    trigger<span class="pl-k">:</span> <span class="pl-c1">String</span>, <span class="pl-c">// Defaults to "gfd" (Good For Day)</span>
-    time<span class="pl-k">:</span> <span class="pl-c1">String</span>,    <span class="pl-c">// Defaults to "immediate"</span>
-    type<span class="pl-k">:</span> <span class="pl-c1">String</span>     <span class="pl-c">// Defaults to "market"</span>
-}</pre></div>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">var</span> Robinhood <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>robinhood<span class="pl-pds">'</span></span>)(credentials, <span class="pl-k">function</span>(){
+    <span class="pl-k">var</span> options <span class="pl-k">=</span> {
+        type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>limit<span class="pl-pds">'</span></span>,
+        quantity<span class="pl-k">:</span> <span class="pl-c1">1</span>,
+        bid_price<span class="pl-k">:</span> <span class="pl-c1">1.00</span>,
+        instrument<span class="pl-k">:</span> {
+            url<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+            symbol<span class="pl-k">:</span> <span class="pl-c1">String</span>
+        },
+        <span class="pl-c">// // Optional:</span>
+        <span class="pl-c">// trigger: String, // Defaults to "gfd" (Good For Day)</span>
+        <span class="pl-c">// time: String,    // Defaults to "immediate"</span>
+        <span class="pl-c">// type: String     // Defaults to "market"</span>
+    }
+    <span class="pl-smi">Robinhood</span>.<span class="pl-en">place_sell_order</span>(options, <span class="pl-k">function</span>(<span class="pl-smi">error</span>, <span class="pl-smi">response</span>, <span class="pl-smi">body</span>){
+        <span class="pl-k">if</span>(error){
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(error);
+        }<span class="pl-k">else</span>{
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(body);
+        }
+    })
+});
+</pre></div>
 
 <p>For the Optional ones, the values can be:</p>
 
@@ -257,22 +407,259 @@
 <code>day</code> : The order will be cancelled at the end of the trading day.</li>
 </ul>
 
+<h3>
+<a id="fundamentalssymbol-callback" class="anchor" href="#fundamentalssymbol-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>fundamentals(symbol, callback)</code>
+</h3>
+
+<p>Get fundamental data about a symbol.</p>
+
+<h4>
+<a id="response" class="anchor" href="#response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response</h4>
+
+<p>An object containing information about the symbol:</p>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.fundamentals(<span class="pl-s">"SBPH"</span>, <span class="pl-k">function</span>(<span class="pl-v">error</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(error){
+            console.error(error);
+        }<span class="pl-k">else</span>{
+            console.log(body);
+            <span class="pl-c">//{                               // Example for SBPH</span>
+            <span class="pl-c">//    average_volume: string,     // "14381.0215"</span>
+            <span class="pl-c">//    description: string,        // "Spring Bank Pharmaceuticals, Inc. [...]"</span>
+            <span class="pl-c">//    dividend_yield: string,     // "0.0000"</span>
+            <span class="pl-c">//    high: string,               // "12.5300"</span>
+            <span class="pl-c">//    high_52_weeks: string,      // "13.2500"</span>
+            <span class="pl-c">//    instrument: string,         // "https://api.robinhood.com/instruments/42e07e3a-ca7a-4abc-8c23-de49cb657c62/"</span>
+            <span class="pl-c">//    low: string,                // "11.8000"</span>
+            <span class="pl-c">//    low_52_weeks: string,       // "7.6160"</span>
+            <span class="pl-c">//    market_cap: string,         // "94799500.0000"</span>
+            <span class="pl-c">//    open: string,               // "12.5300"</span>
+            <span class="pl-c">//    pe_ratio: string,           // null (price/earnings ratio)</span>
+            <span class="pl-c">//    volume: string              // "4119.0000"</span>
+            <span class="pl-c">//}</span>
+        }
+    })
+});
+
+</pre></div>
+
+<h3>
+<a id="cancel_orderorder-callback" class="anchor" href="#cancel_orderorder-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>cancel_order(order, callback)</code>
+</h3>
+
+<p>Cancel an order</p>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    <span class="pl-c">//Get list of orders</span>
+    Robinhood.orders(<span class="pl-k">function</span>(<span class="pl-v">error</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(error){
+            console.error(error);
+        }<span class="pl-k">else</span>{
+            <span class="pl-k">var</span> <span class="pl-v">orderToCancel</span> = body.results[<span class="pl-c1">0</span>];
+            <span class="pl-c">//Try to cancel the latest order</span>
+            Robinhood.cancel_order(orderToCancel, <span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+                <span class="pl-k">if</span>(err){
+                    <span class="pl-c">//Error</span>
+
+                    console.error(err);     <span class="pl-c">// { message: 'Order cannot be cancelled.', order: {Order} }</span>
+                }<span class="pl-k">else</span>{
+                    <span class="pl-c">//Success</span>
+
+                    console.log(<span class="pl-s">"Cancel Order Successful"</span>);
+                    console.log(body)       <span class="pl-c">//{}</span>
+                }
+            })
+        }
+    })
+})</pre></div>
+
+<h3>
+<a id="watchlistsname-callback" class="anchor" href="#watchlistsname-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>watchlists(name, callback)</code>
+</h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.watchlists(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"got watchlists"</span>);
+            console.log(body);
+
+            <span class="pl-c">//{ previous: null,</span>
+            <span class="pl-c">//  results:</span>
+            <span class="pl-c">//   [ { url: 'https://api.robinhood.com/watchlists/Default/',</span>
+            <span class="pl-c">//       user: 'https://api.robinhood.com/user/',</span>
+            <span class="pl-c">//      name: 'Default' } ],</span>
+            <span class="pl-c">//  next: null }</span>
+        }
+    })
+});</pre></div>
+
+<h3>
+<a id="create_watch_listname-callback" class="anchor" href="#create_watch_listname-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>create_watch_list(name, callback)</code>
+</h3>
+
+<pre><code>//Your account type must support multiple watchlists to use this endpoint otherwise will get { detail: 'Request was throttled.' } and watchlist is not created.
+Robinhood.create_watch_list('Technology', function(err, response, body){
+    if(err){
+        console.error(err);
+    }else{
+        console.log("created watchlist");
+        console.log(body);
+    //    {
+    //        "url": "https://api.robinhood.com/watchlists/Technology/",
+    //        "user": "https://api.robinhood.com/user/",
+    //        "name": "Technology"
+    //    }
+
+    }
+})
+</code></pre>
+
+<h3>
+<a id="sp500_upcallback" class="anchor" href="#sp500_upcallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>sp500_up(callback)</code>
+</h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.sp500_up(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"sp500_up"</span>);
+            console.log(body);
+            <span class="pl-c">//{ count: 10,</span>
+            <span class="pl-c">//  next: null,</span>
+            <span class="pl-c">//  previous: null,</span>
+            <span class="pl-c">//  results:</span>
+            <span class="pl-c">//   [ { instrument_url: 'https://api.robinhood.com/instruments/adbc3ce0-dd0d-4a7a-92e0-88c1f127cbcb/',</span>
+            <span class="pl-c">//       symbol: 'NEM',</span>
+            <span class="pl-c">//       updated_at: '2016-09-21T13:03:32.310184Z',</span>
+            <span class="pl-c">//       price_movement: [{ market_hours_last_movement_pct: '7.55', market_hours_last_price: '41.0300' }],</span>
+            <span class="pl-c">//       description: 'Newmont Mining Corp. is a gold producer, which is engaged in the acquisition, exploration and production of gold and copper properties in U.S., Australia, Peru, Indonesia, Ghana, Canada, New Zealand and Mexico. The company\'s operating segments include North America, South America, Asia Pacific and Africa. The North America segment consists of Nevada in the United States, La Herradura in Mexico and Hope Bay in Canada. The South America segment consists of Yanacocha and Conga in Peru. The Asia Pacific segment consists of Boddington in Australia, Batu Hijau in Indonesia and other smaller operations in Australia and New Zealand. The Africa segment consists of Ahafo and Akyem in Ghana. The company was founded by William Boyce Thompson on May 2, 1921 and is headquartered in Greenwood Village, CO.' },</span>
+            <span class="pl-c">//     { instrument_url: 'https://api.robinhood.com/instruments/809adc21-ef75-4c3d-9c0e-5f9a167f235b/',</span>
+            <span class="pl-c">//       symbol: 'ADBE',</span>
+            <span class="pl-c">//       updated_at: '2016-09-21T13:01:31.748590Z',</span>
+            <span class="pl-c">//       price_movement: [{ market_hours_last_movement_pct: '7.55', market_hours_last_price: '41.0300' }],</span>
+            //       description: 'Adobe Systems, Inc. provides digital marketing and digital media solutions. The company operates its business through three segments: Digital Media, Digital Marketing, and Print and Publishing. The Digital Media segment offers creative cloud services, which allow members to download and install the latest versions of products, such as Adobe Photoshop, Adobe Illustrator, Adobe Premiere Pro, Adobe Photoshop Lightroom and Adobe InDesign, as well as utilize other tools, such as Adobe Acrobat. This segment also offers other tools and services, including hobbyist products, such as Adobe Photoshop Elements and Adobe Premiere Elements, Adobe Digital Publishing Suite, Adobe PhoneGap, Adobe Typekit, as well as mobile apps, such as Adobe Photoshop Mix, Adobe Photoshop Sketch and Adobe Premiere Clip that run on tablets and mobile devices. The Digital Media serves professionals, including graphic designers, production artists, web designers and developers, user interface designers, videographers, motion graphic artists, prepress professionals, video game developers, mobile application developers, students and administrators. The Digital Marketing segment offers various solutions, including analytics, social marketing, targeting, media optimization, digital experience management and cross-channel campaign management, as well as premium video delivery and monetization. This segment also offers legacy enterprise software, such as Adobe Connect web conferencing platform and Adobe LiveCycle. The Print and Publishing segment offers legacy products and services for eLearning solutions, technical document publishing, web application development and high-end printing. Adobe Systems was founded by Charles M. Geschke and John E. Warnock in December 1982 and is headquartered in San Jose, CA.' }
+            <span class="pl-c">//    ]</span>
+            <span class="pl-c">//}</span>
+        }
+    })
+});</pre></div>
+
+<h3>
+<a id="sp500_downcallback" class="anchor" href="#sp500_downcallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>sp500_down(callback)</code>
+</h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+    Robinhood.sp500_down(<span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"sp500_down"</span>);
+            console.log(body);
+            <span class="pl-c">//{ count: 10,</span>
+            <span class="pl-c">//  next: null,</span>
+            <span class="pl-c">//  previous: null,</span>
+            <span class="pl-c">//  results:</span>
+            <span class="pl-c">//   [ { instrument_url: 'https://api.robinhood.com/instruments/adbc3ce0-dd0d-4a7a-92e0-88c1f127cbcb/',</span>
+            <span class="pl-c">//       symbol: 'NEM',</span>
+            <span class="pl-c">//       updated_at: '2016-09-21T13:03:32.310184Z',</span>
+            <span class="pl-c">//       price_movement: [{ market_hours_last_movement_pct: '-3.70', market_hours_last_price: '13.2800' }],</span>
+            <span class="pl-c">//      description: 'Newmont Mining Corp. is a gold producer, which is engaged in the acquisition, exploration and production of gold and copper properties in U.S., Australia, Peru, Indonesia, Ghana, Canada, New Zealand and Mexico. The company\'s operating segments include North America, South America, Asia Pacific and Africa. The North America segment consists of Nevada in the United States, La Herradura in Mexico and Hope Bay in Canada. The South America segment consists of Yanacocha and Conga in Peru. The Asia Pacific segment consists of Boddington in Australia, Batu Hijau in Indonesia and other smaller operations in Australia and New Zealand. The Africa segment consists of Ahafo and Akyem in Ghana. The company was founded by William Boyce Thompson on May 2, 1921 and is headquartered in Greenwood Village, CO.' },</span>
+            <span class="pl-c">//     { instrument_url: 'https://api.robinhood.com/instruments/809adc21-ef75-4c3d-9c0e-5f9a167f235b/',</span>
+            <span class="pl-c">//       symbol: 'ADBE',</span>
+            <span class="pl-c">//       updated_at: '2016-09-21T13:01:31.748590Z',</span>
+            <span class="pl-c">//       price_movement: [{ market_hours_last_movement_pct: '-3.70', market_hours_last_price: '13.2800' }],</span>
+            //       description: 'Adobe Systems, Inc. provides digital marketing and digital media solutions. The company operates its business through three segments: Digital Media, Digital Marketing, and Print and Publishing. The Digital Media segment offers creative cloud services, which allow members to download and install the latest versions of products, such as Adobe Photoshop, Adobe Illustrator, Adobe Premiere Pro, Adobe Photoshop Lightroom and Adobe InDesign, as well as utilize other tools, such as Adobe Acrobat. This segment also offers other tools and services, including hobbyist products, such as Adobe Photoshop Elements and Adobe Premiere Elements, Adobe Digital Publishing Suite, Adobe PhoneGap, Adobe Typekit, as well as mobile apps, such as Adobe Photoshop Mix, Adobe Photoshop Sketch and Adobe Premiere Clip that run on tablets and mobile devices. The Digital Media serves professionals, including graphic designers, production artists, web designers and developers, user interface designers, videographers, motion graphic artists, prepress professionals, video game developers, mobile application developers, students and administrators. The Digital Marketing segment offers various solutions, including analytics, social marketing, targeting, media optimization, digital experience management and cross-channel campaign management, as well as premium video delivery and monetization. This segment also offers legacy enterprise software, such as Adobe Connect web conferencing platform and Adobe LiveCycle. The Print and Publishing segment offers legacy products and services for eLearning solutions, technical document publishing, web application development and high-end printing. Adobe Systems was founded by Charles M. Geschke and John E. Warnock in December 1982 and is headquartered in San Jose, CA.' }
+            <span class="pl-c">//    ]</span>
+            <span class="pl-c">//}</span>
+
+        }
+    })
+});</pre></div>
+
+<h3>
+<a id="splitsinstrument-callback" class="anchor" href="#splitsinstrument-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>splits(instrument, callback)</code>
+</h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+
+    Robinhood.splits(<span class="pl-s">"7a3a677d-1664-44a0-a94b-3bb3d64f9e20"</span>, <span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"got splits"</span>);
+            console.log(body);   <span class="pl-c">//{ previous: null, results: [], next: null }</span>
+        }
+    })
+})</pre></div>
+
+<h3>
+<a id="historicalssymbol-intv-span-callback" class="anchor" href="#historicalssymbol-intv-span-callback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>historicals(symbol, intv, span, callback)</code>
+</h3>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-v">Robinhood</span> = require(<span class="pl-s">'robinhood'</span>)(credentials, <span class="pl-k">function</span>(){
+
+    <span class="pl-c">//{interval=5minute|10minute (required) span=week|day| }</span>
+
+    Robinhood.historicals(<span class="pl-s">"AAPL"</span>, <span class="pl-s">'5minute'</span>, <span class="pl-s">'week'</span>, <span class="pl-k">function</span>(<span class="pl-v">err</span>, <span class="pl-v">response</span>, <span class="pl-v">body</span>){
+        <span class="pl-k">if</span>(err){
+            console.error(err);
+        }<span class="pl-k">else</span>{
+            console.log(<span class="pl-s">"got historicals"</span>);
+            console.log(body);
+            <span class="pl-c">//             </span>
+            <span class="pl-c">//    { quote: 'https://api.robinhood.com/quotes/AAPL/',</span>
+            <span class="pl-c">//      symbol: 'AAPL',</span>
+            <span class="pl-c">//      interval: '5minute',</span>
+            <span class="pl-c">//      span: 'week',</span>
+            <span class="pl-c">//      bounds: 'regular',</span>
+            <span class="pl-c">//      previous_close: null,</span>
+            <span class="pl-c">//      historicals:</span>
+            <span class="pl-c">//       [ { begins_at: '2016-09-15T13:30:00Z',</span>
+            <span class="pl-c">//           open_price: '113.8300',</span>
+            <span class="pl-c">//           close_price: '114.1700',</span>
+            <span class="pl-c">//           high_price: '114.3500',</span>
+            <span class="pl-c">//           low_price: '113.5600',</span>
+            <span class="pl-c">//           volume: 3828122,</span>
+            <span class="pl-c">//           session: 'reg',</span>
+            <span class="pl-c">//           interpolated: false },</span>
+            <span class="pl-c">//         { begins_at: '2016-09-15T13:35:00Z',</span>
+            <span class="pl-c">//           open_price: '114.1600',</span>
+            <span class="pl-c">//           close_price: '114.3800',</span>
+            <span class="pl-c">//           high_price: '114.7300',</span>
+            <span class="pl-c">//           low_price: '114.1600',</span>
+            <span class="pl-c">//           volume: 2166098,</span>
+            <span class="pl-c">//           session: 'reg',</span>
+            <span class="pl-c">//           interpolated: false },</span>
+            <span class="pl-c">//         ... 290 more items</span>
+            <span class="pl-c">//      ]}</span>
+            <span class="pl-c">//</span>
+        }
+    })
+})</pre></div>
+
 <h1>
 <a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors</h1>
 
+<h2>
+<a id="alejandro-u-alvarez-aurbano" class="anchor" href="#alejandro-u-alvarez-aurbano" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alejandro U. Alvarez (<a href="https://github.com/aurbano">@aurbano</a>)</h2>
+
 <ul>
-<li>Alejandro U. Alvarez (<a href="https://github.com/aurbano">@aurbano</a>)</li>
-<li>Wei-Sheng Su (<a href="https://github.com/ted7726">@ted7726</a>)</li>
-<li>Alex Ryan (<a href="https://github.com/ialexryan">@ialexryan</a>)</li>
-<li>Dustin Moore (<a href="https://github.com/dustinmoorenet">@dustinmoorenet</a>)</li>
-<li>Ben Van Treese (<a href="https://github.com/vantreeseba">@vantreeseba</a>)</li>
-<li>Jason Truluck (<a href="https://github.com/jasontruluck">@jasontruluck</a>)</li>
+<li>Jesse Spencer (<a href="https://github.com/jspenc72">@Jspenc72</a>)</li>
 <li>Justin Keller (<a href="https://github.com/nodesocket">@nodesocket</a>)</li>
+<li>Wei-Sheng Su (<a href="https://github.com/ted7726">@ted7726</a>)</li>
+<li>Dustin Moore (<a href="https://github.com/dustinmoorenet">@dustinmoorenet</a>)</li>
+<li>Alex Ryan (<a href="https://github.com/ialexryan">@ialexryan</a>)</li>
+<li>Ben Van Treese (<a href="https://github.com/vantreeseba">@vantreeseba</a>)</li>
+<li>Zaheen (<a href="https://github.com/z123">@z123</a>)</li>
+<li>Chris Busse (<a href="https://github.com/busse">@busse</a>)</li>
+<li>Jason Truluck (<a href="https://github.com/jasontruluck">@jasontruluck</a>)</li>
 </ul>
 
 <hr>
-
-<p>This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.</p>
 
 <blockquote>
 <p>Even though this should be obvious: I am not affiliated in any way with Robinhood Financial LLC. I don't mean any harm or disruption in their service by providing this. Furthermore, I believe they are working on an amazing product, and hope that by publishing this NodeJS framework their users can benefit in even more ways from working with them.</p>
