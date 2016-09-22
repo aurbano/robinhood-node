@@ -23,9 +23,7 @@ function RobinhoodWebApi(opts, callback) {
         ach_iav_auth: 'https://api.robinhood.com/ach/iav/auth/',
         ach_relationships:  'https://api.robinhood.com/ach/relationships/',
         ach_transfers:'https://api.robinhood.com/ach/transfers/',
-
         ach_deposit_schedules: "https://api.robinhood.com/ach/deposit_schedules/",
-
         applications: 'https://api.robinhood.com/applications/',
         dividends:  'https://api.robinhood.com/dividends/',
         edocuments: 'https://api.robinhood.com/documents/',
@@ -33,9 +31,7 @@ function RobinhoodWebApi(opts, callback) {
         margin_upgrade:  'https://api.robinhood.com/margin/upgrades/',
         markets:  'https://api.robinhood.com/markets/',
         notifications:  'https://api.robinhood.com/notifications/',
-
         notifications_devices: "https://api.robinhood.com/notifications/devices/",
-
         orders: 'https://api.robinhood.com/orders/',
         cancel_order: 'https://api.robinhood.com/orders/',      //API expects https://api.robinhood.com/orders/{{orderId}}/cancel/
         password_reset: 'https://api.robinhood.com/password_reset/request/',
@@ -50,7 +46,10 @@ function RobinhoodWebApi(opts, callback) {
 
         watchlists: 'https://api.robinhood.com/watchlists/',
         positions: 'https://api.robinhood.com/positions/',
-        fundamentals: 'https://api.robinhood.com/fundamentals/'
+        fundamentals: 'https://api.robinhood.com/fundamentals/',
+        sp500_up: 'https://api.robinhood.com/midlands/movers/sp500/?direction=up',
+        sp500_down: 'https://api.robinhood.com/midlands/movers/sp500/?direction=down',  
+        news: 'https://api.robinhood.com/midlands/news/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -150,6 +149,7 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.quote_data = function(symbol, callback){
+    symbol = Array.isArray(symbol) ? symbol = symbol.join(',') : symbol;
     return _request.get({
         uri: _endpoints.quotes,
         qs: { 'symbols': symbol.toUpperCase() }
@@ -186,9 +186,9 @@ function RobinhoodWebApi(opts, callback) {
         uri: order.cancel
       }, callback);      
     }else{
-      callback({message: "Order cannot be cancelled.", order: order }, null, null);
-    }
-  };
+      callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
+    };
+  }
 
   var _place_order = function(options, callback){
     return _request.post({
@@ -222,6 +222,57 @@ function RobinhoodWebApi(opts, callback) {
     return _request.get({
       uri: _endpoints.positions
     }, callback);
+  };
+
+  api.news = function(symbol, callback){
+    return _request.get({
+      uri: [_endpoints.news,'/'].join(symbol)
+    }, callback);
+  };  
+
+  api.markets = function(callback){
+    return _request.get({
+      uri: _endpoints.markets
+    }, callback);
+  };
+
+  api.sp500_up = function(callback){
+    return _request.get({
+      uri: _endpoints.sp500_up
+    }, callback);
+  };
+  
+  api.sp500_down = function(callback){
+    return _request.get({
+      uri: _endpoints.sp500_down
+    }, callback);
+  };
+
+  api.create_watch_list = function(name, callback){
+    return _request.post({
+        uri: _endpoints.watchlists,
+        form: {
+          name: name
+        }
+      }, callback);
+  };
+
+  api.watchlists = function(callback){
+    return _request.get({
+        uri: _endpoints.watchlists
+      }, callback);
+  };
+
+  api.splits = function(instrument, callback){
+    return _request.get({
+        uri: [_endpoints.instruments,'/splits/'].join(instrument)
+      }, callback);
+  };
+
+  api.historicals = function(symbol, intv, span, callback){
+    return _request.get({
+        uri: [_endpoints.quotes + 'historicals/','/?interval='+intv+'&span='+span].join(symbol)
+      }, callback);
   };
 
   _init(_options);
