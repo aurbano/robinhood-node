@@ -48,7 +48,7 @@ function RobinhoodWebApi(opts, callback) {
         positions: 'https://api.robinhood.com/positions/',
         fundamentals: 'https://api.robinhood.com/fundamentals/',
         sp500_up: 'https://api.robinhood.com/midlands/movers/sp500/?direction=up',
-        sp500_down: 'https://api.robinhood.com/midlands/movers/sp500/?direction=down',  
+        sp500_down: 'https://api.robinhood.com/midlands/movers/sp500/?direction=down',
         news: 'https://api.robinhood.com/midlands/news/'
     },
     _isInit = false,
@@ -184,7 +184,7 @@ function RobinhoodWebApi(opts, callback) {
     if(order.cancel){
       return _request.post({
         uri: order.cancel
-      }, callback);      
+      }, callback);
     }else{
       callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
     };
@@ -228,7 +228,7 @@ function RobinhoodWebApi(opts, callback) {
     return _request.get({
       uri: [_endpoints.news,'/'].join(symbol)
     }, callback);
-  };  
+  };
 
   api.markets = function(callback){
     return _request.get({
@@ -241,7 +241,7 @@ function RobinhoodWebApi(opts, callback) {
       uri: _endpoints.sp500_up
     }, callback);
   };
-  
+
   api.sp500_down = function(callback){
     return _request.get({
       uri: _endpoints.sp500_down
