@@ -1,14 +1,14 @@
 {
-  "name": "robinhood",
-  "version": "0.3.1",
-  "description": "NodeJS API wrapper for the private Robinhood API",
+  "name": "robinhood2",
+  "version": "2.0.1",
+  "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
   "main": "src/robinhood.js",
   "scripts": {
     "test": "mocha test --recursive"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aurbano/Robinhood-Node.git"
+    "url": "https://github.com/jspenc72/robinhood-node.git"
   },
   "keywords": [
     "robinhood",
@@ -16,12 +16,16 @@
     "api",
     "stock"
   ],
-  "author": "Alejandro U. Alvarez",
+  "author": { 
+    "name" : "Jesse Spencer", 
+    "email" : "jesse@cindt.com", 
+    "url" : "https://github.com/jspenc72"
+  },
   "license": "AGPLv3",
   "bugs": {
-    "url": "https://github.com/aurbano/Robinhood-Node/issues"
+    "url": "https://github.com/jspenc72/robinhood-node/issues"
   },
-  "homepage": "https://github.com/aurbano/Robinhood-Node",
+  "homepage": "https://github.com/jspenc72/robinhood-node",
   "devDependencies": {
     "mocha": "^2.0.1",
     "should": "^4.3.0"
