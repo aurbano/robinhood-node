@@ -590,7 +590,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 # Contributors
 
-*** Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
+*** Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano)) 
 ------------------
 * Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
 * Justin Keller ([@nodesocket](https://github.com/nodesocket))
@@ -602,9 +602,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 * Chris Busse ([@busse](https://github.com/busse))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 
-
 ------------------
-This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
 
 >Even though this should be obvious: I am not affiliated in any way with Robinhood Financial LLC. I don't mean any harm or disruption in their service by providing this. Furthermore, I believe they are working on an amazing product, and hope that by publishing this NodeJS framework their users can benefit in even more ways from working with them.
 
