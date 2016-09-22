@@ -7,17 +7,15 @@
 NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered. See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b) for more information on the API.
 
 FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf)
-
-> This framework is based on a less active javascript framework  that was originally based on a deprecated Python framework originally developed by [@Rohanpai](https://github.com/rohanpai).
+> This framework is based on a less active javascript framework created by [@aurbano](https://github.com/aurbano) that was originally based on a deprecated Python framework originally developed by [@Rohanpai](https://github.com/rohanpai).
 
 ## Features
-* Quote Date
+* Quote Data
 * Buy, Sell Orders
 * Daily Fundamentals
 * Daily, Weekly, Monthly Historicals
 
 ## Installation
-
 ```bash
 $ npm install robinhood2 --save
 ```
