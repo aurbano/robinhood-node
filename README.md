@@ -17,7 +17,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
 
 ## Installation
 ```bash
-$ npm install robinhood2 --save
+$ npm install robinhood --save
 ```
 
 ## Usage
