@@ -166,7 +166,6 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `accounts(callback)`
 
 ```typescript
-// Quote Data
 var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.accounts(function(err, response, body){
         if(err){
@@ -218,7 +217,7 @@ var Robinhood = require('robinhood')(credentials, function(){
         if(err){
             console.error(err);
         }else{
-            console.log("accounts");
+            console.log("user");
             console.log(body);
         }
     })
@@ -260,8 +259,6 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `place_buy_order(options, callback)`
 
 Place a buy order on a specified stock.
-
-Options must contain:
 
 ```js
 var Robinhood = require('robinhood')(credentials, function(){
@@ -314,8 +311,6 @@ Values can be:
 ### `place_sell_order(options, callback)`
 
 Place a sell order on a specified stock.
-
-Options must contain:
 
 ```js
 
@@ -596,6 +591,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 # Contributors
 
 *** Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
+------------------
 * Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
 * Justin Keller ([@nodesocket](https://github.com/nodesocket))
 * Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
@@ -605,6 +601,8 @@ var Robinhood = require('robinhood')(credentials, function(){
 * Zaheen ([@z123](https://github.com/z123))
 * Chris Busse ([@busse](https://github.com/busse))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+
+
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
 
