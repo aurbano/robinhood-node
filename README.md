@@ -30,13 +30,16 @@ $ npm install --save robinhood
 ## Usage
 
 ```js
+//The username and password you use to sign into the robinhood app.
 
-var credentials = {
-    username: '', 
+var credentials = { 
+    username: '',
     password: ''
 };
 
 var Robinhood = require('robinhood')(credentials, function(){
+
+    //Robinhood is connected and you may begin sending commands to the api.
 
     Robinhood(null).quote_data('GOOG', function(error, response, body) {
         if (error) {
@@ -532,6 +535,8 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `splits(instrument, callback)`
 
 ```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+
     Robinhood.splits("7a3a677d-1664-44a0-a94b-3bb3d64f9e20", function(err, response, body){
         if(err){
             console.error(err);
@@ -540,10 +545,14 @@ var Robinhood = require('robinhood')(credentials, function(){
             console.log(body);   //{ previous: null, results: [], next: null }
         }
     })
+})
 ```
+
 ### `historicals(symbol, intv, span, callback)`    
 
 ```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+
     //{interval=5minute|10minute (required) span=week|day| }
 
     Robinhood.historicals("AAPL", '5minute', 'week', function(err, response, body){
@@ -581,21 +590,21 @@ var Robinhood = require('robinhood')(credentials, function(){
             //
         }
     })
-
+})
 ```
 
 # Contributors
 
-* Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
-* Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
-* Alex Ryan ([@ialexryan](https://github.com/ialexryan))
-* Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
-* Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
-* Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
-* Justin Keller ([@nodesocket](https://github.com/nodesocket))
-* Chris Busse ([@busse](https://github.com/busse))
+*** Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
-
+* Justin Keller ([@nodesocket](https://github.com/nodesocket))
+* Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
+* Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
+* Alex Ryan ([@ialexryan](https://github.com/ialexryan))
+* Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
+* Zaheen ([@z123](https://github.com/z123))
+* Chris Busse ([@busse](https://github.com/busse))
+* Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 ------------------
 This framework is still in a very alpha version and will likely change, so production usage is completely discouraged.
 
