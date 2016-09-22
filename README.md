@@ -49,8 +49,6 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 Before using these methods, make sure you have initialized Robinhood using the snippet above.
 
-*Feel free to send a pull request expanding this with examples or info about the return objects*
-
 ### `investment_profile(callback)`
 Get the current user's investment profile.
 
