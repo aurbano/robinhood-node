@@ -36,6 +36,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`sp500_down(callback)`](#sp500-downcallback)
     * [`splits(instrument, callback)`](#splitsinstrument-callback)
     * [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
+    * [`url(url, callback)`](#url-url-callback)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
@@ -608,6 +609,16 @@ var Robinhood = require('robinhood')(credentials, function(){
     })
 })
 ```
+
+### `url(url, callback)`
+
+`url` is used to get continued or paginated data from the API. Queries with long results return a reference to the next sete. Example -
+
+```
+next: 'https://api.robinhood.com/orders/?cursor=cD0yMD82LTA0LTAzKzkwJVNCNTclM0ExNC45MzYyKDYlMkIwoCUzqtAW' }
+```
+
+The url returned can be passed to the `url` method to continue getting the next set of results.
 
 # Contributors
 
