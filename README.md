@@ -36,7 +36,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`sp500_down(callback)`](#sp500-downcallback)
     * [`splits(instrument, callback)`](#splitsinstrument-callback)
     * [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
-    * [`url(url, callback)`](#url-url-callback)
+    * [`url(url, callback)`](#urlurl-callback)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
