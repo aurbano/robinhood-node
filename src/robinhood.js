@@ -277,6 +277,12 @@ function RobinhoodWebApi(opts, callback) {
         uri: _apiUrl + [_endpoints.quotes + 'historicals/','/?interval='+intv+'&span='+span].join(symbol)
       }, callback);
   };
+  
+  api.url = function (url,callback){
+    return _request.get({
+      uri:url
+    },callback);
+  };
 
   _init(_options);
 
