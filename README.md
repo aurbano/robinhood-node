@@ -636,6 +636,13 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 
 ------------------
 
+# Related Projects
+
+* [robinhood-ruby](https://github.com/rememberlenny/robinhood-ruby) - RubyGem for interacting with Robinhood API
+* [robinhood Python](https://github.com/Jamonek/Robinhood) - Python Framework to make trades with Robinhood Private API
+
+------------------
+
 >Even though this should be obvious: I am not affiliated in any way with Robinhood Financial LLC. I don't mean any harm or disruption in their service by providing this. Furthermore, I believe they are working on an amazing product, and hope that by publishing this NodeJS framework their users can benefit in even more ways from working with them.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-3181088-16/robinhood/readme)](https://github.com/aurbano)
