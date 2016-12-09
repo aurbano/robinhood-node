@@ -4,86 +4,73 @@
  * @license AGPLv3 - See LICENSE file for more details
  */
 
-var should = require('should');
+var test = require('ava');
 var Robinhood = require('../src/robinhood');
 
 var TEST_SYMBOL = 'GOOG';
 
-describe('Robinhood API', function() {
-    it('Should get ' + TEST_SYMBOL + ' quote', function(done) {
-        Robinhood(null).quote_data(TEST_SYMBOL, function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should get ' + TEST_SYMBOL + ' quote', function(t) {
+    Robinhood(null).quote_data(TEST_SYMBOL, function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body.results[0].symbol).be.equal(TEST_SYMBOL);
-            done();
-        });
+        t.is(body.results[0].symbol, TEST_SYMBOL);
     });
+});
 
-    it('Should get markets', function(done) {
-        Robinhood(null).markets(function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should get markets', function(t) {
+    Robinhood(null).markets(function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body.results.length).be.above(0);
-
-            done();
-        });
+        t.true(body.results.length > 0);
     });
+});
 
-    it('Should get news about ' + TEST_SYMBOL, function(done) {
-        Robinhood(null).news(TEST_SYMBOL, function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should get news about ' + TEST_SYMBOL, function(t) {
+    Robinhood(null).news(TEST_SYMBOL, function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body.results.length).be.above(0);
-
-            done();
-        });
+        t.true(body.results.length > 0);
     });
+});
 
-    it('Should get data for the SP500 index up', function(done) {
-        Robinhood(null).sp500_up(function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should get data for the SP500 index up', function(t) {
+    Robinhood(null).sp500_up(function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body.results.length).be.above(0);
-
-            done();
-        });
+        t.true(body.results.length > 0);
     });
+});
 
-    it('Should get data for the SP500 index down', function(done) {
-        Robinhood(null).sp500_down(function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should get data for the SP500 index down', function(t) {
+    Robinhood(null).sp500_down(function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body.results.length).be.above(0);
-
-            done();
-        });
+        t.true(body.results.length > 0);
     });
+});
 
-    it('Should not get positions without login', function(done) {
-        Robinhood(null).positions(function(err, response, body) {
-            if(err) {
-                done(err);
-                return;
-            }
+test('Should not get positions without login', function(t) {
+    Robinhood(null).positions(function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
 
-            should(body).have.property('detail');
-
-            done();
-        });
+        t.true(body.detail);
     });
 });
