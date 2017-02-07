@@ -186,7 +186,7 @@ function RobinhoodWebApi(opts, callback) {
   api.cancel_order = function(order, callback){
     if(order.cancel){
       return _request.post({
-        uri: _apiUrl + order.cancel
+        uri: order.cancel
       }, callback);
     }else{
       callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
