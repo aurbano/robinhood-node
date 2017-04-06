@@ -83,5 +83,5 @@ test('Should not get nonzero positions without credentials', function(t){
         }
 
         t.true(body.detail);
-    })
-})
+    });
+});
