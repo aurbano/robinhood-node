@@ -74,3 +74,14 @@ test('Should not get positions without login', function(t) {
         t.true(body.detail);
     });
 });
+
+test('Should not get nonzero positions without credentials', function(t){
+    Robinhood(null).nonzero_positions(function(err,response,body) {
+        if(err) {
+            done(err);
+            return;
+        }
+
+        t.true(body.detail);
+    })
+})
