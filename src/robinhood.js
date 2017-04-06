@@ -229,7 +229,7 @@ function RobinhoodWebApi(opts, callback) {
 
   api.nonzero_positions = function(callback){
     return _request.get({
-      uri: _endpoints.positions,
+      uri: _apiUrl + _endpoints.positions,
       qs: {nonzero: true}
     }, callback);
   };
