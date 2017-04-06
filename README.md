@@ -22,6 +22,8 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`user(callback)`](#usercallback)
     * [`dividends(callback)`](#dividendscallback)
     * [`orders(callback)`](#orderscallback)
+    * [`positions(callback)`](#positionscallback)
+    * [`nonzero_positions(callback)`](#nonzero-positions-callback)
     * [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
       * [`trigger`](#trigger)
       * [`time`](#time)
@@ -279,6 +281,39 @@ var Robinhood = require('robinhood')(credentials, function(){
     })
 });
 ```
+
+### `positions(callback)`
+
+Get the user's position information.
+```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.positions(function(err, response, body){
+        if (err){
+            console.erro(err);
+        }else{
+            console.log("positions");
+            console.log(body);
+        }
+    });
+});
+```
+
+### `nonzero_positions(callback)`
+
+Get the user's nonzero position information only.
+```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.nonzero_positions(function(err, response, body){
+        if (err){
+            console.erro(err);
+        }else{
+            console.log("positions");
+            console.log(body);
+        }
+    });
+});
+```
+
 ### `place_buy_order(options, callback)`
 
 Place a buy order on a specified stock.
