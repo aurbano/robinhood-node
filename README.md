@@ -23,7 +23,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`dividends(callback)`](#dividendscallback)
     * [`orders(callback)`](#orderscallback)
     * [`positions(callback)`](#positionscallback)
-    * [`nonzero_positions(callback)`](#nonzero-positions-callback)
+    * [`nonzero_positions(callback)`](#nonzero_positionscallback)
     * [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
       * [`trigger`](#trigger)
       * [`time`](#time)
