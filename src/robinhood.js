@@ -227,6 +227,13 @@ function RobinhoodWebApi(opts, callback) {
     }, callback);
   };
 
+  api.nonzero_positions = function(callback){
+    return _request.get({
+      uri: _apiUrl + _endpoints.positions,
+      qs: {nonzero: true}
+    }, callback);
+  };
+
   api.news = function(symbol, callback){
     return _request.get({
       uri: _apiUrl + [_endpoints.news,'/'].join(symbol)
