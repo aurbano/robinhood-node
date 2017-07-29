@@ -15,7 +15,8 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
   * [Installation](#installation)
   * [Usage](#usage)
   * [API](#api)
-    * [`investment_profile(callback)`](#investment-profilecallback)
+    * [`auth_token()`](#auth_token)
+    * [`investment_profile(callback)`](#investment_profilecallback)
     * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
     * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
     * [`accounts(callback)`](#accountscallback)
@@ -56,6 +57,9 @@ $ npm install robinhood --save
 
 ## Usage
 
+To authenticate, you can either use your username and password to the Robinhood app or a previously authenticated Robinhood api token:
+
+### Username & Password
 ```js
 //The username and password you use to sign into the robinhood app.
 
@@ -63,7 +67,18 @@ var credentials = {
     username: '',
     password: ''
 };
+```
 
+### Robinhood API Auth Token
+```js
+//A previously authenticated Robinhood API auth token
+
+var credentials = {
+    token: ''
+};
+```
+
+```js
 var Robinhood = require('robinhood')(credentials, function(){
 
     //Robinhood is connected and you may begin sending commands to the api.
@@ -82,6 +97,17 @@ var Robinhood = require('robinhood')(credentials, function(){
 ## API
 
 Before using these methods, make sure you have initialized Robinhood using the snippet above.
+
+### `auth_token()`
+Get the current authenticated Robinhood api authentication token
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function(){
+    console.log(Robinhood.auth_token());
+        //      <authenticated alphanumeric token>
+}
+```
 
 ### `investment_profile(callback)`
 Get the current user's investment profile.
