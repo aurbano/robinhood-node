@@ -9,6 +9,7 @@
 // Dependencies
 var request = require('request');
 var Promise = require('promise');
+var _ = require('lodash');
 
 function RobinhoodWebApi(opts, callback) {
 
@@ -67,8 +68,9 @@ function RobinhoodWebApi(opts, callback) {
     api = {};
 
   function _init(){
-    _private.username = _options.username;
-    _private.password = _options.password;
+    _private.username = _.has(_options, 'username') ? _options.username : null;
+    _private.password = _.has(_options, 'password') ? _options.password : null;
+    _private.auth_token = _.has(_options, 'token') ? _options.token : null;
     _private.headers = {
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate',
@@ -79,13 +81,23 @@ function RobinhoodWebApi(opts, callback) {
         'User-Agent': 'Robinhood/823 (iPhone; iOS 7.1.2; Scale/2.00)'
     };
     _setHeaders();
-    _login(function(){
-      _isInit = true;
+    if (!_private.auth_token) {
+      _login(function(){
+        _isInit = true;
 
-      if (callback) {
+        if (callback) {
+          callback.call();
+        }
+      });
+    } else {
+      _build_auth_header(_private.auth_token);
+      _setHeaders();
+      _set_account().then(function() {
         callback.call();
-      }
-    });
+      }).catch(function(err) {
+        throw (err);
+      });
+    }
   }
 
   function _setHeaders(){
@@ -109,28 +121,45 @@ function RobinhoodWebApi(opts, callback) {
       }
 
       _private.auth_token = body.token;
-      _private.headers.Authorization = 'Token ' + _private.auth_token;
+      _build_auth_header(_private.auth_token);
 
       _setHeaders();
 
       // Set account
+      _set_account().then(function() {
+        callback.call();
+      }).catch(function(err) {
+        throw (err);
+      })
+    });
+  }
+
+  function _set_account() {
+    return new Promise(function(resolve, reject) {
       api.accounts(function(err, httpResponse, body) {
         if (err) {
-          throw (err);
+          reject(err);
         }
 
         if (body.results) {
           _private.account = body.results[0].url;
         }
-
-        callback.call();
+        resolve();
       });
     });
+  }
+
+  function _build_auth_header(token) {
+    _private.headers.Authorization = 'Token ' + token;
   }
 
   /* +--------------------------------+ *
    * |      Define API methods        | *
    * +--------------------------------+ */
+  api.auth_token = function() {
+    return _private.auth_token;
+  };
+
   api.investment_profile = function(callback){
     return _request.get({
         uri: _apiUrl + _endpoints.investment_profile
