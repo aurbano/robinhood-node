@@ -3,6 +3,7 @@
 [![Travis](https://img.shields.io/travis/aurbano/robinhood-node.svg?style=flat-square)](https://travis-ci.org/aurbano/robinhood-node)
 [![npm](https://img.shields.io/npm/v/robinhood.svg?style=flat-square)](https://www.npmjs.com/package/robinhood)
 [![David](https://img.shields.io/david/aurbano/Robinhood-Node.svg?style=flat-square)](https://david-dm.org/aurbano/robinhood-node)
+[![npm](https://img.shields.io/npm/dm/robinhood.svg)](https://www.npmjs.com/package/robinhood)
 [![Coverage Status](https://coveralls.io/repos/github/aurbano/robinhood-node/badge.svg?branch=master)](https://coveralls.io/github/aurbano/robinhood-node?branch=master)
 
 NodeJS Framework to make trades with the private [Robinhood](https://www.robinhood.com/) API. Using this API is not encouraged, since it's not officially available and it has been reverse engineered.
