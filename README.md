@@ -716,6 +716,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Zaheen ([@z123](https://github.com/z123))
 * Chris Busse ([@busse](https://github.com/busse))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+* Matthew Herron ([@swimclan](https://github.com/swimclan))
 
 ------------------
 
