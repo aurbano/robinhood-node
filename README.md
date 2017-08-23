@@ -17,6 +17,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
   * [Usage](#usage)
   * [API](#api)
     * [`auth_token()`](#auth_token)
+    * [`expire_token(callback)`](#expire_token)
     * [`investment_profile(callback)`](#investment_profilecallback)
     * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
     * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
@@ -108,6 +109,25 @@ var Robinhood = require('robinhood')(credentials, function(){
     console.log(Robinhood.auth_token());
         //      <authenticated alphanumeric token>
 }
+```
+
+### `expire_token()`
+Expire the current authenticated Robinhood api token (logout). 
+
+> **NOTE:** After expiring a token you will need to reinstantiate the package with username & password in order to get a new token!
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.expire_token(function(err, response, body){
+        if(err){
+            console.error(err);
+        }else{
+            console.log("Successfully logged out of Robinhood and expired token.");
+            // NOTE: body is undefined on the callback
+        }
+    })
+});
 ```
 
 ### `investment_profile(callback)`

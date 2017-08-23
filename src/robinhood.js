@@ -22,6 +22,7 @@ function RobinhoodWebApi(opts, callback) {
       // Private API Endpoints
       _endpoints = {
         login:  'api-token-auth/',
+        logout: 'api-token-logout/',
         investment_profile: 'user/investment_profile/',
         accounts: 'accounts/',
         ach_iav_auth: 'ach/iav/auth/',
@@ -158,6 +159,14 @@ function RobinhoodWebApi(opts, callback) {
    * +--------------------------------+ */
   api.auth_token = function() {
     return _private.auth_token;
+  };
+
+  // Invoke robinhood logout.  Note: User will need to reintantiate
+  // this package to get a new token!
+  api.expire_token = function(callback) {
+    return _request.post({
+      uri: _apiUrl + _endpoints.logout
+    }, callback);
   };
 
   api.investment_profile = function(callback){
