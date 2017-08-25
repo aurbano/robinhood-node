@@ -1,6 +1,6 @@
 {
   "name": "robinhood",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
   "main": "src/robinhood.js",
   "scripts": {
@@ -32,6 +32,7 @@
     "lodash": "^4.17.4",
     "promise": "^7.1.1",
     "request": "^2.79.0",
-    "should": "^11.1.1"
+    "should": "^11.1.1",
+    "query-string": "^4.3.2"
   }
 }

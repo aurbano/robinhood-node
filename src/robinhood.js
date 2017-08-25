@@ -2,6 +2,7 @@
  * Robinhood API NodeJS Wrapper
  * @author Alejandro U. Alvarez
  * @license AGPLv3 - See LICENSE file for more details
+ * @version 1.1.1
  */
 
 'use strict';
@@ -10,6 +11,7 @@
 var request = require('request');
 var Promise = require('promise');
 var _ = require('lodash');
+var queryString = require('query-string');
 
 function RobinhoodWebApi(opts, callback) {
 
@@ -215,9 +217,19 @@ function RobinhoodWebApi(opts, callback) {
     }, callback);
   };
 
-  api.orders = function(callback){
+  api.orders = function(){
+    var options = {}, callback = new Function(), args = _.values(arguments);
+    args.forEach(function(arg) {
+      if (typeof arg === 'function') callback = arg;
+      if (typeof arg === 'object') options = arg;     // Keep in mind, instrument option must be the full instrument url!
+    });
+    var hasOptions = _.keys(options).length > 0;
+    if (hasOptions) {
+      options['updated_at[gte]'] = options.updated_at;
+      _.unset(options, 'updated_at');
+    }
     return _request.get({
-      uri: _apiUrl + _endpoints.orders
+      uri: _apiUrl + _endpoints.orders + (hasOptions ? '?' + queryString.stringify(options) : '')
     }, callback);
   };
 
