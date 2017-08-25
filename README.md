@@ -24,7 +24,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`accounts(callback)`](#accountscallback)
     * [`user(callback)`](#usercallback)
     * [`dividends(callback)`](#dividendscallback)
-    * [`orders(callback)`](#orderscallback)
+    * [`orders(options, callback)`](#ordersoptions-callback)
     * [`positions(callback)`](#positionscallback)
     * [`nonzero_positions(callback)`](#nonzero_positionscallback)
     * [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
@@ -313,12 +313,21 @@ var Robinhood = require('robinhood')(credentials, function(){
 ```
 
 
-### `orders(callback)`
+### `orders(options, callback)`
 
-Get the user's orders information.
+Get the user's orders information.  Send options hash (optional) to limit to specific instrument and/or earliest date of orders.
+
+```typescript
+// optional options hash.  If no hash is sent, all orders will be returned.
+let options = {
+    updated_at: '2017-08-25',
+    instrument: 'https://api.robinhood.com/instruments/df6c09dc-bb4f-4495-8c59-f13e6eb3641f/'
+}
+```
+
 ```typescript
 var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.orders(function(err, response, body){
+    Robinhood.orders(options, function(err, response, body){
         if(err){
             console.error(err);
         }else{
