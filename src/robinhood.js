@@ -2,7 +2,7 @@
  * Robinhood API NodeJS Wrapper
  * @author Alejandro U. Alvarez
  * @license AGPLv3 - See LICENSE file for more details
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 'use strict';
@@ -143,8 +143,8 @@ function RobinhoodWebApi(opts, callback) {
         if (err) {
           reject(err);
         }
-
-        if (body.results) {
+        // Being defensive when user credentials are valid but RH has not approved an account yet
+        if (body.results && body.results instanceof Array && body.results.length > 0) {
           _private.account = body.results[0].url;
         }
         resolve();
