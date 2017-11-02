@@ -52,6 +52,8 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
 * Daily Fundamentals
 * Daily, Weekly, Monthly Historicals
 
+> Tested on the latest versions of Node 6, 7 & 8.
+
 ## Installation
 ```bash
 $ npm install robinhood --save
