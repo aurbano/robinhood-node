@@ -315,7 +315,10 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `orders(options, callback)`
 
-Get the user's orders information.  Send options hash (optional) to limit to specific instrument and/or earliest date of orders.
+Get the user's orders information.  
+
+#### Retreive a set of orders
+Send options hash (optional) to limit to specific instrument and/or earliest date of orders.  
 
 ```typescript
 // optional options hash.  If no hash is sent, all orders will be returned.
@@ -332,6 +335,25 @@ var Robinhood = require('robinhood')(credentials, function(){
             console.error(err);
         }else{
             console.log("orders");
+            console.log(body);
+        }
+    })
+});
+```
+
+#### Retreive a particular order
+Send the id of the order to retreive the data for a specific order.
+```typescript
+let order_id = "string_identifier"; // e.g., id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 
+```
+
+```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.orders(order_id, function(err, response, body){
+        if(err){
+            console.error(err);
+        }else{
+            console.log("order");
             console.log(body);
         }
     })
