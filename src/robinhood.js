@@ -218,18 +218,27 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.orders = function(){
-    var options = {}, callback = new Function(), args = _.values(arguments);
+    var options = {}, callback = new Function(), args = _.values(arguments), id = null;
     args.forEach(function(arg) {
       if (typeof arg === 'function') callback = arg;
+      if (typeof arg === 'string') id = arg;
       if (typeof arg === 'object') options = arg;     // Keep in mind, instrument option must be the full instrument url!
     });
+
+    var hasId = typeof id !== "undefined";
     var hasOptions = _.keys(options).length > 0;
+
+    if(hasId && hasOptions){ // remove ambiguitiy from choosing both an id and options
+      console.warn("Warning : both id and options were defined for robinhood.orders(). Options are mutually exclusive. Defaulting to id only.");
+      hasOptions = false;
+    }
+
     if (hasOptions) {
       options['updated_at[gte]'] = options.updated_at;
       _.unset(options, 'updated_at');
     }
     return _request.get({
-      uri: _apiUrl + _endpoints.orders + (hasOptions ? '?' + queryString.stringify(options) : '')
+      uri: _apiUrl + _endpoints.orders + (hasId ? id + "/" : "") + (hasOptions ? '?' + queryString.stringify(options) : '')
     }, callback);
   };
 
@@ -334,7 +343,7 @@ function RobinhoodWebApi(opts, callback) {
         uri: _apiUrl + [_endpoints.quotes + 'historicals/','/?interval='+intv+'&span='+span].join(symbol)
       }, callback);
   };
-  
+
   api.url = function (url,callback){
     return _request.get({
       uri:url
