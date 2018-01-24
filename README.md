@@ -24,6 +24,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`accounts(callback)`](#accountscallback)
     * [`user(callback)`](#usercallback)
     * [`dividends(callback)`](#dividendscallback)
+    * [`earnings(option, callback)`](#earningsoption-callback)
     * [`orders(options, callback)`](#ordersoptions-callback)
     * [`positions(callback)`](#positionscallback)
     * [`nonzero_positions(callback)`](#nonzero_positionscallback)
@@ -308,6 +309,36 @@ var Robinhood = require('robinhood')(credentials, function(){
             console.error(err);
         }else{
             console.log("dividends");
+            console.log(body);
+        }
+    })
+});
+```
+
+### `earnings(option, callback)`
+
+Get the earnings information. Option should be one of:
+
+```typescript
+let option = { range: X } // X is an integer between 1 and 21. This returns all 
+                          // expected earnings within a number of calendar days.
+```
+OR
+```typescript
+let option = { instrument: URL } // URL is full instrument url.
+```
+OR
+```typescript
+let option = { symbol: SYMBOL } // SYMBOL is a plain ol' ticker symbol.
+```
+
+```typescript
+var Robinhood = require('robinhood')(credentials, function(){
+    Robinhood.earnings(option, function(err, response, body){
+        if(err){
+            console.error(err);
+        }else{
+            console.log("earnings");
             console.log(body);
         }
     })

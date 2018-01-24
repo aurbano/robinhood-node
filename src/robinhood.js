@@ -34,6 +34,7 @@ function RobinhoodWebApi(opts, callback) {
         applications: 'applications/',
         dividends:  'dividends/',
         edocuments: 'documents/',
+        earnings: 'marketdata/earnings/',
         instruments:  'instruments/',
         margin_upgrade:  'margin/upgrades/',
         markets:  'markets/',
@@ -214,6 +215,15 @@ function RobinhoodWebApi(opts, callback) {
   api.dividends = function(callback){
     return _request.get({
       uri: _apiUrl + _endpoints.dividends
+    }, callback);
+  };
+  
+  api.earnings = function(options, callback){
+    return _request.get({
+      uri: _apiUrl + _endpoints.earnings +
+        (options.instrument ? "?instrument="+options.instrument :
+         options.symbol ? "?symbol="+options.symbol :
+         "?range="+(options.range ? options.range : 1)+"day")
     }, callback);
   };
 
