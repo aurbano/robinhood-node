@@ -538,7 +538,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `cancel_order(order, callback)`
 
-Cancel an order
+Cancel an order with the order object
 ```typescript
 var Robinhood = require('robinhood')(credentials, function(){
     //Get list of orders
@@ -562,6 +562,24 @@ var Robinhood = require('robinhood')(credentials, function(){
             })
         }
     })
+})
+```
+
+Cancel an order by order id
+
+```typescript
+var order_id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+var Robinhood = require('robinhood')(credentials, function(){
+        Robinhood.cancel_order(order_id, function(err, response, body){
+            if(err){
+                //Error
+                console.error(err);     // { message: 'Order cannot be cancelled.', order: {Order} }
+            }else{
+                //Success
+                console.log("Cancel Order Successful");
+                console.log(body)       //{}
+            }
+        })
 })
 ```
 
