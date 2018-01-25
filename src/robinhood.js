@@ -243,13 +243,19 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.cancel_order = function(order, callback){
-    if(order.cancel){
+    var cancel_url = false;
+    if(typeof order == "string"){ // if string, the string is the id of the order
+      cancel_url = _apiUrl + _endpoints.cancel_order + order + "/cancel" //
+    }else if(order.cancel){ // if the order object was passed, we can extract the cancel url from the object
+      cancel_url = order.cancel; // note, if cancel is not posible this will return null
+    }
+    if(cancel_url){ // if we have a non null, non false url, make the request
       return _request.post({
-        uri: order.cancel
+        uri: cancel_url // use the cancel url provided by the order object
       }, callback);
-    }else{
-      callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
-    };
+    } else {
+      return callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null); // else the order is alread
+    }
   }
 
   var _place_order = function(options, callback){
