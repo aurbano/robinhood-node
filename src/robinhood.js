@@ -245,7 +245,7 @@ function RobinhoodWebApi(opts, callback) {
   api.cancel_order = function(order, callback){
     var cancel_url = false;
     if(typeof order == "string"){ // if string, the string is the id of the order
-      cancel_url = _apiUrl + _endpoints.cancel_order + order + "/cancel" //
+      cancel_url = _apiUrl + _endpoints.cancel_order + order + "/cancel/" // e.g., https://api.robinhood.com/orders/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/cancel/
     }else if(order.cancel){ // if the order object was passed, we can extract the cancel url from the object
       cancel_url = order.cancel; // note, if cancel is not posible this will return null
     }
