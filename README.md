@@ -43,6 +43,8 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`splits(instrument, callback)`](#splitsinstrument-callback)
     * [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
     * [`url(url, callback)`](#urlurl-callback)
+    * [`news(symbol, callback)`](#newssymbol-callback)
+    * [`tag(tag, callback)`](#tagtag-callback)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
@@ -735,6 +737,44 @@ next: 'https://api.robinhood.com/orders/?cursor=cD0yMD82LTA0LTAzKzkwJVNCNTclM0Ex
 ```
 
 The url returned can be passed to the `url` method to continue getting the next set of results.
+
+### `tag(tag, callback)`
+
+Retrieve Robinhood's new Tags: In 2018, Robinhood Web will expose more Social and Informational tools.
+You'll see how popular a security is with other Robinhood users, MorningStar ratings, etc.
+
+Known tags:
+
+* 10 Most Popular Instruments: `10-most-popular`
+* 100 Most Popular Instruments: `100-most-popular`
+
+Response sample:
+
+```typescript
+{
+   "slug":"10-most-popular",
+   "name":"10 Most Popular",
+   "description":"",
+   "instruments":[
+      "https://api.robinhood.com/instruments/6df56bd0-0bf2-44ab-8875-f94fd8526942/",
+      "https://api.robinhood.com/instruments/50810c35-d215-4866-9758-0ada4ac79ffa/",
+      "https://api.robinhood.com/instruments/450dfc6d-5510-4d40-abfb-f633b7d9be3e/",
+      "https://api.robinhood.com/instruments/e39ed23a-7bd1-4587-b060-71988d9ef483/",
+      "https://api.robinhood.com/instruments/1e513292-5926-4dc4-8c3d-4af6b5836704/",
+      "https://api.robinhood.com/instruments/39ff611b-84e7-425b-bfb8-6fe2a983fcf3/",
+      "https://api.robinhood.com/instruments/ebab2398-028d-4939-9f1d-13bf38f81c50/",
+      "https://api.robinhood.com/instruments/940fc3f5-1db5-4fed-b452-f3a2e4562b5f/",
+      "https://api.robinhood.com/instruments/c74a93bc-58f3-4ccb-b4e3-30c65e2f88c8/",
+      "https://api.robinhood.com/instruments/fdf46795-2a81-4506-880f-514c8010c163/"
+   ]
+}
+```
+
+### news(symbol, callback)
+
+Return news about a symbol.
+
+`Documentation lacking sample response` **Feel like contributing? :)**
 
 # Contributors
 
