@@ -226,7 +226,7 @@ function RobinhoodWebApi(opts, callback) {
       if (typeof arg === 'object') options = arg;     // Keep in mind, instrument option must be the full instrument url!
     });
 
-    var hasId = typeof id !== "undefined";
+    var hasId = typeof id !== "undefined" && id !== null;
     var hasOptions = _.keys(options).length > 0;
 
     if(hasId && hasOptions){ // remove ambiguitiy from choosing both an id and options
