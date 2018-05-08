@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/aurbano/robinhood-node/compare/v1.3.0...v1.4.0) (2018-05-08)
+
+
+### Bug Fixes
+
+* Fix orders() method: hasId became null in some cases and method failed. ([#67](https://github.com/aurbano/robinhood-node/issues/67)) ([c365ff1](https://github.com/aurbano/robinhood-node/commit/c365ff1))
+
+
+### Features
+
+* Add ability to use MFA code for logging in ([#64](https://github.com/aurbano/robinhood-node/issues/64)) ([271014d](https://github.com/aurbano/robinhood-node/commit/271014d))
+* Earnings endpoint ([#66](https://github.com/aurbano/robinhood-node/issues/66)) ([054fcac](https://github.com/aurbano/robinhood-node/commit/054fcac))
+* Enable canceling an order by id ([#69](https://github.com/aurbano/robinhood-node/issues/69)) ([bd35b58](https://github.com/aurbano/robinhood-node/commit/bd35b58))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/aurbano/robinhood-node/compare/v1.2.1...v1.3.0) (2018-05-08)
 
