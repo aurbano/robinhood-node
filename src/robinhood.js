@@ -57,7 +57,7 @@ function RobinhoodWebApi(opts, callback) {
         sp500_up: 'midlands/movers/sp500/?direction=up',
         sp500_down: 'midlands/movers/sp500/?direction=down',
         news: 'midlands/news/',
-        tag: 'midlands/tags/'
+        tag: 'midlands/tags/tag/'
     },
     _isInit = false,
     _request = request.defaults(),
@@ -302,7 +302,7 @@ function RobinhoodWebApi(opts, callback) {
   
   api.tag = function(tag, callback){
     return _request.get({
-      uri: _apiUrl + _endpoints.tag + '/' + tag
+      uri: _apiUrl + _endpoints.tag + tag
     }, callback);
   };
 
