@@ -7,7 +7,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-# Changelog
+# Old Change Log
+
+This one was generated manually, which obviously meant that it wasn't properly up to date...
+
+## 1.2.1
+
+Add `tag` and `news` methods and associated documentation.
+
 ## v0.3.1 (Mar 2, 2016)
 
 * Pulled in latest version of npm dependency `request` and pinned to version `2.69.0`
