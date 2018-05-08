@@ -1,10 +1,11 @@
 {
   "name": "robinhood",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
   "main": "src/robinhood.js",
   "scripts": {
-    "test": "nyc ava"
+    "test": "nyc ava",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -26,13 +27,14 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "coveralls": "^2.11.15",
-    "nyc": "^10.0.0"
+    "nyc": "^10.0.0",
+    "standard-version": "^4.3.0"
   },
   "dependencies": {
     "lodash": "^4.17.4",
     "promise": "^7.1.1",
+    "query-string": "^4.3.2",
     "request": "^2.79.0",
-    "should": "^11.1.1",
-    "query-string": "^4.3.2"
+    "should": "^11.1.1"
   }
 }
