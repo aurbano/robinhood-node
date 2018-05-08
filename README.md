@@ -76,6 +76,26 @@ var credentials = {
 };
 ```
 
+### MFA code
+```js
+
+var Robinhood = robinhood({
+        username : '',
+        password : ''
+    }, (data) => {
+        if (data && data.mfa_required) {
+            var mfa_code = '123456'; // set mfa_code here
+
+            Robinhood.set_mfa_code(mfa_code, () => {
+                console.log(Robinhood.auth_token());
+            });
+        }
+        else {
+            console.log(Robinhood.auth_token());
+        }
+    })
+```
+
 ### Robinhood API Auth Token
 ```js
 //A previously authenticated Robinhood API auth token
