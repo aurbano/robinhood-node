@@ -223,6 +223,21 @@ function RobinhoodWebApi(opts, callback) {
       }, callback);
   };
 
+  api.popularity = function(symbol, callback){
+    return api.quote_data(symbol, function (error, response, body) {
+        if (error) {
+            return callback(error, response, body);
+        }
+
+        // ex. https://api.robinhood.com/instruments/edf89445-db53-4f97-9de9-a599a293c63f/
+        var symbol_uuid = body.results[0].instrument.split('/')[4];
+
+        return _request.get({
+            uri: _apiUrl + _endpoints.instruments + symbol_uuid + '/popularity/',
+        }, callback);
+    });
+  };
+
   api.quote_data = function(symbol, callback){
     symbol = Array.isArray(symbol) ? symbol = symbol.join(',') : symbol;
     return _request.get({
