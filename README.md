@@ -46,6 +46,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`url(url, callback)`](#urlurl-callback)
     * [`news(symbol, callback)`](#newssymbol-callback)
     * [`tag(tag, callback)`](#tagtag-callback)
+    * [`popularity(symbol, callback)`](#popularitysymbol-callback)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
@@ -839,6 +840,28 @@ Response sample:
 }
 ```
 
+### `popularity(symbol, callback)`
+
+Get the popularity for a specified stock.
+
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.popularity('GOOG', function(error, response, body) {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(body);
+            // {
+            //    instrument: 'https://api.robinhood.com/instruments/943c5009-a0bb-4665-8cf4-a95dab5874e4/',
+            //    num_open_positions: 16319
+            // }
+        }
+    });
+});
+```
+
 ### news(symbol, callback)
 
 Return news about a symbol.
@@ -859,6 +882,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Chris Busse ([@busse](https://github.com/busse))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 * Matthew Herron ([@swimclan](https://github.com/swimclan))
+* Chris Dituri ([@cdituri](https://github.com/cdituri))
 
 ------------------
 
