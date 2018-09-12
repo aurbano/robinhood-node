@@ -70,6 +70,7 @@ function RobinhoodWebApi(opts, callback) {
       password : null,
       headers : null,
       auth_token : null,
+      refresh_token: null
     },
     api = {};
 
