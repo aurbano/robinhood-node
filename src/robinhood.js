@@ -23,8 +23,8 @@ function RobinhoodWebApi(opts, callback) {
   var _options = opts || {},
       // Private API Endpoints
       _endpoints = {
-        login:  'api-token-auth/',
-        logout: 'api-token-logout/',
+        login:  'oauth2/token/',
+        logout: 'oauth2/revoke_token/',
         investment_profile: 'user/investment_profile/',
         accounts: 'accounts/',
         ach_iav_auth: 'ach/iav/auth/',
@@ -34,7 +34,6 @@ function RobinhoodWebApi(opts, callback) {
         applications: 'applications/',
         dividends:  'dividends/',
         edocuments: 'documents/',
-        earnings: 'marketdata/earnings/',
         instruments:  'instruments/',
         margin_upgrade:  'margin/upgrades/',
         markets:  'markets/',
@@ -57,9 +56,9 @@ function RobinhoodWebApi(opts, callback) {
         fundamentals: 'fundamentals/',
         sp500_up: 'midlands/movers/sp500/?direction=up',
         sp500_down: 'midlands/movers/sp500/?direction=down',
-        news: 'midlands/news/',
-        tag: 'midlands/tags/tag/'
+        news: 'midlands/news/'
     },
+    _clientId = 'c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS',
     _isInit = false,
     _request = request.defaults(),
     _private = {
@@ -69,7 +68,7 @@ function RobinhoodWebApi(opts, callback) {
       password : null,
       headers : null,
       auth_token : null,
-      mfa_code : null
+      refresh_token: null
     },
     api = {};
 
@@ -88,16 +87,11 @@ function RobinhoodWebApi(opts, callback) {
     };
     _setHeaders();
     if (!_private.auth_token) {
-      _login(function(data){
+    _login(function(){
         _isInit = true;
 
         if (callback) {
-          if (data) {
-            callback(data);
-          }
-          else {
-            callback.call()
-          }
+          callback.call();
         }
       });
     } else {
@@ -120,44 +114,41 @@ function RobinhoodWebApi(opts, callback) {
   }
 
   function _login(callback){
-    var form = {
-          password: _private.password,
-          username: _private.username
-      };
 
-    if (_private.mfa_code) {
-      form.mfa_code = _private.mfa_code
-    }
 
     _request.post({
       uri: _apiUrl + _endpoints.login,
-      form: form
+      form: {
+         grant_type: "password",
+         scope: "internal",
+         client_id: _clientId,
+         // expires_in: 86400,
+         password: _private.password,
+         username: _private.username
+       }
     }, function(err, httpResponse, body) {
       if(err) {
         throw (err);
       }
+      if (!body.access_token) {
+           throw new Error(
+               "token not found " + JSON.stringify(httpResponse)
+           )
 
-      if (body.mfa_required && body.mfa_required === true) {
-        callback(body);
       }
-      else {
-          if (!body.token) {
-              throw new Error(
-                  "token not found " + JSON.stringify(httpResponse)
-              )
-          }
-          _private.auth_token = body.token;
-          _build_auth_header(_private.auth_token);
 
-          _setHeaders();
+        _private.auth_token = body.access_token;
+        _private.refresh_token = body.refresh_token;
+        _build_auth_header(_private.auth_token);
 
-          // Set account
-          _set_account().then(function() {
-              callback.call();
-          }).catch(function(err) {
-              throw (err);
-          })
-      }
+      _setHeaders();
+      // Set account
+      _set_account().then(function() {
+        callback.call();
+      }).catch(function(err) {
+        throw (err);
+      })
+
     });
   }
 
@@ -177,19 +168,14 @@ function RobinhoodWebApi(opts, callback) {
   }
 
   function _build_auth_header(token) {
-    _private.headers.Authorization = 'Token ' + token;
+    _private.headers.Authorization = 'Bearer ' + token;
   }
 
   /* +--------------------------------+ *
    * |      Define API methods        | *
    * +--------------------------------+ */
 
-  // Sets the mfa_code variable and initiates the login process again
-  api.set_mfa_code = function(mfa_code, callback) {
-    _private.mfa_code = mfa_code;
 
-    _login(callback);
-  };
 
   api.auth_token = function() {
     return _private.auth_token;
@@ -199,7 +185,11 @@ function RobinhoodWebApi(opts, callback) {
   // this package to get a new token!
   api.expire_token = function(callback) {
     return _request.post({
-      uri: _apiUrl + _endpoints.logout
+      uri: _apiUrl + _endpoints.logout,
+        form: {
+          client_id: _clientId,
+          token: _private.refresh_token
+        }
     }, callback);
   };
 
@@ -263,7 +253,7 @@ function RobinhoodWebApi(opts, callback) {
       uri: _apiUrl + _endpoints.dividends
     }, callback);
   };
-  
+
   api.earnings = function(options, callback){
     return _request.get({
       uri: _apiUrl + _endpoints.earnings +
@@ -274,44 +264,35 @@ function RobinhoodWebApi(opts, callback) {
   };
 
   api.orders = function(){
-    var options = {}, callback = new Function(), args = _.values(arguments), id = null;
+    var options = {}, callback = new Function(), args = _.values(arguments);
     args.forEach(function(arg) {
       if (typeof arg === 'function') callback = arg;
-      if (typeof arg === 'string') id = arg;
+
       if (typeof arg === 'object') options = arg;     // Keep in mind, instrument option must be the full instrument url!
     });
 
-    var hasId = typeof id !== "undefined" && id !== null;
+
     var hasOptions = _.keys(options).length > 0;
 
-    if(hasId && hasOptions){ // remove ambiguitiy from choosing both an id and options
-      console.warn("Warning : both id and options were defined for robinhood.orders(). Options are mutually exclusive. Defaulting to id only.");
-      hasOptions = false;
-    }
+
 
     if (hasOptions) {
       options['updated_at[gte]'] = options.updated_at;
       _.unset(options, 'updated_at');
     }
     return _request.get({
-      uri: _apiUrl + _endpoints.orders + (hasId ? id + "/" : "") + (hasOptions ? '?' + queryString.stringify(options) : '')
+      uri: _apiUrl + _endpoints.orders + (hasOptions ? '?' + queryString.stringify(options) : '')
     }, callback);
   };
 
   api.cancel_order = function(order, callback){
-    var cancel_url = false;
-    if(typeof order == "string"){ // if string, the string is the id of the order
-      cancel_url = _apiUrl + _endpoints.cancel_order + order + "/cancel/" // e.g., https://api.robinhood.com/orders/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/cancel/
-    }else if(order.cancel){ // if the order object was passed, we can extract the cancel url from the object
-      cancel_url = order.cancel; // note, if cancel is not posible this will return null
-    }
-    if(cancel_url){ // if we have a non null, non false url, make the request
+    if(order.cancel){
       return _request.post({
-        uri: cancel_url // use the cancel url provided by the order object
+        uri: order.cancel // use the cancel url provided by the order object
       }, callback);
-    } else {
-      return callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null); // else the order is alread
-    }
+    }else{
+      callback({message: order.state=="cancelled" ? "Order already cancelled." : "Order cannot be cancelled.", order: order }, null, null);
+    };
   }
 
   var _place_order = function(options, callback){
@@ -360,12 +341,8 @@ function RobinhoodWebApi(opts, callback) {
       uri: _apiUrl + [_endpoints.news,'/'].join(symbol)
     }, callback);
   };
+
   
-  api.tag = function(tag, callback){
-    return _request.get({
-      uri: _apiUrl + _endpoints.tag + tag
-    }, callback);
-  };
 
   api.markets = function(callback){
     return _request.get({
