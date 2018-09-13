@@ -342,7 +342,7 @@ function RobinhoodWebApi(opts, callback) {
     }, callback);
   };
 
-  
+
 
   api.markets = function(callback){
     return _request.get({
