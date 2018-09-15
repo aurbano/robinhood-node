@@ -23,8 +23,8 @@ function RobinhoodWebApi(opts, callback) {
   var _options = opts || {},
       // Private API Endpoints
       _endpoints = {
-        login:  'api-token-auth/',
-        logout: 'api-token-logout/',
+        login:  'oauth2/token/',
+        logout: 'oauth2/revoke_token/',
         investment_profile: 'user/investment_profile/',
         accounts: 'accounts/',
         ach_iav_auth: 'ach/iav/auth/',
@@ -60,6 +60,7 @@ function RobinhoodWebApi(opts, callback) {
         news: 'midlands/news/',
         tag: 'midlands/tags/tag/'
     },
+    _clientId = 'c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS',
     _isInit = false,
     _request = request.defaults(),
     _private = {
@@ -69,7 +70,7 @@ function RobinhoodWebApi(opts, callback) {
       password : null,
       headers : null,
       auth_token : null,
-      mfa_code : null
+      refresh_token: null
     },
     api = {};
 
@@ -120,44 +121,39 @@ function RobinhoodWebApi(opts, callback) {
   }
 
   function _login(callback){
-    var form = {
-          password: _private.password,
-          username: _private.username
-      };
-
-    if (_private.mfa_code) {
-      form.mfa_code = _private.mfa_code
-    }
 
     _request.post({
       uri: _apiUrl + _endpoints.login,
-      form: form
+      form: {
+        grant_type: "password",
+        scope: "internal",
+        client_id: _clientId,
+        // expires_in: 86400,
+        password: _private.password,
+        username: _private.username
+      }
     }, function(err, httpResponse, body) {
       if(err) {
         throw (err);
       }
 
-      if (body.mfa_required && body.mfa_required === true) {
-        callback(body);
+      if (!body.access_token) {
+          throw new Error(
+              "token not found " + JSON.stringify(httpResponse)
+          )
       }
-      else {
-          if (!body.token) {
-              throw new Error(
-                  "token not found " + JSON.stringify(httpResponse)
-              )
-          }
-          _private.auth_token = body.token;
-          _build_auth_header(_private.auth_token);
+      _private.auth_token = body.access_token;
+      _private.refresh_token = body.refresh_token;
+      _build_auth_header(_private.auth_token);
 
-          _setHeaders();
+      _setHeaders();
 
-          // Set account
-          _set_account().then(function() {
-              callback.call();
-          }).catch(function(err) {
-              throw (err);
-          })
-      }
+      // Set account
+      _set_account().then(function() {
+          callback.call();
+      }).catch(function(err) {
+          throw (err);
+      })
     });
   }
 
@@ -177,19 +173,12 @@ function RobinhoodWebApi(opts, callback) {
   }
 
   function _build_auth_header(token) {
-    _private.headers.Authorization = 'Token ' + token;
+    _private.headers.Authorization = 'Bearer ' + token;
   }
 
   /* +--------------------------------+ *
    * |      Define API methods        | *
    * +--------------------------------+ */
-
-  // Sets the mfa_code variable and initiates the login process again
-  api.set_mfa_code = function(mfa_code, callback) {
-    _private.mfa_code = mfa_code;
-
-    _login(callback);
-  };
 
   api.auth_token = function() {
     return _private.auth_token;
@@ -199,7 +188,11 @@ function RobinhoodWebApi(opts, callback) {
   // this package to get a new token!
   api.expire_token = function(callback) {
     return _request.post({
-      uri: _apiUrl + _endpoints.logout
+      uri: _apiUrl + _endpoints.logout,
+      form: {
+        client_id: _clientId,
+        token: _private.refresh_token
+      }
     }, callback);
   };
 
