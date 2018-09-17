@@ -5,7 +5,7 @@
   "main": "src/robinhood.js",
   "typings": "robinhood.d.ts",
   "scripts": {
-    "test": "nyc ava && typescript",
+    "test": "nyc ava && npm run typescript",
     "typescript": "tsc --project test/types/tsconfig.json",
     "release": "standard-version"
   },
