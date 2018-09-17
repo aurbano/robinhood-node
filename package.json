@@ -3,8 +3,10 @@
   "version": "1.5.1",
   "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
   "main": "src/robinhood.js",
+  "typings": "robinhood.d.ts",
   "scripts": {
-    "test": "nyc ava",
+    "test": "nyc ava && typescript",
+    "typescript": "tsc --project test/types/tsconfig.json",
     "release": "standard-version"
   },
   "repository": {
@@ -28,9 +30,11 @@
     "ava": "^0.17.0",
     "coveralls": "^2.11.15",
     "nyc": "^10.0.0",
-    "standard-version": "^4.3.0"
+    "standard-version": "^4.3.0",
+    "typescript": "~3.0.3"
   },
   "dependencies": {
+    "@types/request": "~2.47.1",
     "lodash": "^4.17.4",
     "promise": "^7.1.1",
     "query-string": "^4.3.2",
