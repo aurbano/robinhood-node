@@ -36,10 +36,4 @@ const onLoginSuccess  = () => {
 const api = robinhood({
   username,
   password
-}, (initResponse) => {
-  if (initResponse && initResponse.mfa_required) {
-    api.set_mfa_code(mfaCode, onLoginSuccess);
-  } else {
-    onLoginSuccess()
-  }
-})
+}, onLoginSuccess)

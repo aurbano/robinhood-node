@@ -43,47 +43,47 @@ declare namespace robinhood {
     }
   }
 
-  type TagType = TagTypes
-  type OrderType = OrderTypes
-  type IntervalType = IntervalTypes
-  type SpanType = SpanTypes
-  type TriggerType = TriggerTypes
-  type TimeInForceType = TimeInForceTypes
-  type InitCallback = (data?: Options.InitResponse) => void
+  export type TagType = TagTypes
+  export type OrderType = OrderTypes
+  export type IntervalType = IntervalTypes
+  export type SpanType = SpanTypes
+  export type TriggerType = TriggerTypes
+  export type TimeInForceType = TimeInForceTypes
+  export type InitCallback = (data?: Options.InitResponse) => void
 
-  enum TagTypes {
+  export enum TagTypes {
     TopTen = '10-most-popular',
     TopOneHundred = '100-most-popular'
   }
 
-  enum TimeInForceTypes {
+  export enum TriggerTypes {
     Immediate = 'immediate',
     Day = 'day'
   }
 
-  enum TriggerTypes {
+  export enum TimeInForceTypes {
     GoodForDay = 'gfd',
     GoodTillCancelled = 'gtc',
     OrderCancelsOther = 'oco'
   }
 
-  enum OrderTypes {
+  export enum OrderTypes {
     Limit = 'limit',
     Market = 'market'
   }
 
-  enum IntervalTypes {
+  export enum IntervalTypes {
     FiveMinute = '5minute',
     TenMinute = '10minute'
   }
 
-  enum SpanTypes {
+  export enum SpanTypes {
     Week = 'week',
     Day = 'day'
   }
 
 
-  interface RobinhoodWebApi {
+  export interface RobinhoodWebApi {
     /**
      * Revokes the current token for this session.
      * @param callback
@@ -100,13 +100,6 @@ declare namespace robinhood {
      * @param callback
      */
     investment_profile (callback: request.RequestCallback): void
-
-    /**
-     * Set the MFA code for the user if required.
-     * @param code
-     * @param callback
-     */
-    set_mfa_code (code: string, callback: InitCallback): void
 
     /**
      * Return all instruments, or those for a given symbol.
@@ -220,7 +213,7 @@ declare namespace robinhood {
     dividends (callback: request.RequestCallback): void
 
     /**
-     *
+     * Fetch splits for the given instrument.
      * @param instrument
      * @param callback
      */
