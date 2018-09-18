@@ -5,10 +5,6 @@ declare function robinhood(options: robinhood.Options.WebApiOpts, callback: robi
 declare namespace robinhood {
 
   export namespace Options {
-    interface InitResponse {
-      mfa_required: boolean
-    }
-
     interface WebApiOpts {
       username?: string
       password?: string
@@ -49,7 +45,7 @@ declare namespace robinhood {
   export type SpanType = SpanTypes
   export type TriggerType = TriggerTypes
   export type TimeInForceType = TimeInForceTypes
-  export type InitCallback = (data?: Options.InitResponse) => void
+  export type InitCallback = () => void
 
   export enum TagTypes {
     TopTen = '10-most-popular',
