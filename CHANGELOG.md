@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/aurbano/robinhood-node/compare/v1.5.3...v1.6.0) (2018-09-19)
+
+
+### Features
+
+* add typescript support via typings file ([#83](https://github.com/aurbano/robinhood-node/issues/83)) ([344dbfb](https://github.com/aurbano/robinhood-node/commit/344dbfb))
+
+
+
 <a name="1.5.3"></a>
 ## [1.5.3](https://github.com/aurbano/robinhood-node/compare/v1.5.2...v1.5.3) (2018-09-17)
 
