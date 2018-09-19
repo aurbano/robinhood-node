@@ -69,36 +69,6 @@ $ npm install robinhood --save
 
 To authenticate, you can either use your username and password to the Robinhood app or a previously authenticated Robinhood api token:
 
-### Username & Password
-```js
-//The username and password you use to sign into the robinhood app.
-
-var credentials = {
-    username: '',
-    password: ''
-};
-```
-
-### MFA code
-```js
-
-var Robinhood = robinhood({
-        username : '',
-        password : ''
-    }, (data) => {
-        if (data && data.mfa_required) {
-            var mfa_code = '123456'; // set mfa_code here
-
-            Robinhood.set_mfa_code(mfa_code, () => {
-                console.log(Robinhood.auth_token());
-            });
-        }
-        else {
-            console.log(Robinhood.auth_token());
-        }
-    })
-```
-
 ### Robinhood API Auth Token
 ```js
 //A previously authenticated Robinhood API auth token
@@ -123,6 +93,45 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 });
 ```
+
+### Username & Password
+
+This type of login may have been deprecated in favor of the API Token above.
+
+```js
+//The username and password you use to sign into the robinhood app.
+
+var credentials = {
+    username: '',
+    password: ''
+};
+```
+
+### MFA code
+
+Since the addition of the API Auth Token login, MFA may not work anymore. If you have any information regarding
+this please open an issue to discuss it.
+
+```js
+
+var Robinhood = robinhood({
+        username : '',
+        password : ''
+    }, (data) => {
+        if (data && data.mfa_required) {
+            var mfa_code = '123456'; // set mfa_code here
+
+            Robinhood.set_mfa_code(mfa_code, () => {
+                console.log(Robinhood.auth_token());
+            });
+        }
+        else {
+            console.log(Robinhood.auth_token());
+        }
+    })
+```
+
+
 
 ## API
 
@@ -885,6 +894,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
 * Matthew Herron ([@swimclan](https://github.com/swimclan))
 * Chris Dituri ([@cdituri](https://github.com/cdituri))
+* John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
 
 ------------------
 
