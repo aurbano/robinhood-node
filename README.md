@@ -942,6 +942,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Matthew Herron ([@swimclan](https://github.com/swimclan))
 * Chris Dituri ([@cdituri](https://github.com/cdituri))
 * John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
+* Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
 
 ------------------
 
