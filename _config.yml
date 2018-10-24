@@ -1,0 +1,8 @@
+title: Robinhood Node
+description: NodeJS API wrapper for the private Robinhood API
+google_analytics: UA-3181088-4
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
