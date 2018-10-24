@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/aurbano/robinhood-node/compare/v1.6.0...v1.6.1) (2018-10-24)
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/aurbano/robinhood-node/compare/v1.5.3...v1.6.0) (2018-09-19)
 
