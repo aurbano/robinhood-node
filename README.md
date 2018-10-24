@@ -49,6 +49,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`news(symbol, callback)`](#newssymbol-callback)
     * [`tag(tag, callback)`](#tagtag-callback)
     * [`popularity(symbol, callback)`](#popularitysymbol-callback)
+    * [`options_positions`](#options_positions)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
@@ -873,6 +874,52 @@ var Robinhood = require('robinhood')(credentials, function() {
 });
 ```
 
+### `options_positions`
+
+Obtain list of options positions
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.options_positions((err, response, body) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(body);
+        }
+    });
+});
+
+// {
+//   "created_at": "2018-10-12T17:05:18.195533Z",
+//   "direction": "credit",
+//   "intraday_quantity": "35.0000",
+//   "average_open_price": "56.5143",
+//   "chain": "https://api.robinhood.com/options/chains/103ce21e-4921-47ed-a263-e05d2d3d5e99/",
+//   "updated_at": "2018-10-12T19:11:02.984831Z",
+//   "symbol": "XLF",
+//   "trade_value_multiplier": "100.0000",
+//   "intraday_direction": "credit",
+//   "strategy": "short_put",
+//   "intraday_average_open_price": "56.5143",
+//   "legs": [
+//     {
+//       "strike_price": "26.5000",
+//       "option": "https://api.robinhood.com/options/instruments/fa512b6e-c121-4ff4-b8aa-9aa2974514b7/",
+//       "expiration_date": "2018-10-19",
+//       "option_type": "put",
+//       "id": "214e0f90-4416-427a-b119-e1a96d8e9da7",
+//       "position_type": "short",
+//       "position": "https://api.robinhood.com/options/positions/e18fda89-6ff2-443f-af71-cd780e558049/",
+//       "ratio_quantity": 1
+//     }
+//   ],
+//   "id": "e4e6cabe-2328-42f3-b4d9-d78da695d2ec",
+//   "quantity": "35.0000"
+// }
+
+```
+
 ### news(symbol, callback)
 
 Return news about a symbol.
@@ -895,6 +942,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Matthew Herron ([@swimclan](https://github.com/swimclan))
 * Chris Dituri ([@cdituri](https://github.com/cdituri))
 * John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
+* Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
 
 ------------------
 
