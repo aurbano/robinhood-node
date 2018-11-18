@@ -150,7 +150,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 ```
 
 ### `expire_token()`
-Expire the current authenticated Robinhood api token (logout). 
+Expire the current authenticated Robinhood api token (logout).
 
 > **NOTE:** After expiring a token you will need to reinstantiate the package with username & password in order to get a new token!
 
@@ -355,7 +355,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 Get the earnings information. Option should be one of:
 
 ```typescript
-let option = { range: X } // X is an integer between 1 and 21. This returns all 
+let option = { range: X } // X is an integer between 1 and 21. This returns all
                           // expected earnings within a number of calendar days.
 ```
 OR
@@ -383,10 +383,10 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `orders(options, callback)`
 
-Get the user's orders information.  
+Get the user's orders information.
 
 #### Retreive a set of orders
-Send options hash (optional) to limit to specific instrument and/or earliest date of orders.  
+Send options hash (optional) to limit to specific instrument and/or earliest date of orders.
 
 ```typescript
 // optional options hash.  If no hash is sent, all orders will be returned.
@@ -412,7 +412,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 #### Retreive a particular order
 Send the id of the order to retreive the data for a specific order.
 ```typescript
-let order_id = "string_identifier"; // e.g., id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 
+let order_id = "string_identifier"; // e.g., id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
 ```
 
 ```typescript
@@ -765,7 +765,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 })
 ```
 
-### `historicals(symbol, intv, span, callback)`    
+### `historicals(symbol, intv, span, callback)`
 
 ```typescript
 var Robinhood = require('robinhood')(credentials, function(){
@@ -778,7 +778,7 @@ var Robinhood = require('robinhood')(credentials, function(){
         }else{
             console.log("got historicals");
             console.log(body);
-            //             
+            //
             //    { quote: 'https://api.robinhood.com/quotes/AAPL/',
             //      symbol: 'AAPL',
             //      interval: '5minute',
@@ -943,6 +943,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Chris Dituri ([@cdituri](https://github.com/cdituri))
 * John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
 * Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
+* Patrick Michaelsen ([@prmichaelsen](https://github.com/prmichaelsen))
 
 ------------------
 

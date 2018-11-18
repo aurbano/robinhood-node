@@ -47,36 +47,36 @@ declare namespace robinhood {
   export type TimeInForceType = TimeInForceTypes
   export type InitCallback = () => void
 
-  export enum TagTypes {
-    TopTen = '10-most-popular',
-    TopOneHundred = '100-most-popular'
-  }
+  export type TagTypes =
+    '10-most-popular'
+    | '100-most-popular'
+    ;
 
-  export enum TriggerTypes {
-    Immediate = 'immediate',
-    Day = 'day'
-  }
+  export type TriggerTypes =
+    'immediate'
+    | 'day'
+    ;
 
-  export enum TimeInForceTypes {
-    GoodForDay = 'gfd',
-    GoodTillCancelled = 'gtc',
-    OrderCancelsOther = 'oco'
-  }
+  export type TimeInForceTypes =
+    'gfd'
+    | 'gtc'
+    | 'oco'
+    ;
 
-  export enum OrderTypes {
-    Limit = 'limit',
-    Market = 'market'
-  }
+  export type OrderTypes =
+    'limit'
+    | 'market'
+    ;
 
-  export enum IntervalTypes {
-    FiveMinute = '5minute',
-    TenMinute = '10minute'
-  }
+  export type IntervalTypes =
+    '5minute'
+    | '10minute'
+    ;
 
-  export enum SpanTypes {
-    Week = 'week',
-    Day = 'day'
-  }
+  export type SpanTypes =
+    'week'
+    | 'day'
+    ;
 
 
   export interface RobinhoodWebApi {
