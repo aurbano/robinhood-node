@@ -205,8 +205,7 @@ function RobinhoodWebApi(opts, callback) {
 
   api.fundamentals = function(ticker, callback){
     return _request.get({
-        uri: _apiUrl + _endpoints.fundamentals,
-        qs: { 'symbols': ticker }
+		uri: _apiUrl + [_endpoints.fundamentals,'/'].join(String(ticker).toUpperCase()),
       }, callback);
   };
 
@@ -257,7 +256,7 @@ function RobinhoodWebApi(opts, callback) {
       uri: _apiUrl + _endpoints.dividends
     }, callback);
   };
-  
+
   api.earnings = function(options, callback){
     return _request.get({
       uri: _apiUrl + _endpoints.earnings +
@@ -360,7 +359,7 @@ function RobinhoodWebApi(opts, callback) {
       uri: _apiUrl + [_endpoints.news,'/'].join(symbol)
     }, callback);
   };
-  
+
   api.tag = function(tag, callback){
     return _request.get({
       uri: _apiUrl + _endpoints.tag + tag
