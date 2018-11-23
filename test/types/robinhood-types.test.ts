@@ -1,4 +1,4 @@
-import * as robinhood from '../../'
+import * as robinhood from '../../';
 
 const username = 'robinhood-user'
 const password = 'robinhood-pass'
@@ -18,9 +18,9 @@ const onLoginSuccess  = () => {
   })
 
   api.historicals(
-    'APPL',
-    robinhood.IntervalTypes.FiveMinute,
-    robinhood.SpanTypes.Day,
+	'APPL',
+	'5minute',
+	'day',
     (err, res, body) => {
       if (err) {
         console.error('error fetching historicals', err)
