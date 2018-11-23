@@ -20,6 +20,18 @@ test('Should get ' + TEST_SYMBOL + ' quote', function(t) {
     });
 });
 
+test('Should get ' + TEST_SYMBOL + ' fundamentals', function(t) {
+    Robinhood(null).fundamentals(TEST_SYMBOL, function(err, response, body) {
+        if(err) {
+            done(err);
+            return;
+        }
+
+        // TODO make this test better
+        t.is(Object.keys(body).length, 21);
+    });
+});
+
 test('Should get markets', function(t) {
     Robinhood(null).markets(function(err, response, body) {
         if(err) {
