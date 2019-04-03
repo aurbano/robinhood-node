@@ -936,7 +936,7 @@ var Robinhood = require('robinhood')(credentials, function() {
         }
     });
 });
-
+```
 ### `options_available`
 
 Obtain list of options expirations for a ticker
@@ -948,7 +948,8 @@ var Robinhood = require('robinhood')(credentials, function() {
         if (err) {
             console.error(err);
         } else {
-            // Expiration dates is [<Date String>] ordered by asc date ([0] would be more recent than [1])
+            // Expiration dates is an array of date strings ordered by asc date ([0] would be more recent than [1])
+            // Tradable_chain_id respresents the options identifier for a ticker
             Robinhood.options_available(tradable_chain_id, expiration_dates[0])
         }
     });
