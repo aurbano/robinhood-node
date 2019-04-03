@@ -920,6 +920,41 @@ var Robinhood = require('robinhood')(credentials, function() {
 
 ```
 
+### `options_dates`
+
+Obtain list of options expirations for a ticker
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.options_positions("MSFT", (err, response, {tradable_chain_id, expiration_dates}) => {
+        if (err) {
+            console.error(err);
+        } else {
+            // Expiration dates is [<Date String>] ordered by asc date ([0] would be more recent than [1])
+            Robinhood.options_available(tradable_chain_id, expiration_dates[0])
+        }
+    });
+});
+
+### `options_available`
+
+Obtain list of options expirations for a ticker
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.options_positions("MSFT", (err, response, {tradable_chain_id, expiration_dates}) => {
+        if (err) {
+            console.error(err);
+        } else {
+            // Expiration dates is [<Date String>] ordered by asc date ([0] would be more recent than [1])
+            Robinhood.options_available(tradable_chain_id, expiration_dates[0])
+        }
+    });
+});
+```
+
 ### news(symbol, callback)
 
 Return news about a symbol.
@@ -944,6 +979,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
 * Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
 * Patrick Michaelsen ([@prmichaelsen](https://github.com/prmichaelsen))
+* Joshua Wilborn ([@joshuajwilborn](https://github.com/joshuajwilborn))
 
 ------------------
 
