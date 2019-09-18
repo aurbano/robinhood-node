@@ -4,6 +4,7 @@
     "module": "commonjs",
     "noEmit": true,
     "strict": true,
+    "lib": ["es5"]
   },
   "files": [
     "./robinhood-types.test.ts"
