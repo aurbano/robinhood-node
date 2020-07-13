@@ -30,7 +30,7 @@
     "ava": "^0.17.0",
     "coveralls": "^2.11.15",
     "nyc": "^10.0.0",
-    "standard-version": "^7.0.0",
+    "standard-version": "^8.0.1",
     "typescript": "~3.6.3"
   },
   "dependencies": {
