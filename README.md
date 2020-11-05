@@ -110,9 +110,6 @@ var credentials = {
 
 ### MFA code
 
-Since the addition of the API Auth Token login, MFA may not work anymore. If you have any information regarding
-this please open an issue to discuss it.
-
 ```js
 
 var Robinhood = robinhood({
