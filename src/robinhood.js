@@ -65,6 +65,7 @@ function RobinhoodWebApi(opts, callback) {
       tag: 'midlands/tags/tag/'
     },
     _clientId = 'c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS',
+    _deviceToken = 'ea9fa5c6-01e0-46c9-8430-5b422c99bd16',
     _isInit = false,
     _request = request.defaults(),
     _private = {
@@ -131,6 +132,7 @@ function RobinhoodWebApi(opts, callback) {
           grant_type: 'password',
           scope: 'internal',
           client_id: _clientId,
+          device_token: _deviceToken,
           // expires_in: 86400,
           password: _private.password,
           username: _private.username
