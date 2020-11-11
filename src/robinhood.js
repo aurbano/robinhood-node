@@ -66,6 +66,7 @@ function RobinhoodWebApi(opts, callback) {
       tag: 'midlands/tags/tag/'
     },
     _clientId = 'c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS',
+    _deviceToken = 'ea9fa5c6-01e0-46c9-8430-5b422c99bd16',
     _isInit = false,
     _request = request.defaults(),
     _private = {
@@ -141,8 +142,8 @@ function RobinhoodWebApi(opts, callback) {
     }
     _request.post(
       {
+        form,
         uri: _apiUrl + _endpoints.login,
-        form
       },
       function (err, httpResponse, body) {
         if (err) {
