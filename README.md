@@ -50,6 +50,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`tag(tag, callback)`](#tagtag-callback)
     * [`popularity(symbol, callback)`](#popularitysymbol-callback)
     * [`options_positions`](#options_positions)
+    * [`options_orders`](#options_orders)
 * [Contributors](#contributors)
 
 <!-- toc stop -->
@@ -915,6 +916,23 @@ var Robinhood = require('robinhood')(credentials, function() {
 //   "quantity": "35.0000"
 // }
 
+```
+
+### `options_orders`
+
+Obtain list of history of option orders
+
+```typescript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.options_orders((err, response, body) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(body);
+        }
+    });
+});
 ```
 
 ### `options_dates`
