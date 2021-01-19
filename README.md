@@ -22,7 +22,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`expire_token(callback)`](#expire_token)
     * [`investment_profile(callback)`](#investment_profilecallback)
     * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
-    * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
+    * [`quote_data(stock, callback) // Not authenticated`](#quote_datastock-callback--not-authenticated)
     * [`accounts(callback)`](#accountscallback)
     * [`user(callback)`](#usercallback)
     * [`dividends(callback)`](#dividendscallback)
