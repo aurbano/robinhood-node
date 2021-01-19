@@ -432,7 +432,7 @@ Get the user's position information.
 var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.positions(function(err, response, body){
         if (err){
-            console.erro(err);
+            console.error(err);
         }else{
             console.log("positions");
             console.log(body);
@@ -448,7 +448,7 @@ Get the user's nonzero position information only.
 var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.nonzero_positions(function(err, response, body){
         if (err){
-            console.erro(err);
+            console.error(err);
         }else{
             console.log("positions");
             console.log(body);
