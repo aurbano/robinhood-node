@@ -80,7 +80,7 @@ var credentials = {
 ```
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
 
     //Robinhood is connected and you may begin sending commands to the api.
 
@@ -115,18 +115,22 @@ var credentials = {
 var Robinhood = robinhood({
         username : '',
         password : ''
-    }, (data) => {
-        if (data && data.mfa_required) {
+    }, (err, data) => {
+        if(err) {
+            console.log(err);
+        } else {
+            if (data && data.mfa_required) {
             var mfa_code = '123456'; // set mfa_code here
 
             Robinhood.set_mfa_code(mfa_code, () => {
                 console.log(Robinhood.auth_token());
             });
+            }
+            else {
+                console.log(Robinhood.auth_token());
+            }
         }
-        else {
-            console.log(Robinhood.auth_token());
-        }
-    })
+    });
 ```
 
 
@@ -140,7 +144,7 @@ Get the current authenticated Robinhood api authentication token
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     console.log(Robinhood.auth_token());
         //      <authenticated alphanumeric token>
 }
@@ -153,7 +157,7 @@ Expire the current authenticated Robinhood api token (logout).
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.expire_token(function(err, response, body){
         if(err){
             console.error(err);
@@ -170,7 +174,7 @@ Get the current user's investment profile.
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.investment_profile(function(err, response, body){
         if(err){
             console.error(err);
@@ -201,7 +205,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.instruments('AAPL',function(err, response, body){
         if(err){
             console.error(err);
@@ -240,7 +244,7 @@ Get the user's instruments for a specified stock.
 Get the user's quote data for a specified stock.
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.quote_data('AAPL', function(err, response, body){
         if(err){
             console.error(err);
@@ -273,7 +277,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `accounts(callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.accounts(function(err, response, body){
         if(err){
             console.error(err);
@@ -319,7 +323,7 @@ Get the user's accounts.
 Get the user information.
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.user(function(err, response, body){
         if(err){
             console.error(err);
@@ -335,7 +339,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 Get the user's dividends information.
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.dividends(function(err, response, body){
         if(err){
             console.error(err);
@@ -365,7 +369,7 @@ let option = { symbol: SYMBOL } // SYMBOL is a plain ol' ticker symbol.
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.earnings(option, function(err, response, body){
         if(err){
             console.error(err);
@@ -394,7 +398,7 @@ let options = {
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.orders(options, function(err, response, body){
         if(err){
             console.error(err);
@@ -413,7 +417,7 @@ let order_id = "string_identifier"; // e.g., id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaa
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.orders(order_id, function(err, response, body){
         if(err){
             console.error(err);
@@ -429,7 +433,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 Get the user's position information.
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.positions(function(err, response, body){
         if (err){
             console.erro(err);
@@ -445,7 +449,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 Get the user's nonzero position information only.
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.nonzero_positions(function(err, response, body){
         if (err){
             console.erro(err);
@@ -462,7 +466,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 Place a buy order on a specified stock.
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     var options = {
         type: 'limit',
         quantity: 1,
@@ -515,7 +519,7 @@ Place a sell order on a specified stock.
 
 ```js
 
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     var options = {
         type: 'limit',
         quantity: 1,
@@ -572,7 +576,7 @@ Get fundamental data about a symbol.
 An object containing information about the symbol:
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.fundamentals("SBPH", function(error, response, body){
         if(error){
             console.error(error);
@@ -603,7 +607,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 Cancel an order with the order object
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     //Get list of orders
     Robinhood.orders(function(error, response, body){
         if(error){
@@ -632,7 +636,7 @@ Cancel an order by order id
 
 ```typescript
 var order_id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
         Robinhood.cancel_order(order_id, function(err, response, body){
             if(err){
                 //Error
@@ -648,7 +652,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `watchlists(name, callback)`
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.watchlists(function(err, response, body){
         if(err){
             console.error(err);
@@ -688,7 +692,7 @@ Robinhood.create_watch_list('Technology', function(err, response, body){
 
 ### `sp500_up(callback)`
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.sp500_up(function(err, response, body){
         if(err){
             console.error(err);
@@ -718,7 +722,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 
 ### `sp500_down(callback)`
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
     Robinhood.sp500_down(function(err, response, body){
         if(err){
             console.error(err);
@@ -749,7 +753,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `splits(instrument, callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
 
     Robinhood.splits("7a3a677d-1664-44a0-a94b-3bb3d64f9e20", function(err, response, body){
         if(err){
@@ -765,7 +769,7 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `historicals(symbol, intv, span, callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require('robinhood')(credentials, function(err, data){
 
     //{interval=5minute|10minute (required) span=week|day| }
 
