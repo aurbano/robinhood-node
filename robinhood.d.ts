@@ -241,6 +241,20 @@ declare namespace robinhood {
      */
     url (url: string, callback: request.RequestCallback): void
 
+
+    /**
+     * Get the Robinhood crypto to currency pairs
+     * @param callback
+     */
+    get_currency_pairs(callback: request.RequestCallback): void
+
+    /**
+     * Get the quote data for a specified crypto symbol.
+     * @param symbol
+     * @param callback
+     */
+    get_crypto(symbol: string, callback: request.RequestCallback): void
+
     /**
      *
      * @param callback
