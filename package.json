@@ -1,45 +1,62 @@
 {
-  "name": "robinhood",
-  "version": "1.7.0",
-  "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
-  "main": "src/robinhood.js",
-  "typings": "robinhood.d.ts",
-  "scripts": {
-    "test": "nyc ava && npm run typescript",
-    "typescript": "tsc --project test/types/tsconfig.json",
-    "release": "standard-version"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aurbano/robinhood-node.git"
-  },
-  "keywords": [
-    "robinhood",
-    "trading",
-    "api",
-    "stock",
-    "finance"
-  ],
-  "author": "Alejandro U. Alvarez",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/aurbano/robinhood-node/issues"
-  },
-  "homepage": "https://github.com/aurbano/robinhood-node",
-  "devDependencies": {
-    "ava": "^0.17.0",
-    "coveralls": "^2.11.15",
-    "nyc": "^10.0.0",
-    "standard-version": "^7.0.0",
-    "typescript": "~3.6.3"
-  },
-  "dependencies": {
-    "@types/request": "~2.48.3",
-    "lodash": "^4.17.15",
-    "promise": "^8.0.3",
-    "query-string": "^4.3.2",
-    "request": "^2.88.0",
-    "should": "^11.1.1",
-    "uuid": "^8.3.1"
-  }
+    "name": "robinhood",
+    "version": "1.7.0",
+    "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
+    "main": "src/robinhood.js",
+    "typings": "types/robinhood.d.ts",
+    "typesVersions": {
+        "<4.1": {
+            "promises": [
+                "types/promises.v3.d.ts"
+            ]
+        },
+        ">=4.1": {
+            "promises": [
+                "types/promises.d.ts"
+            ]
+        }
+    },
+    "exports": {
+        ".": "./src/robinhood.js",
+        "./promises": "./src/promises.js",
+        "./package.json": "./package.json"
+    },
+    "scripts": {
+        "test": "nyc ava && npm run typescript",
+        "typescript": "tsc --project test/types/tsconfig.json",
+        "release": "standard-version"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aurbano/robinhood-node.git"
+    },
+    "keywords": [
+        "robinhood",
+        "trading",
+        "api",
+        "stock",
+        "finance"
+    ],
+    "author": "Alejandro U. Alvarez",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/aurbano/robinhood-node/issues"
+    },
+    "homepage": "https://github.com/aurbano/robinhood-node",
+    "devDependencies": {
+        "ava": "^0.17.0",
+        "coveralls": "^2.11.15",
+        "nyc": "^10.0.0",
+        "standard-version": "^7.0.0",
+        "typescript": "~3.6.3"
+    },
+    "dependencies": {
+        "@types/request": "~2.48.3",
+        "lodash": "^4.17.15",
+        "promise": "^8.0.3",
+        "query-string": "^4.3.2",
+        "request": "^2.88.0",
+        "should": "^11.1.1",
+        "uuid": "^8.3.1"
+    }
 }

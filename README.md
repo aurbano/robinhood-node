@@ -14,54 +14,60 @@ See @Sanko's [Unofficial Documentation](https://github.com/sanko/Robinhood) for 
 FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com/assets/robinhood/legal/Robinhood%20Terms%20and%20Conditions.pdf)
 
 <!-- toc -->
-  * [Features](#features)
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [API](#api)
-    * [`auth_token()`](#auth_token)
-    * [`expire_token(callback)`](#expire_token)
-    * [`investment_profile(callback)`](#investment_profilecallback)
-    * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
-    * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
-    * [`accounts(callback)`](#accountscallback)
-    * [`user(callback)`](#usercallback)
-    * [`dividends(callback)`](#dividendscallback)
-    * [`earnings(option, callback)`](#earningsoption-callback)
-    * [`orders(options, callback)`](#ordersoptions-callback)
-    * [`positions(callback)`](#positionscallback)
-    * [`nonzero_positions(callback)`](#nonzero_positionscallback)
-    * [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
-      * [`trigger`](#trigger)
-      * [`time`](#time)
-    * [`place_sell_order(options, callback)`](#place-sell-orderoptions-callback)
-      * [`trigger`](#trigger)
-      * [`time`](#time)
-    * [`fundamentals(symbol, callback)`](#fundamentalssymbol-callback)
-      * [Response](#response)
-    * [`cancel_order(order, callback)`](#cancel-orderorder-callback)
-    * [`watchlists(name, callback)`](#watchlistsname-callback)
-    * [`create_watch_list(name, callback)`](#create-watch-listname-callback)
-    * [`sp500_up(callback)`](#sp500-upcallback)
-    * [`sp500_down(callback)`](#sp500-downcallback)
-    * [`splits(instrument, callback)`](#splitsinstrument-callback)
-    * [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
-    * [`url(url, callback)`](#urlurl-callback)
-    * [`news(symbol, callback)`](#newssymbol-callback)
-    * [`tag(tag, callback)`](#tagtag-callback)
-    * [`popularity(symbol, callback)`](#popularitysymbol-callback)
-    * [`options_positions`](#options_positions)
-* [Contributors](#contributors)
+
+-   [Features](#features)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [API](#api)
+    -   [`auth_token()`](#auth_token)
+    -   [`expire_token(callback)`](#expire_token)
+    -   [`investment_profile(callback)`](#investment_profilecallback)
+    -   [`instruments(symbol, callback)`](#instrumentssymbol-callback)
+    -   [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
+    -   [`accounts(callback)`](#accountscallback)
+    -   [`user(callback)`](#usercallback)
+    -   [`dividends(callback)`](#dividendscallback)
+    -   [`earnings(option, callback)`](#earningsoption-callback)
+    -   [`orders(options, callback)`](#ordersoptions-callback)
+    -   [`positions(callback)`](#positionscallback)
+    -   [`nonzero_positions(callback)`](#nonzero_positionscallback)
+    -   [`place_buy_order(options, callback)`](#place-buy-orderoptions-callback)
+        -   [`trigger`](#trigger)
+        -   [`time`](#time)
+    -   [`place_sell_order(options, callback)`](#place-sell-orderoptions-callback)
+        -   [`trigger`](#trigger)
+        -   [`time`](#time)
+    -   [`fundamentals(symbol, callback)`](#fundamentalssymbol-callback)
+        -   [Response](#response)
+    -   [`cancel_order(order, callback)`](#cancel-orderorder-callback)
+    -   [`watchlists(name, callback)`](#watchlistsname-callback)
+    -   [`create_watch_list(name, callback)`](#create-watch-listname-callback)
+    -   [`sp500_up(callback)`](#sp500-upcallback)
+    -   [`sp500_down(callback)`](#sp500-downcallback)
+    -   [`splits(instrument, callback)`](#splitsinstrument-callback)
+    -   [`historicals(symbol, intv, span, callback)`](#historicalssymbol-intv-span-callback)
+    -   [`url(url, callback)`](#urlurl-callback)
+    -   [`news(symbol, callback)`](#newssymbol-callback)
+    -   [`tag(tag, callback)`](#tagtag-callback)
+    -   [`popularity(symbol, callback)`](#popularitysymbol-callback)
+    -   [`options_positions`](#options_positions)
+-   [Native Promise Support](#native-promise-support)
+-   [Contributors](#contributors)
 
 <!-- toc stop -->
+
 ## Features
-* Quote Data
-* Buy, Sell Orders
-* Daily Fundamentals
-* Daily, Weekly, Monthly Historicals
+
+-   Quote Data
+-   Buy, Sell Orders
+-   Daily Fundamentals
+-   Daily, Weekly, Monthly Historicals
+-   Async/Await and native promise support via an alternative api
 
 > Tested on the latest versions of Node 6, 7 & 8.
 
 ## Installation
+
 ```bash
 $ npm install robinhood --save
 ```
@@ -71,27 +77,30 @@ $ npm install robinhood --save
 To authenticate, you can either use your username and password to the Robinhood app or a previously authenticated Robinhood api token:
 
 ### Robinhood API Auth Token
+
 ```js
 //A previously authenticated Robinhood API auth token
 
+//NOTE: This token can be found in DevTools in the "Authorization"
+//header of HTTP requests that are sent to Robinhood
+//(it is the string after the word "Bearer")
+
 var credentials = {
-    token: ''
+    token: "",
 };
 ```
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
-
+var Robinhood = require("robinhood")(credentials, function () {
     //Robinhood is connected and you may begin sending commands to the api.
 
-    Robinhood.quote_data('GOOG', function(error, response, body) {
+    Robinhood.quote_data("GOOG", function (error, response, body) {
         if (error) {
             console.error(error);
             process.exit(1);
         }
         console.log(body);
     });
-
 });
 ```
 
@@ -103,39 +112,39 @@ This type of login may have been deprecated in favor of the API Token above.
 //The username and password you use to sign into the robinhood app.
 
 var credentials = {
-    username: '',
-    password: ''
+    username: "",
+    password: "",
 };
 ```
 
 ### MFA code
 
 ```js
-
-var Robinhood = robinhood({
-        username : '',
-        password : ''
-    }, (data) => {
+var Robinhood = robinhood(
+    {
+        username: "",
+        password: "",
+    },
+    (data) => {
         if (data && data.mfa_required) {
-            var mfa_code = '123456'; // set mfa_code here
+            var mfa_code = "123456"; // set mfa_code here
 
             Robinhood.set_mfa_code(mfa_code, () => {
                 console.log(Robinhood.auth_token());
             });
-        }
-        else {
+        } else {
             console.log(Robinhood.auth_token());
         }
-    })
+    }
+);
 ```
-
-
 
 ## API
 
 Before using these methods, make sure you have initialized Robinhood using the snippet above.
 
 ### `auth_token()`
+
 Get the current authenticated Robinhood api authentication token
 
 ```typescript
@@ -147,65 +156,67 @@ var Robinhood = require('robinhood')(credentials, function(){
 ```
 
 ### `expire_token()`
+
 Expire the current authenticated Robinhood api token (logout).
 
 > **NOTE:** After expiring a token you will need to reinstantiate the package with username & password in order to get a new token!
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.expire_token(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.expire_token(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
-            console.log("Successfully logged out of Robinhood and expired token.");
+        } else {
+            console.log(
+                "Successfully logged out of Robinhood and expired token."
+            );
             // NOTE: body is undefined on the callback
         }
-    })
+    });
 });
 ```
 
 ### `investment_profile(callback)`
+
 Get the current user's investment profile.
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.investment_profile(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.investment_profile(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("investment_profile");
             console.log(body);
-                //    { annual_income: '25000_39999',
-                //      investment_experience: 'no_investment_exp',
-                //      updated_at: '2015-06-24T17:14:53.593009Z',
-                //      risk_tolerance: 'low_risk_tolerance',
-                //      total_net_worth: '0_24999',
-                //      liquidity_needs: 'very_important_liq_need',
-                //      investment_objective: 'income_invest_obj',
-                //      source_of_funds: 'savings_personal_income',
-                //      user: 'https://api.robinhood.com/user/',
-                //      suitability_verified: true,
-                //      tax_bracket: '',
-                //      time_horizon: 'short_time_horizon',
-                //      liquid_net_worth: '0_24999' }
-
+            //    { annual_income: '25000_39999',
+            //      investment_experience: 'no_investment_exp',
+            //      updated_at: '2015-06-24T17:14:53.593009Z',
+            //      risk_tolerance: 'low_risk_tolerance',
+            //      total_net_worth: '0_24999',
+            //      liquidity_needs: 'very_important_liq_need',
+            //      investment_objective: 'income_invest_obj',
+            //      source_of_funds: 'savings_personal_income',
+            //      user: 'https://api.robinhood.com/user/',
+            //      suitability_verified: true,
+            //      tax_bracket: '',
+            //      time_horizon: 'short_time_horizon',
+            //      liquid_net_worth: '0_24999' }
         }
-    })
+    });
 });
 ```
-
 
 ### `instruments(symbol, callback)`
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.instruments('AAPL',function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.instruments("AAPL", function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("instruments");
             console.log(body);
             //    { previous: null,
@@ -228,10 +239,9 @@ var Robinhood = require('robinhood')(credentials, function(){
             //           name: 'Apple Inc. - Common Stock' } ],
             //      next: null }
         }
-    })
+    });
 });
 ```
-
 
 Get the user's instruments for a specified stock.
 
@@ -240,11 +250,11 @@ Get the user's instruments for a specified stock.
 Get the user's quote data for a specified stock.
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.quote_data('AAPL', function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.quote_data("AAPL", function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("quote_data");
             console.log(body);
             //{
@@ -266,18 +276,18 @@ var Robinhood = require('robinhood')(credentials, function(){
             //    ]
             //}
         }
-    })
+    });
 });
 ```
 
 ### `accounts(callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.accounts(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.accounts(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("accounts");
             console.log(body);
             //{ previous: null,
@@ -308,42 +318,43 @@ var Robinhood = require('robinhood')(credentials, function(){
             //       unsettled_funds: '0.0000' } ],
             //  next: null }
         }
-    })
+    });
 });
 ```
-
 
 Get the user's accounts.
 
 ### `user(callback)`
+
 Get the user information.
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.user(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.user(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("user");
             console.log(body);
         }
-    })
+    });
 });
 ```
 
 ### `dividends(callback)`
 
 Get the user's dividends information.
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.dividends(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.dividends(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("dividends");
             console.log(body);
         }
-    })
+    });
 });
 ```
 
@@ -352,88 +363,96 @@ var Robinhood = require('robinhood')(credentials, function(){
 Get the earnings information. Option should be one of:
 
 ```typescript
-let option = { range: X } // X is an integer between 1 and 21. This returns all
-                          // expected earnings within a number of calendar days.
+let option = { range: X }; // X is an integer between 1 and 21. This returns all
+// expected earnings within a number of calendar days.
 ```
+
 OR
+
 ```typescript
-let option = { instrument: URL } // URL is full instrument url.
+let option = { instrument: URL }; // URL is full instrument url.
 ```
+
 OR
+
 ```typescript
-let option = { symbol: SYMBOL } // SYMBOL is a plain ol' ticker symbol.
+let option = { symbol: SYMBOL }; // SYMBOL is a plain ol' ticker symbol.
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.earnings(option, function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.earnings(option, function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("earnings");
             console.log(body);
         }
-    })
+    });
 });
 ```
-
 
 ### `orders(options, callback)`
 
 Get the user's orders information.
 
 #### Retreive a set of orders
+
 Send options hash (optional) to limit to specific instrument and/or earliest date of orders.
 
 ```typescript
 // optional options hash.  If no hash is sent, all orders will be returned.
 let options = {
-    updated_at: '2017-08-25',
-    instrument: 'https://api.robinhood.com/instruments/df6c09dc-bb4f-4495-8c59-f13e6eb3641f/'
-}
+    updated_at: "2017-08-25",
+    instrument:
+        "https://api.robinhood.com/instruments/df6c09dc-bb4f-4495-8c59-f13e6eb3641f/",
+};
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.orders(options, function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.orders(options, function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("orders");
             console.log(body);
         }
-    })
+    });
 });
 ```
 
 #### Retreive a particular order
+
 Send the id of the order to retreive the data for a specific order.
+
 ```typescript
 let order_id = "string_identifier"; // e.g., id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
 ```
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.orders(order_id, function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.orders(order_id, function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("order");
             console.log(body);
         }
-    })
+    });
 });
 ```
 
 ### `positions(callback)`
 
 Get the user's position information.
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.positions(function(err, response, body){
-        if (err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.positions(function (err, response, body) {
+        if (err) {
             console.erro(err);
-        }else{
+        } else {
             console.log("positions");
             console.log(body);
         }
@@ -444,12 +463,13 @@ var Robinhood = require('robinhood')(credentials, function(){
 ### `nonzero_positions(callback)`
 
 Get the user's nonzero position information only.
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.nonzero_positions(function(err, response, body){
-        if (err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.nonzero_positions(function (err, response, body) {
+        if (err) {
             console.erro(err);
-        }else{
+        } else {
             console.log("positions");
             console.log(body);
         }
@@ -462,106 +482,104 @@ var Robinhood = require('robinhood')(credentials, function(){
 Place a buy order on a specified stock.
 
 ```js
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require("robinhood")(credentials, function () {
     var options = {
-        type: 'limit',
+        type: "limit",
         quantity: 1,
-        bid_price: 1.00,
+        bid_price: 1.0,
         instrument: {
             url: String,
-            symbol: String
-        }
+            symbol: String,
+        },
         // // Optional:
         // trigger: String, // Defaults to "gfd" (Good For Day)
         // time: String,    // Defaults to "immediate"
         // type: String     // Defaults to "market"
-    }
-    Robinhood.place_buy_order(options, function(error, response, body){
-        if(error){
+    };
+    Robinhood.place_buy_order(options, function (error, response, body) {
+        if (error) {
             console.error(error);
-        }else{
+        } else {
             console.log(body);
         }
-    })
+    });
 });
 ```
 
 For the Optional ones, the values can be:
 
-*[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]*
+_[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]_
 
 #### `trigger`
 
-A *[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)* is usually a market condition, such as a rise or fall in the price of an index or security.
+A _[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)_ is usually a market condition, such as a rise or fall in the price of an index or security.
 
 Values can be:
 
-* `gfd`: Good For Day
-* `gtc`: Good Till Cancelled
-* `oco`: Order Cancels Other
+-   `gfd`: Good For Day
+-   `gtc`: Good Till Cancelled
+-   `oco`: Order Cancels Other
 
 #### `time`
 
-The *[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)* for an order defines the length of time over which an order will continue working before it is canceled.
+The _[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)_ for an order defines the length of time over which an order will continue working before it is canceled.
 
 Values can be:
 
-* `immediate` : The order will be cancelled unless it is fulfilled immediately.
-* `day` : The order will be cancelled at the end of the trading day.
+-   `immediate` : The order will be cancelled unless it is fulfilled immediately.
+-   `day` : The order will be cancelled at the end of the trading day.
 
 ### `place_sell_order(options, callback)`
 
 Place a sell order on a specified stock.
 
 ```js
-
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require("robinhood")(credentials, function () {
     var options = {
-        type: 'limit',
+        type: "limit",
         quantity: 1,
-        bid_price: 1.00,
+        bid_price: 1.0,
         instrument: {
             url: String,
-            symbol: String
+            symbol: String,
         },
         // // Optional:
         // trigger: String, // Defaults to "gfd" (Good For Day)
         // time: String,    // Defaults to "immediate"
         // type: String     // Defaults to "market"
-    }
-    Robinhood.place_sell_order(options, function(error, response, body){
-        if(error){
+    };
+    Robinhood.place_sell_order(options, function (error, response, body) {
+        if (error) {
             console.error(error);
-        }else{
+        } else {
             console.log(body);
         }
-    })
+    });
 });
-
 ```
 
 For the Optional ones, the values can be:
 
-*[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]*
+_[Disclaimer: This is an unofficial API based on reverse engineering, and the following option values have not been confirmed]_
 
 #### `trigger`
 
-A *[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)* is usually a market condition, such as a rise or fall in the price of an index or security.
+A _[trade trigger](http://www.investopedia.com/terms/t/trade-trigger.asp)_ is usually a market condition, such as a rise or fall in the price of an index or security.
 
 Values can be:
 
-* `gfd`: Good For Day
-* `gtc`: Good Till Cancelled
-* `oco`: Order Cancels Other
+-   `gfd`: Good For Day
+-   `gtc`: Good Till Cancelled
+-   `oco`: Order Cancels Other
 
 #### `time`
 
-The *[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)* for an order defines the length of time over which an order will continue working before it is canceled.
+The _[time in force](http://www.investopedia.com/terms/t/timeinforce.asp?layout=infini&v=3A)_ for an order defines the length of time over which an order will continue working before it is canceled.
 
 Values can be:
 
-* `immediate` : The order will be cancelled unless it is fulfilled immediately.
-* `day` : The order will be cancelled at the end of the trading day.
+-   `immediate` : The order will be cancelled unless it is fulfilled immediately.
+-   `day` : The order will be cancelled at the end of the trading day.
 
 ### `fundamentals(symbol, callback)`
 
@@ -572,11 +590,11 @@ Get fundamental data about a symbol.
 An object containing information about the symbol:
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.fundamentals("SBPH", function(error, response, body){
-        if(error){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.fundamentals("SBPH", function (error, response, body) {
+        if (error) {
             console.error(error);
-        }else{
+        } else {
             console.log(body);
             //{                               // Example for SBPH
             //    average_volume: string,     // "14381.0215"
@@ -593,66 +611,69 @@ var Robinhood = require('robinhood')(credentials, function(){
             //    volume: string              // "4119.0000"
             //}
         }
-    })
+    });
 });
-
-
 ```
 
 ### `cancel_order(order, callback)`
 
 Cancel an order with the order object
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
+var Robinhood = require("robinhood")(credentials, function () {
     //Get list of orders
-    Robinhood.orders(function(error, response, body){
-        if(error){
+    Robinhood.orders(function (error, response, body) {
+        if (error) {
             console.error(error);
-        }else{
+        } else {
             var orderToCancel = body.results[0];
             //Try to cancel the latest order
-            Robinhood.cancel_order(orderToCancel, function(err, response, body){
-                if(err){
-                    //Error
+            Robinhood.cancel_order(
+                orderToCancel,
+                function (err, response, body) {
+                    if (err) {
+                        //Error
 
-                    console.error(err);     // { message: 'Order cannot be cancelled.', order: {Order} }
-                }else{
-                    //Success
+                        console.error(err); // { message: 'Order cannot be cancelled.', order: {Order} }
+                    } else {
+                        //Success
 
-                    console.log("Cancel Order Successful");
-                    console.log(body)       //{}
+                        console.log("Cancel Order Successful");
+                        console.log(body); //{}
+                    }
                 }
-            })
+            );
         }
-    })
-})
+    });
+});
 ```
 
 Cancel an order by order id
 
 ```typescript
-var order_id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-var Robinhood = require('robinhood')(credentials, function(){
-        Robinhood.cancel_order(order_id, function(err, response, body){
-            if(err){
-                //Error
-                console.error(err);     // { message: 'Order cannot be cancelled.', order: {Order} }
-            }else{
-                //Success
-                console.log("Cancel Order Successful");
-                console.log(body)       //{}
-            }
-        })
-})
+var order_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.cancel_order(order_id, function (err, response, body) {
+        if (err) {
+            //Error
+            console.error(err); // { message: 'Order cannot be cancelled.', order: {Order} }
+        } else {
+            //Success
+            console.log("Cancel Order Successful");
+            console.log(body); //{}
+        }
+    });
+});
 ```
 
 ### `watchlists(name, callback)`
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.watchlists(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.watchlists(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("got watchlists");
             console.log(body);
 
@@ -663,11 +684,12 @@ var Robinhood = require('robinhood')(credentials, function(){
             //      name: 'Default' } ],
             //  next: null }
         }
-    })
+    });
 });
 ```
 
 ### `create_watch_list(name, callback)`
+
 ```
 //Your account type must support multiple watchlists to use this endpoint otherwise will get { detail: 'Request was throttled.' } and watchlist is not created.
 Robinhood.create_watch_list('Technology', function(err, response, body){
@@ -687,12 +709,13 @@ Robinhood.create_watch_list('Technology', function(err, response, body){
 ```
 
 ### `sp500_up(callback)`
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.sp500_up(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.sp500_up(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("sp500_up");
             console.log(body);
             //{ count: 10,
@@ -712,17 +735,18 @@ var Robinhood = require('robinhood')(credentials, function(){
             //    ]
             //}
         }
-    })
+    });
 });
 ```
 
 ### `sp500_down(callback)`
+
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-    Robinhood.sp500_down(function(err, response, body){
-        if(err){
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.sp500_down(function (err, response, body) {
+        if (err) {
             console.error(err);
-        }else{
+        } else {
             console.log("sp500_down");
             console.log(body);
             //{ count: 10,
@@ -741,70 +765,76 @@ var Robinhood = require('robinhood')(credentials, function(){
             //       description: 'Adobe Systems, Inc. provides digital marketing and digital media solutions. The company operates its business through three segments: Digital Media, Digital Marketing, and Print and Publishing. The Digital Media segment offers creative cloud services, which allow members to download and install the latest versions of products, such as Adobe Photoshop, Adobe Illustrator, Adobe Premiere Pro, Adobe Photoshop Lightroom and Adobe InDesign, as well as utilize other tools, such as Adobe Acrobat. This segment also offers other tools and services, including hobbyist products, such as Adobe Photoshop Elements and Adobe Premiere Elements, Adobe Digital Publishing Suite, Adobe PhoneGap, Adobe Typekit, as well as mobile apps, such as Adobe Photoshop Mix, Adobe Photoshop Sketch and Adobe Premiere Clip that run on tablets and mobile devices. The Digital Media serves professionals, including graphic designers, production artists, web designers and developers, user interface designers, videographers, motion graphic artists, prepress professionals, video game developers, mobile application developers, students and administrators. The Digital Marketing segment offers various solutions, including analytics, social marketing, targeting, media optimization, digital experience management and cross-channel campaign management, as well as premium video delivery and monetization. This segment also offers legacy enterprise software, such as Adobe Connect web conferencing platform and Adobe LiveCycle. The Print and Publishing segment offers legacy products and services for eLearning solutions, technical document publishing, web application development and high-end printing. Adobe Systems was founded by Charles M. Geschke and John E. Warnock in December 1982 and is headquartered in San Jose, CA.' }
             //    ]
             //}
-
         }
-    })
+    });
 });
 ```
+
 ### `splits(instrument, callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-
-    Robinhood.splits("7a3a677d-1664-44a0-a94b-3bb3d64f9e20", function(err, response, body){
-        if(err){
-            console.error(err);
-        }else{
-            console.log("got splits");
-            console.log(body);   //{ previous: null, results: [], next: null }
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.splits(
+        "7a3a677d-1664-44a0-a94b-3bb3d64f9e20",
+        function (err, response, body) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("got splits");
+                console.log(body); //{ previous: null, results: [], next: null }
+            }
         }
-    })
-})
+    );
+});
 ```
 
 ### `historicals(symbol, intv, span, callback)`
 
 ```typescript
-var Robinhood = require('robinhood')(credentials, function(){
-
+var Robinhood = require("robinhood")(credentials, function () {
     //{interval=5minute|10minute (required) span=week|day| }
 
-    Robinhood.historicals("AAPL", '5minute', 'week', function(err, response, body){
-        if(err){
-            console.error(err);
-        }else{
-            console.log("got historicals");
-            console.log(body);
-            //
-            //    { quote: 'https://api.robinhood.com/quotes/AAPL/',
-            //      symbol: 'AAPL',
-            //      interval: '5minute',
-            //      span: 'week',
-            //      bounds: 'regular',
-            //      previous_close: null,
-            //      historicals:
-            //       [ { begins_at: '2016-09-15T13:30:00Z',
-            //           open_price: '113.8300',
-            //           close_price: '114.1700',
-            //           high_price: '114.3500',
-            //           low_price: '113.5600',
-            //           volume: 3828122,
-            //           session: 'reg',
-            //           interpolated: false },
-            //         { begins_at: '2016-09-15T13:35:00Z',
-            //           open_price: '114.1600',
-            //           close_price: '114.3800',
-            //           high_price: '114.7300',
-            //           low_price: '114.1600',
-            //           volume: 2166098,
-            //           session: 'reg',
-            //           interpolated: false },
-            //         ... 290 more items
-            //      ]}
-            //
+    Robinhood.historicals(
+        "AAPL",
+        "5minute",
+        "week",
+        function (err, response, body) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("got historicals");
+                console.log(body);
+                //
+                //    { quote: 'https://api.robinhood.com/quotes/AAPL/',
+                //      symbol: 'AAPL',
+                //      interval: '5minute',
+                //      span: 'week',
+                //      bounds: 'regular',
+                //      previous_close: null,
+                //      historicals:
+                //       [ { begins_at: '2016-09-15T13:30:00Z',
+                //           open_price: '113.8300',
+                //           close_price: '114.1700',
+                //           high_price: '114.3500',
+                //           low_price: '113.5600',
+                //           volume: 3828122,
+                //           session: 'reg',
+                //           interpolated: false },
+                //         { begins_at: '2016-09-15T13:35:00Z',
+                //           open_price: '114.1600',
+                //           close_price: '114.3800',
+                //           high_price: '114.7300',
+                //           low_price: '114.1600',
+                //           volume: 2166098,
+                //           session: 'reg',
+                //           interpolated: false },
+                //         ... 290 more items
+                //      ]}
+                //
+            }
         }
-    })
-})
+    );
+});
 ```
 
 ### `url(url, callback)`
@@ -824,8 +854,8 @@ You'll see how popular a security is with other Robinhood users, MorningStar rat
 
 Known tags:
 
-* 10 Most Popular Instruments: `10-most-popular`
-* 100 Most Popular Instruments: `100-most-popular`
+-   10 Most Popular Instruments: `10-most-popular`
+-   100 Most Popular Instruments: `100-most-popular`
 
 Response sample:
 
@@ -853,11 +883,10 @@ Response sample:
 
 Get the popularity for a specified stock.
 
-
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function() {
-    Robinhood.popularity('GOOG', function(error, response, body) {
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.popularity("GOOG", function (error, response, body) {
         if (error) {
             console.error(error);
         } else {
@@ -877,7 +906,7 @@ Obtain list of options positions
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function() {
+var Robinhood = require("robinhood")(credentials, function () {
     Robinhood.options_positions((err, response, body) => {
         if (err) {
             console.error(err);
@@ -914,7 +943,6 @@ var Robinhood = require('robinhood')(credentials, function() {
 //   "id": "e4e6cabe-2328-42f3-b4d9-d78da695d2ec",
 //   "quantity": "35.0000"
 // }
-
 ```
 
 ### `options_dates`
@@ -923,33 +951,46 @@ Obtain list of options expirations for a ticker
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function() {
-    Robinhood.options_positions("MSFT", (err, response, {tradable_chain_id, expiration_dates}) => {
-        if (err) {
-            console.error(err);
-        } else {
-            // Expiration dates is [<Date String>] ordered by asc date ([0] would be more recent than [1])
-            Robinhood.options_available(tradable_chain_id, expiration_dates[0])
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.options_positions(
+        "MSFT",
+        (err, response, { tradable_chain_id, expiration_dates }) => {
+            if (err) {
+                console.error(err);
+            } else {
+                // Expiration dates is [<Date String>] ordered by asc date ([0] would be more recent than [1])
+                Robinhood.options_available(
+                    tradable_chain_id,
+                    expiration_dates[0]
+                );
+            }
         }
-    });
+    );
 });
 ```
+
 ### `options_available`
 
 Obtain list of options expirations for a ticker
 
 ```typescript
 var credentials = require("../credentials.js")();
-var Robinhood = require('robinhood')(credentials, function() {
-    Robinhood.options_positions("MSFT", (err, response, {tradable_chain_id, expiration_dates}) => {
-        if (err) {
-            console.error(err);
-        } else {
-            // Expiration dates is an array of date strings ordered by asc date ([0] would be more recent than [1])
-            // Tradable_chain_id respresents the options identifier for a ticker
-            Robinhood.options_available(tradable_chain_id, expiration_dates[0])
+var Robinhood = require("robinhood")(credentials, function () {
+    Robinhood.options_positions(
+        "MSFT",
+        (err, response, { tradable_chain_id, expiration_dates }) => {
+            if (err) {
+                console.error(err);
+            } else {
+                // Expiration dates is an array of date strings ordered by asc date ([0] would be more recent than [1])
+                // Tradable_chain_id respresents the options identifier for a ticker
+                Robinhood.options_available(
+                    tradable_chain_id,
+                    expiration_dates[0]
+                );
+            }
         }
-    });
+    );
 });
 ```
 
@@ -959,39 +1000,64 @@ Return news about a symbol.
 
 `Documentation lacking sample response` **Feel like contributing? :)**
 
+# Native Promise Support
+
+You can also use promises instead of callbacks (requires Node.js 12+).
+
+```typescript
+// NOTE: DO NOT pass callbacks with this version of the api!
+
+// returned promise waits for login (if needed) before resolving
+const Robinhood = await require("robinhood/promises")(credentials);
+
+// or more explicitly...
+var Robinhood = require("robinhood/promises");
+Robinhood = await Robinhood(credentials);
+
+// returned api is the same as before,
+// except now all public methods return promises
+try {
+    const jsonResponseBody = await Robinhood.quote_data("GOOG");
+    console.log(jsonResponseBody.results[0]["ask_price"]);
+} catch (error) {
+    console.error("unsuccessful " + error);
+}
+```
+
 # Contributors
 
-Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
-------------------
-* Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
-* Justin Keller ([@nodesocket](https://github.com/nodesocket))
-* Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
-* Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
-* Alex Ryan ([@ialexryan](https://github.com/ialexryan))
-* Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
-* Zaheen ([@z123](https://github.com/z123))
-* Chris Busse ([@busse](https://github.com/busse))
-* Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
-* Matthew Herron ([@swimclan](https://github.com/swimclan))
-* Chris Dituri ([@cdituri](https://github.com/cdituri))
-* John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
-* Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
-* Patrick Michaelsen ([@prmichaelsen](https://github.com/prmichaelsen))
-* Joshua Wilborn ([@joshuajwilborn](https://github.com/joshuajwilborn))
+## Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 
-------------------
+-   Jesse Spencer ([@Jspenc72](https://github.com/jspenc72))
+-   Justin Keller ([@nodesocket](https://github.com/nodesocket))
+-   Wei-Sheng Su ([@ted7726](https://github.com/ted7726))
+-   Dustin Moore ([@dustinmoorenet](https://github.com/dustinmoorenet))
+-   Alex Ryan ([@ialexryan](https://github.com/ialexryan))
+-   Ben Van Treese ([@vantreeseba](https://github.com/vantreeseba))
+-   Zaheen ([@z123](https://github.com/z123))
+-   Chris Busse ([@busse](https://github.com/busse))
+-   Jason Truluck ([@jasontruluck](https://github.com/jasontruluck))
+-   Matthew Herron ([@swimclan](https://github.com/swimclan))
+-   Chris Dituri ([@cdituri](https://github.com/cdituri))
+-   John Murphy ([@chiefsmurph](https://github.com/chiefsmurph))
+-   Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
+-   Patrick Michaelsen ([@prmichaelsen](https://github.com/prmichaelsen))
+-   Joshua Wilborn ([@joshuajwilborn](https://github.com/joshuajwilborn))
+-   Tyler Miller ([@tyler1205](https://github.com/tyler1205))
+
+---
 
 # Related Projects
 
-* [robinhood-ruby](https://github.com/rememberlenny/robinhood-ruby) - RubyGem for interacting with Robinhood API
-* [robinhood Python](https://github.com/Jamonek/Robinhood) - Python Framework to make trades with Robinhood Private API
+-   [robinhood-ruby](https://github.com/rememberlenny/robinhood-ruby) - RubyGem for interacting with Robinhood API
+-   [robinhood Python](https://github.com/Jamonek/Robinhood) - Python Framework to make trades with Robinhood Private API
 
-------------------
+---
 
->Even though this should be obvious: I am not affiliated in any way with Robinhood Financial LLC. I don't mean any harm or disruption in their service by providing this. Furthermore, I believe they are working on an amazing product, and hope that by publishing this NodeJS framework their users can benefit in even more ways from working with them.
+> Even though this should be obvious: I am not affiliated in any way with Robinhood Financial LLC. I don't mean any harm or disruption in their service by providing this. Furthermore, I believe they are working on an amazing product, and hope that by publishing this NodeJS framework their users can benefit in even more ways from working with them.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-3181088-16/robinhood/readme)](https://github.com/aurbano)
 
-
 ## License
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Faurbano%2Frobinhood-node.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Faurbano%2Frobinhood-node?ref=badge_large)
