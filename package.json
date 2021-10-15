@@ -1,6 +1,6 @@
 {
   "name": "robinhood",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Comprehensive NodeJS API wrapper for the Robinhood API",
   "main": "src/robinhood.js",
   "typings": "robinhood.d.ts",
