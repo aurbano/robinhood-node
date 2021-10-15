@@ -56,6 +56,7 @@ function RobinhoodWebApi(opts, callback) {
 
       options_chains: 'options/chains/',
       options_positions: 'options/aggregate_positions/',
+      options_orders: 'options/orders/',
       options_instruments: 'options/instruments/',
       options_marketdata: 'marketdata/options/',
 
@@ -99,14 +100,14 @@ function RobinhoodWebApi(opts, callback) {
     };
     _setHeaders();
     if (!_private.auth_token) {
-      _login(function (data) {
+      _login(function (err, data) {
         _isInit = true;
 
         if (callback) {
-          if (data) {
-            callback(data);
+          if(err) {
+            return callback(err);
           } else {
-            callback.call();
+            return callback(null, data);
           }
         }
       });
@@ -118,7 +119,7 @@ function RobinhoodWebApi(opts, callback) {
           callback.call();
         })
         .catch(function (err) {
-          throw err;
+          callback(err);
         });
     }
   }
@@ -151,13 +152,13 @@ function RobinhoodWebApi(opts, callback) {
       },
       function (err, httpResponse, body) {
         if (err) {
-          throw err;
+          return callback(err);
         }
 
         if (!body.access_token && !body.mfa_required) {
-          throw new Error('token not found ' + JSON.stringify(httpResponse));
+          return callback(new Error('token not found ' + JSON.stringify(httpResponse)));
         } else if (body.mfa_required) {
-          return callback(body);
+          return callback(null, body);
         }
         _private.auth_token = body.access_token;
         _private.refresh_token = body.refresh_token;
@@ -171,7 +172,7 @@ function RobinhoodWebApi(opts, callback) {
             callback.call();
           })
           .catch(function (err) {
-            throw err;
+            callback(err);
           });
       }
     );
@@ -527,6 +528,15 @@ function RobinhoodWebApi(opts, callback) {
     return _request.get(
       {
         uri: _apiUrl + _endpoints.options_positions
+      },
+      callback
+    );
+  };
+
+  api.options_orders = function (callback) {
+    return _request.get(
+      {
+        uri: _apiUrl + _endpoints.options_orders
       },
       callback
     );
