@@ -22,7 +22,7 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`expire_token(callback)`](#expire_token)
     * [`investment_profile(callback)`](#investment_profilecallback)
     * [`instruments(symbol, callback)`](#instrumentssymbol-callback)
-    * [`quote_data(stock, callback) // Not authenticated`](#quote-datastock-callback-not-authenticated)
+    * [`quote_data(stock, callback) // Not authenticated`](#quote_datastock-callback--not-authenticated)
     * [`accounts(callback)`](#accountscallback)
     * [`user(callback)`](#usercallback)
     * [`dividends(callback)`](#dividendscallback)
@@ -432,7 +432,7 @@ Get the user's position information.
 var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.positions(function(err, response, body){
         if (err){
-            console.erro(err);
+            console.error(err);
         }else{
             console.log("positions");
             console.log(body);
@@ -448,7 +448,7 @@ Get the user's nonzero position information only.
 var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.nonzero_positions(function(err, response, body){
         if (err){
-            console.erro(err);
+            console.error(err);
         }else{
             console.log("positions");
             console.log(body);
