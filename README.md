@@ -50,6 +50,8 @@ FYI [Robinhood's Terms and Conditions](https://brokerage-static.s3.amazonaws.com
     * [`tag(tag, callback)`](#tagtag-callback)
     * [`popularity(symbol, callback)`](#popularitysymbol-callback)
     * [`options_positions`](#options_positions)
+    * [`get_currency_pairs`](#get_currency_pairs)
+    * [`get_crypto`](#get_crypto)
     * [`options_orders`](#options_orders)
 * [Contributors](#contributors)
 
@@ -979,6 +981,40 @@ var Robinhood = require('robinhood')(credentials, function() {
 
 Return news about a symbol.
 
+### `get_currency_pairs`
+
+Get crypto - currency pairs
+
+```javascript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.get_currency_pairs((err, response, body) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(body);
+        }
+    });
+});
+```
+
+### `get_crypto`
+
+Get cryptocurrency quote information from symbol
+
+```javascript
+var credentials = require("../credentials.js")();
+var Robinhood = require('robinhood')(credentials, function() {
+    Robinhood.get_crypto('DOGE', (err, response, body) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(body);
+        }
+    });
+});
+```
+
 `Documentation lacking sample response` **Feel like contributing? :)**
 
 # Contributors
@@ -1000,6 +1036,7 @@ Alejandro U. Alvarez ([@aurbano](https://github.com/aurbano))
 * Ryan Hendricks ([@ryanhendricks](https://github.com/ryanhendricks))
 * Patrick Michaelsen ([@prmichaelsen](https://github.com/prmichaelsen))
 * Joshua Wilborn ([@joshuajwilborn](https://github.com/joshuajwilborn))
+* Adrian Veliz ([@aveliz1999](https://github.com/aveliz1999))
 
 ------------------
 
